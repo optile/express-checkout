@@ -16,14 +16,25 @@
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
+    "unit": "jest tests",
     "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "test:watch": "nwb test-react --server",
+    "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "dependencies": {},
   "peerDependencies": {
     "react": "16.x"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "babel-jest": "^24.9.0",
+    "docdash": "^1.1.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest": "^24.9.0",
+    "jsdoc": "^3.6.3",
     "nwb": "0.23.x",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
@@ -31,6 +42,11 @@
   "author": "",
   "homepage": "",
   "license": "MIT",
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>tests/setup.js"
+    ]
+  },
   "repository": "",
   "keywords": [
     "react-component"
