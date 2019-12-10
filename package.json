@@ -15,13 +15,17 @@
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
-    "test": "nwb test-react",
-    "unit": "jest tests",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server",
+    "test": "jest tests",
+    "test_dev": "jest --watch tests",
     "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.1.0",
+    "query-string": "^6.9.0",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
+  },
   "peerDependencies": {
     "react": "16.x"
   },
@@ -37,7 +41,9 @@
     "jsdoc": "^3.6.3",
     "nwb": "0.23.x",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "redux-devtools-extension": "^2.13.8",
+    "serialize-javascript": ">=2.1.1"
   },
   "author": "",
   "homepage": "",

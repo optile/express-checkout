@@ -42,3 +42,68 @@ Open http://localhost:3000/
 
 [coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
 [coveralls]: https://coveralls.io/github/user/repo
+
+## How to implement
+
+TODO: Update if something change later
+
+```javascript
+import React from "react";
+import { render } from "react-dom";
+
+import ExpressCheckout from "express-checkout";
+const attributes = {
+    configuration: {
+        baseURL: "....",
+        clientId: "....",
+        country: "DE",
+        paymentMethodsConfiguration: [],
+    },
+    createTransactionDetails: function(requestData) {
+        return {
+            transactionId: "tr-" + new Date().getTime(),
+            country: "DE",
+            providerRequest: requestData,
+            payment: {
+                amount: 2,
+                currency: "EUR",
+                reference: "Payment #1",
+                longReference: {
+                    essential: "Thank you for your purchase!",
+                },
+            },
+            products: [
+                {
+                    name: "product 1 (green)",
+                    amount: 2,
+                },
+            ],
+        };
+    },
+    customFunctions: {
+        // getExpressList: ({ url, clientId, country }) => console.log(""), // Get the List of Networks
+        // createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""), // Creates Express Preset,
+        // updateExpressPreset: ({ url, transaction, network }) => console.log(""), // Update Express Preset,
+        // confirmExpressPreset: ({ url, network }) => console.log(""),
+
+        // onProceed: preset => console.log(preset),
+        // onAbort: (preset, step) => console.log(preset, step)
+        // onReload: (preset, step) => console.log(preset, step)
+        // onRetry: (preset, step) => console.log(preset, step)
+        // onClientException: (preset, step) => console.log(preset, step)
+        // onCustomerAbort: (preset) => console.log('Canceled by user'),
+    },
+};
+const Demo = () => {
+    const attributes = getAttributes();
+
+    return (
+        <div>
+            <h1>Merchant Demo</h1>
+            <ExpressCheckout {...attributes} />
+        </div>
+    );
+};
+
+render(<Demo />, document.querySelector("#demo"));
+```

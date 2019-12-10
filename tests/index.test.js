@@ -4,7 +4,7 @@ import Component from "../src/index";
 
 describe("ExpressCheckout", () => {
     it("renders without any issue", () => {
-        const wrapper = mount(<Component config={{}} />);
+        const wrapper = mount(<Component configuration={{}} createTransactionDetails={()=>console.log(0)} />);
 
         expect(wrapper.length).toBe(1);
     });
