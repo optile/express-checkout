@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect /*, useState*/ } from "react";
 import PropTypes from "prop-types";
 import { storeConfiguration, storeSuffix } from "./redux";
 import { useList } from "./hook";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import PaymentsContainer from "../PaymentsContainer";
 
 /**
  * The main component to render express checkout widget
@@ -12,19 +13,19 @@ import { useDispatch } from "react-redux";
  */
 const ConfigurationManager = props => {
     const dispatch = useDispatch();
-    const [listBody, setListBody] = useState({});
-
+    // const [listBody, setListBody] = useState({});
+    const listOfPaymentMethods = useSelector(state => state.list);
     /**
      * Called only one time when this component is created and rendered
      */
     useEffect(() => {
         dispatch(storeConfiguration(props.configuration));
         dispatch(storeSuffix());
-        setListBody(props.createTransactionDetails());
+        // setListBody(props.createTransactionDetails());
     }, []);
     useList(props.customFunctions);
 
-    return <div> {listBody && JSON.stringify(listBody)} </div>;
+    return <div>{listOfPaymentMethods && listOfPaymentMethods.length ? <PaymentsContainer /> : null}</div>;
 };
 
 ConfigurationManager.propTypes = {

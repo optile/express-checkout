@@ -5,7 +5,31 @@ const attributes = {
             clientId: "v1.opt-div-app.0ac15ab3faaa4ac7a0ec7e5b72e74961",
             country: "DE",
 
-            paymentMethodsConfiguration: [],
+            paymentMethodsConfiguration: [
+                {
+                    code: "PAYPAL",
+                    style: {
+                        size: "small",
+                        color: "gold",
+                        shape: "rect",
+                        label: "checkout",
+                    },
+                    locale: "en_US",
+                },
+                {
+                    code: "AMAZONPAY",
+                    type: "PwA",
+                    color: "Gold",
+                    size: "small",
+                    language: "en-GB",
+                    proceedButtonText: "Continue",
+                    cancelButtonText: "Cancel Payment",
+                    constraints: {
+                        PaymentMethodNotAllowed:
+                            "There has been a problem with the selected payment method from your Amazon account, please update the payment method or choose another one.",
+                    },
+                },
+            ],
         },
         createTransactionDetails: function(requestData) {
             return {

@@ -15,8 +15,8 @@
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
-    "test": "jest tests",
-    "test_dev": "jest --watch tests",
+    "test": "jest src",
+    "test_dev": "jest --watch src",
     "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "dependencies": {
@@ -37,7 +37,9 @@
     "docdash": "^1.1.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
+    "inferno": "^5.6.1",
     "jest": "^24.9.0",
+    "jest-fetch-mock": "^2.1.2",
     "jsdoc": "^3.6.3",
     "nwb": "0.23.x",
     "react": "^16.12.0",
@@ -50,7 +52,7 @@
   "license": "MIT",
   "jest": {
     "setupFilesAfterEnv": [
-      "<rootDir>tests/setup.js"
+      "<rootDir>src/testSetup.js"
     ]
   },
   "repository": "",

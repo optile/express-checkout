@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import Component from "../src/index";
+import Component from "./index";
 
 describe("ExpressCheckout", () => {
     it("renders without any issue", () => {

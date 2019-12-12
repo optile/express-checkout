@@ -95,8 +95,8 @@ export const confirmExpressPreset = ({ params, customFunctions }) =>
 // };
 
 export const onClientException = (preset, step, dispatch, customFunctions) => {
-    const onClientExceptionClient = get(custom, "onClientExceptionClient", false);
-    const onErrorClient = get(custom, "onErrorClient", false);
+    const onClientExceptionClient = get(customFunctions, "onClientExceptionClient", false);
+    const onErrorClient = get(customFunctions, "onErrorClient", false);
     if (onClientExceptionClient) {
         onClientExceptionClient(preset, step);
         return;
@@ -106,7 +106,7 @@ export const onClientException = (preset, step, dispatch, customFunctions) => {
         return;
     }
     const { resultInfo } = preset;
-    console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
+    // console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // dispatch({ type: AMAZON_AUTH_LOGOUT });
 };
 

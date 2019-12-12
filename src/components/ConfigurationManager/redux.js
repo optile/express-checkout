@@ -6,6 +6,7 @@ import { createReducer, createAction } from "@reduxjs/toolkit";
 const initialStringState = "";
 const initialBooleanState = false;
 const initialObjectState = {};
+const initialArrayState = [];
 const initialConfigurationState = {
     baseURL: "",
     clientId: "",
@@ -35,7 +36,7 @@ const listError = createReducer(initialObjectState, {
     [setListError]: (state, action) => action.payload,
 });
 const storeList = createAction("STORELIST");
-const list = createReducer(initialObjectState, {
+const list = createReducer(initialArrayState, {
     [storeList]: (state, action) => action.payload,
 });
 
