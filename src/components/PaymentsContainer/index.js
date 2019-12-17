@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import Paypal from "../Paypal";
 import Amazon from "../Amazon";
 import map from "lodash/map";
-// import PropTypes from "prop-types";
 
 const PaymentsContainer = props => {
     const listOfPaymentMethods = useSelector(state => state.list);

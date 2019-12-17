@@ -20,8 +20,11 @@
     "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.7.0",
     "@reduxjs/toolkit": "^1.1.0",
-    "query-string": "^6.9.0",
+    "paypal-checkout": "^4.0.305",
+    "query-string": "^5.1.1",
+    "react-app-polyfill": "^1.0.5",
     "react-redux": "^7.1.3",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0"
@@ -32,6 +35,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
     "@babel/preset-react": "^7.7.0",
     "babel-jest": "^24.9.0",
     "docdash": "^1.1.1",

@@ -1,8 +1,10 @@
 import React from "react";
+import PaypalButton from "./PaypalButton";
+
 const Paypal = props => {
-    return <div>
-    <input type="button" value="Paypal" />
-    </div>;
+    return (
+        <div></div>
+    );
 };
 
 Paypal.propTypes = {};
