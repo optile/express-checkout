@@ -25,11 +25,13 @@ const ConfigurationManager = props => {
     }, []);
     useList(props.customFunctions);
 
-    return <div>{listOfPaymentMethods && listOfPaymentMethods.length ? <PaymentsContainer /> : null}</div>;
+    return <div>{listOfPaymentMethods && listOfPaymentMethods.length ? <PaymentsContainer {...props}/> : null}</div>;
 };
 
 ConfigurationManager.propTypes = {
     configuration: PropTypes.object.isRequired,
+    createTransactionDetails: PropTypes.func.isRequired,
+    customFunctions: PropTypes.object,
 };
 
 export default ConfigurationManager;

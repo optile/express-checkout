@@ -9,7 +9,9 @@ const Demo = () => {
 
     return (
         <div>
-            <h1>express-checkout Demo</h1>
+            <ul className="products">
+                <li><strong>USB C cable: 2Euro</strong></li>
+            </ul>
             <ExpressCheckout {...attributes} />
         </div>
     );

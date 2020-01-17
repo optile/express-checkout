@@ -10,16 +10,9 @@ module.exports = {
             },
         ],
         "@babel/preset-react",
-        "@babel/preset-es2015",
     ],
     "plugins": [
-        "babel/polyfill",
         "syntax-dynamic-import",
-        "transform-object-rest-spread",
-        [
-          "transform-class-properties",
-          {
-            "spec": true
-          }
-        ]
+        "@babel/plugin-proposal-object-rest-spread"
+    ]
 };

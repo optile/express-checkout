@@ -46,7 +46,7 @@ const attributes = {
                 },
                 products: [
                     {
-                        name: "product 1 (green)",
+                        name: "USB C cable",
                         amount: 2,
                     },
                 ],

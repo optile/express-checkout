@@ -8,4 +8,3 @@ if (!window.paypal) {
 }
 
 export default window.paypal.Button.driver('react', { React, ReactDOM });
-

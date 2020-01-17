@@ -1,16 +1,4 @@
-import testHook from "../../test.utils/testHook";
 import { useList, fetchList, handleError } from "./hook";
-
-//TODO: Test useList
-// jest.mock("react-redux", () => ({
-//     useSelector: jest.fn(fn => fn()),
-//     useDispatch: () => jest.fn()
-//   }));
-//   const setup = ({ state }) => {
-//     jest.spyOn(state, "totalCost").mockReturnValue(totalCost);
-//     jest.spyOn(Actions, "reset");
-//   };
-// testHook(() => useList({ }));
 
 describe("fetchData", () => {
     let actions = [];
