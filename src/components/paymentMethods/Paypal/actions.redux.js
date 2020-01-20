@@ -77,6 +77,7 @@ const paymentAction = (customFunctions, createTransactionDetails) => async (disp
     }
 };
 const cancelAction = (customFunctions, data) => async (dispatch, getState) => {
+    //TODO: sendData({ url, method: "PUT", body: transaction }) and use prest cancelUel
     const presetVal = get(getState(), "paypal.preset", {});
     dispatch(storePaypalCancelData(data));
     dispatch(storePaypalStatus("Payment Session Cancelled"));

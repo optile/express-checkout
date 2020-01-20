@@ -105,7 +105,7 @@ const attributes = {
         };
     },
     customFunctions: {
-        getExpressList: ({ url, clientId, country }) => console.log(""), 
+        getExpressList: ({ url, clientId, country }) => console.log(""),
         createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
         updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
         confirmExpressPreset: ({ url, network }) => console.log(""), 

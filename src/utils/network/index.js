@@ -1,5 +1,3 @@
-//TODO: refactor this code, it is taken from old project
-
 import queryString from "query-string";
 /**
  * Fetch Data using fetch and format the response

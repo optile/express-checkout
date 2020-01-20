@@ -1,5 +1,4 @@
 import get from "lodash/get";
-import find from "lodash/find";
 
 import { sendData, sendDataWithParams } from "../network";
 import { getRedirectUrl } from "../index";
