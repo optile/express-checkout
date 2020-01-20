@@ -2,13 +2,7 @@ import { createExpressPreset, updateExpressPreset, onCustomerAbort, onClientExce
 import get from "lodash/get";
 import find from "lodash/find";
 import { toRequestData, interactionCodeHandler, errorPreset } from "../../../utils";
-import {
-    storePaypalStatus,
-    storePaypalPaymentID,
-    storePaypalPreset,
-    storePaypalCancelData,
-    storePaypalError
-} from "./redux";
+import { storePaypalStatus, storePaypalPaymentID, storePaypalPreset, storePaypalCancelData, storePaypalError } from "./redux";
 
 function getNetworkList(getState) {
     var state = getState();
@@ -31,7 +25,21 @@ function getOperationLink(getState) {
 function getUpdateLink(getState) {
     return get(getState(), "paypal.preset.links.self", "");
 }
-const paymentActionOk = (result, dispatch) => {
+const handleError = ({ err, dispatch, step, customFunctions }) => {
+    const data = errorPreset(err, "PAYPAL");
+    dispatch(storePaypalError(err));
+    dispatch(storePaypalStatus("Error"));
+    onClientException({ preset: data, step, dispatch, customFunctions });
+};
+const handleNotOkResponse = ({ result, dispatch, step, customFunctions }) => {
+    const { error: err } = result;
+    return handleError({ err, dispatch, step, customFunctions });
+};
+const handleCatch = ({ err, dispatch, step, customFunctions }) => {
+    const errorMessage = { message: err.message };
+    return handleError({ err: errorMessage, dispatch, step, customFunctions });
+};
+const paymentActionOk = ({result, dispatch, customFunctions}) => {
     var data = result.data;
     var code = data.interaction.code;
     if (code !== "PROCEED") {
@@ -51,7 +59,8 @@ const paymentActionOk = (result, dispatch) => {
     }
     throw new Error("Server response does not contain proper data");
 };
-const paymentAction = (customFunctions, createTransactionDetails) => async (dispatch, getState) => {
+const paymentAction = ({customFunctions, createTransactionDetails}) => async (dispatch, getState) => {
+    console.log("customFunctions in paymentAction", customFunctions)
     dispatch(storePaypalStatus("Payment Session Pending"));
     try {
         const operationURL = getOperationLink(getState);
@@ -61,29 +70,40 @@ const paymentAction = (customFunctions, createTransactionDetails) => async (disp
             customFunctions,
         });
         if (result.response.ok) {
-            return paymentActionOk(result, dispatch);
+            return paymentActionOk({result, dispatch, customFunctions});
         }
-        const { error: err } = result;
-        dispatch(storePaypalError(err));
-        dispatch(storePaypalStatus("Error"));
-        const data = errorPreset(err, "PAYPAL");
-        onClientException({ preset: data, step: "create", dispatch, customFunctions });
+        return handleNotOkResponse({ result, dispatch, step: "create", customFunctions });
     } catch (err) {
-        const errorMessage = { message: err.message };
-        const data = errorPreset(errorMessage, "PAYPAL");
-        dispatch(storePaypalError(errorMessage));
-        dispatch(storePaypalStatus("Error"));
-        onClientException({ preset: data, step: "create", dispatch, customFunctions });
+        return handleCatch({ err, dispatch, step: "create", customFunctions });
     }
 };
-const cancelAction = (customFunctions, data) => async (dispatch, getState) => {
+const cancelAction = ({customFunctions, data}) => async (dispatch, getState) => {
     //TODO: sendData({ url, method: "PUT", body: transaction }) and use prest cancelUel
     const presetVal = get(getState(), "paypal.preset", {});
     dispatch(storePaypalCancelData(data));
     dispatch(storePaypalStatus("Payment Session Cancelled"));
     onCustomerAbort({ params: { preset: presetVal, dispatch }, customFunctions });
 };
-const authorizeAction = (customFunctions, data) => async (dispatch, getState) => {
+const authorizeActionOk = ({result, dispatch, customFunctions}) => {
+    const { data } = result;
+    const { code, reason } = data.interaction;
+    if (code !== "PROCEED") {
+        const errorMessage = { message: data.resultInfo };
+        dispatch(storePaypalError(errorMessage));
+        dispatch(storePaypalStatus("Error"));
+        interactionCodeHandler({ code, preset: data, step: "update", dispatch, customFunctions });
+        return;
+    }
+    const presetReady = reason === "TAKE_ACTION";
+    if (presetReady) {
+        dispatch(storePaypalPreset(data));
+        dispatch(storePaypalStatus("Authorization Done"));
+        onProceed({ params: { preset: data }, customFunctions });
+    }
+};
+
+const authorizeAction = ({customFunctions, data}) => async (dispatch, getState) => {
+    console.log("customFunctions in authorize", customFunctions)
     dispatch(storePaypalStatus("Authorization Pending"));
     try {
         const updateURL = getUpdateLink(getState);
@@ -94,37 +114,15 @@ const authorizeAction = (customFunctions, data) => async (dispatch, getState) =>
                 customFunctions,
             });
             if (result.response.ok) {
-                const { data } = result;
-                const { code, reason } = data.interaction;
-                if (code !== "PROCEED") {
-                    const errorMessage = { message: data.resultInfo };
-                    dispatch(storePaypalError(errorMessage));
-                    dispatch(storePaypalStatus("Error"));
-                    interactionCodeHandler({ code, preset: data, step: "update", dispatch, customFunctions });
-                    return;
-                }
-                const presetReady = reason === "TAKE_ACTION";
-                if (presetReady) {
-                    dispatch(storePaypalPreset(data));
-                    dispatch(storePaypalStatus("Authorization Done"));
-                    onProceed({ params: { preset: data }, customFunctions });
-                }
+                return authorizeActionOk({result, dispatch, customFunctions});
             } else {
-                const { error: err } = result;
-                const data = errorPreset(err, "PAYPAL");
-                dispatch(storePaypalError(err));
-                dispatch(storePaypalStatus("Error"));
-                onClientException({ preset: data, step: "update", dispatch, customFunctions });
+                return handleNotOkResponse({ result, dispatch, step: "update", customFunctions });
             }
         } else {
             throw new Error("Update link is not found");
         }
     } catch (err) {
-        const errorMessage = { message: err.message };
-        const data = errorPreset(errorMessage, "PAYPAL");
-        dispatch(storePaypalError(errorMessage));
-        dispatch(storePaypalStatus("Error"));
-        onClientException({ preset: data, step: "update" });
+        return handleCatch({ err, dispatch, step: "update", customFunctions });
     }
 };
 export { paymentAction, cancelAction, authorizeAction };

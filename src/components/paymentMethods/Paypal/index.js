@@ -2,13 +2,13 @@ import React from "react";
 import { useSelector, connect } from "react-redux";
 import find from "lodash/find";
 import PaypalButton from "./PaypalButton";
-import {paymentAction, authorizeAction, cancelAction} from './actions.redux'
+import { paymentAction, authorizeAction, cancelAction } from "./actions.redux";
 /**
  * Prepare Paypal button needed props
- * @param {Object} params 
- * @param {Object} params.initialConfiguration 
- * @param {Object} params.listConfiguration 
- * @param {Object} params.props 
+ * @param {Object} params
+ * @param {Object} params.initialConfiguration
+ * @param {Object} params.listConfiguration
+ * @param {Object} params.props
  */
 const prepareButtonProps = ({ initialConfiguration, listConfiguration, props }) => {
     const { style, locale } = initialConfiguration;
@@ -20,12 +20,13 @@ const prepareButtonProps = ({ initialConfiguration, listConfiguration, props }) 
         locale: PAGE_BUTTON_LOCALE || locale,
         commit: false,
         env: PAGE_ENVIRONMENT,
-        payment: () => props.paymentAction(props.customFunctions, props.createTransactionDetails),
-        onAuthorize: (data) => props.authorizeAction(props.customFunctions, data),
-        onCancel: (cancelData) => props.cancelAction(props.customFunctions, cancelData),
+        payment: () =>
+            props.paymentAction({ customFunctions: props.customFunctions, createTransactionDetails: props.createTransactionDetails }),
+        onAuthorize: data => props.authorizeAction({ customFunctions: props.customFunctions, data }),
+        onCancel: data => props.cancelAction({ customFunctions: props.customFunctions, data }),
     };
 };
-/**he 
+/**he
  * Paypal main component
  * @param {Object} props
  * @return {JSX.Element}

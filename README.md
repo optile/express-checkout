@@ -45,7 +45,7 @@ Open http://localhost:3000/
 
 ## How to implement
 
-### Redux implementation
+### React implementation
 
 ```javascript
 import React from "react";
