@@ -1,4 +1,3 @@
-
 import { createReducer, createAction } from "@reduxjs/toolkit";
 /**
  * initial empty string
@@ -11,7 +10,6 @@ const initialConfigurationState = {
     baseURL: "",
     clientId: "",
     country: "",
-    functions: {},
     paymentMethodsConfiguration: [],
 };
 
@@ -39,17 +37,4 @@ const storeList = createAction("STORELIST");
 const list = createReducer(initialArrayState, {
     [storeList]: (state, action) => action.payload,
 });
-
-
-export {
-    suffix,
-    storeSuffix,
-    storeConfiguration,
-    configuration,
-    setListLoading,
-    listLoading,
-    setListError,
-    listError,
-    storeList,
-    list,
-};
+export { suffix, storeSuffix, storeConfiguration, configuration, setListLoading, listLoading, setListError, listError, storeList, list };

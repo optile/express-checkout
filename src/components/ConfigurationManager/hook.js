@@ -4,14 +4,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { getExpressList, onClientException } from "../../utils/customFunctions";
 import { errorPreset } from "../../utils";
 import { setListLoading, setListError, storeList } from "./redux";
-
+/**
+ * Handle Error
+ * @param {Object} params
+ * @param {Object} params.error
+ * @param {Object} params.dispatch
+ * @param {Object} params.customFunctions
+ */
 const handleError = ({ error, dispatch, customFunctions }) => {
     const preset = errorPreset(error, "LIST");
     dispatch(setListError(error));
-    onClientException(preset, "list", dispatch, customFunctions);
+    onClientException({preset, step:"list", dispatch, customFunctions});
     dispatch(setListLoading(false));
 };
-
+/**
+ * Fetch List
+ * 
+ * @param {Object} params 
+ * @param {Object} params.dispatch 
+ * @param {Object} params.customFunctions 
+ * @param {String} params.baseURL 
+ * @param {String} params.clientId 
+ * @param {String} params.country
+ */
 const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country }) => {
     dispatch(setListLoading(true));
     try {
@@ -37,7 +52,10 @@ const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country
         handleError({ error, dispatch, customFunctions });
     }
 };
-
+/**
+ * Custom hook that run list async and store list response
+ * @param {Object} customFunctions 
+ */
 const useList = customFunctions => {
     const dispatch = useDispatch();
     const baseURL = useSelector(state => state.configuration.baseURL);

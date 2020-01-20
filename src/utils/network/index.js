@@ -1,7 +1,10 @@
-//TODO: refactor this code, it is taken from old project
-
 import queryString from "query-string";
-
+/**
+ * Fetch Data using fetch and format the response
+ * @param {String} url 
+ * @param {Object} options 
+ * @returns {Promise}
+ */
 const fetchData = async (url, options) => {
     try {
         const fetchResult = await fetch(url, options);
@@ -25,18 +28,11 @@ const fetchData = async (url, options) => {
         };
     }
 };
-
-function handleResponse(response) {
-    const contentType = response.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
-        return handleJSONResponse(response);
-    }
-    if ((contentType && contentType.includes("text/plain")) || contentType.includes("text/html")) {
-        return handleTextResponse(response);
-    }
-    throw new Error(`Sorry, content-type ${contentType} not supported`);
-}
-
+/**
+ * Handle JSON Response
+ * @param {Object} response 
+ * @returns {Promise.reject} includes message as json
+ */
 function handleJSONResponse(response) {
     return response.json().then(json => {
         if (response.ok) {
@@ -49,7 +45,11 @@ function handleJSONResponse(response) {
         });
     });
 }
-
+/**
+ * Handle Text Response
+ * @param {Object} response 
+ * @returns {Promise.reject} includes message as text
+ */
 function handleTextResponse(response) {
     return response.text().then(text => {
         if (response.ok) {
@@ -62,7 +62,30 @@ function handleTextResponse(response) {
         });
     });
 }
+/**
+ * Handle Response
+ * @param {Object} response 
+ * @returns {Promise.reject} includes message by type OR {Error}
+ */
+function handleResponse(response) {
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+        return handleJSONResponse(response);
+    }
+    if ((contentType && contentType.includes("text/plain")) || contentType.includes("text/html")) {
+        return handleTextResponse(response);
+    }
+    throw new Error(`Sorry, content-type ${contentType} not supported`);
+}
 
+/**
+ * Send Data
+ * @param {Object} params
+ * @param {String} params.url
+ * @param {String} params.method
+ * @param {Object} params.body
+ * @returns {Promise} 
+ */
 export const sendData = ({url, method, body}) =>
     fetchData(url, {
         method,
@@ -75,7 +98,16 @@ export const sendData = ({url, method, body}) =>
         },
         body: body ? JSON.stringify(body) : null,
     });
-
+/**
+ * Send Data With Params
+ * pass querystring to url for fetch
+ * @param {Object} params
+ * @param {String} params.baseURL
+ * @param {String} params.method    
+ * @param {Object} params.params
+ * @param {Object} params.body
+ * @returns {Promise} 
+ */
 export const sendDataWithParams = ({ baseURL, method, params, body }) => {
     const { url, query } = queryString.parseUrl(baseURL);
     const newQueryString = queryString.stringify({ ...query, ...params });

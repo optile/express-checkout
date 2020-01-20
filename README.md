@@ -45,7 +45,7 @@ Open http://localhost:3000/
 
 ## How to implement
 
-TODO: Update if something change later
+### React implementation
 
 ```javascript
 import React from "react";
@@ -105,17 +105,16 @@ const attributes = {
         };
     },
     customFunctions: {
-        // getExpressList: ({ url, clientId, country }) => console.log(""), // Get the List of Networks
-        // createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""), // Creates Express Preset,
-        // updateExpressPreset: ({ url, transaction, network }) => console.log(""), // Update Express Preset,
-        // confirmExpressPreset: ({ url, network }) => console.log(""),
-
-        // onProceed: preset => console.log(preset),
-        // onAbort: (preset, step) => console.log(preset, step)
-        // onReload: (preset, step) => console.log(preset, step)
-        // onRetry: (preset, step) => console.log(preset, step)
-        // onClientException: (preset, step) => console.log(preset, step)
-        // onCustomerAbort: (preset) => console.log('Canceled by user'),
+        getExpressList: ({ url, clientId, country }) => console.log(""),
+        createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
+        updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
+        confirmExpressPreset: ({ url, network }) => console.log(""), 
+        
+        onProceed: ({ preset }) => console.log(""), 
+        onAbort: ({ preset, step, dispatch }) => console.log(""), 
+        onReload: ({ preset, step, dispatch }) => console.log(""), 
+        onRetry: ({ preset, step, dispatch }) => console.log(""), 
+        onCustomerAbort: ({ preset, dispatch }) => console.log(""), 
     },
 };
 const Demo = () => {
