@@ -77,13 +77,6 @@ const paymentAction = ({customFunctions, createTransactionDetails}) => async (di
         return handleCatch({ err, dispatch, step: "create", customFunctions });
     }
 };
-const cancelAction = ({customFunctions, data}) => async (dispatch, getState) => {
-    //TODO: sendData({ url, method: "PUT", body: transaction }) and use prest cancelUel
-    const presetVal = get(getState(), "paypal.preset", {});
-    dispatch(storePaypalCancelData(data));
-    dispatch(storePaypalStatus("Payment Session Cancelled"));
-    onCustomerAbort({ params: { preset: presetVal, dispatch }, customFunctions });
-};
 const authorizeActionOk = ({result, dispatch, customFunctions}) => {
     const { data } = result;
     const { code, reason } = data.interaction;
@@ -125,4 +118,34 @@ const authorizeAction = ({customFunctions, data}) => async (dispatch, getState) 
         return handleCatch({ err, dispatch, step: "update", customFunctions });
     }
 };
+const cancelAction = ({customFunctions, data}) => async (dispatch, getState) => {
+    //TODO: sendData({ url, method: "PUT", body: transaction }) and use prest cancelUel
+    const presetVal = get(getState(), "paypal.preset", {});
+    dispatch(storePaypalCancelData(data));
+    dispatch(storePaypalStatus("Payment Session Cancelled"));
+    onCustomerAbort({ params: { preset: presetVal, dispatch }, customFunctions });
+};
+// const cancelAction = ({customFunctions, data}) => async (dispatch, getState) => {
+//     console.log("customFunctions in authorize", customFunctions)
+//     dispatch(storePaypalStatus("Authorization Pending"));
+//     try {
+//         const updateURL = getUpdateLink(getState);
+//         const providerRequest = toRequestData("PAYPAL", data);
+//         if (updateURL) {
+//             const result = await updateExpressPreset({
+//                 params: { url: updateURL, transaction: { providerRequest }, network: "PAYPAL" },
+//                 customFunctions,
+//             });
+//             if (result.response.ok) {
+//                 return authorizeActionOk({result, dispatch, customFunctions});
+//             } else {
+//                 return handleNotOkResponse({ result, dispatch, step: "update", customFunctions });
+//             }
+//         } else {
+//             throw new Error("Update link is not found");
+//         }
+//     } catch (err) {
+//         return handleCatch({ err, dispatch, step: "update", customFunctions });
+//     }
+// };
 export { paymentAction, cancelAction, authorizeAction };

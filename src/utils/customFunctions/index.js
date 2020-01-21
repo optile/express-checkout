@@ -1,5 +1,4 @@
 import get from "lodash/get";
-
 import { sendData, sendDataWithParams } from "../network";
 import { getRedirectUrl } from "../index";
 /**
@@ -49,7 +48,7 @@ var internalFunctions = {
         console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
         dispatch({ type: "AMAZON_AUTH_LOGOUT" });
     },
-    onCustomerAbort: ({ preset, dispatch }) => {
+    onCustomerAbort: ({ preset, step, dispatch }) => {
         console.log("Canceled by user");
     },
 };
@@ -67,88 +66,89 @@ export const useCorrectFunction = ({ params, functionName, customFunctions }) =>
     return customFunction ? customFunction(params) : internalFunction(params);
 };
 /**
- * getExpressList 
+ * Get Express List
  * @param {Object} params
- * @param {Object} params.params the parameters passed to getExpressList from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to getExpressList from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const getExpressList = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "getExpressList", customFunctions });
+export const getExpressList = ({ params, customFunctions }) =>
+    useCorrectFunction({ params, functionName: "getExpressList", customFunctions });
 /**
- * createExpressPreset 
+ * Create Express Preset
  * @param {Object} params
- * @param {Object} params.params the parameters passed to createExpressPreset from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to createExpressPreset from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
 export const createExpressPreset = ({ params, customFunctions }) =>
     useCorrectFunction({ params, functionName: "createExpressPreset", customFunctions });
 /**
- * updateExpressPreset 
+ * Update Express Preset
  * @param {Object} params
- * @param {Object} params.params the parameters passed to updateExpressPreset from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to updateExpressPreset from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
 export const updateExpressPreset = ({ params, customFunctions }) =>
     useCorrectFunction({ params, functionName: "updateExpressPreset", customFunctions });
 /**
- * confirmExpressPreset 
+ * Confirm Express Preset
  * @param {Object} params
- * @param {Object} params.params the parameters passed to confirmExpressPreset from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to confirmExpressPreset from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
 export const confirmExpressPreset = ({ params, customFunctions }) =>
     useCorrectFunction({ params, functionName: "confirmExpressPreset", customFunctions });
 /**
- * onProceed 
+ * On Proceed
  * @param {Object} params
- * @param {Object} params.params the parameters passed to onProceed from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to onProceed from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
 export const onProceed = ({ params, customFunctions }) => {
     useCorrectFunction({ params, functionName: "onProceed", customFunctions });
 };
 /**
- * onAbort 
+ * On Abort
  * @param {Object} params
- * @param {Object} params.params the parameters passed to onAbort from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to onAbort from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
 export const onAbort = ({ params, customFunctions }) => {
     useCorrectFunction({ params, functionName: "onAbort", customFunctions });
 };
 /**
- * onReload 
+ * On Reload
  * @param {Object} params
- * @param {Object} params.params the parameters passed to onReload from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to onReload from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
 export const onReload = ({ params, customFunctions }) => {
     useCorrectFunction({ params, functionName: "onReload", customFunctions });
 };
 /**
- * onRetry 
+ * On Retry
  * @param {Object} params
- * @param {Object} params.params the parameters passed to onRetry from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to onRetry from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
 export const onRetry = ({ params, customFunctions }) => {
     useCorrectFunction({ params, functionName: "onRetry", customFunctions });
 };
 /**
- * onClientException 
+ * On Client Exception
  * @param {Object} params
- * @param {Object} params.params the parameters passed to onClientException from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to onClientException from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onClientException = ({preset, step, dispatch, customFunctions}) => {
+export const onClientException = ({ preset, step, dispatch, customFunctions }) => {
     // useCorrectFunction({ params, functionName: "onRetry", customFunctions });
     const onClientExceptionClient = get(customFunctions, "onClientExceptionClient", false);
     const onErrorClient = get(customFunctions, "onErrorClient", false);
     if (onClientExceptionClient) {
-        onClientExceptionClient({preset, step});
+        onClientExceptionClient({ preset, step });
         return;
     }
     if (onErrorClient) {
-        onErrorClient({resultInfo: preset.resultInfo, network: preset.network, step});
+        onErrorClient({ resultInfo: preset.resultInfo, network: preset.network, step });
         return;
     }
     const { resultInfo } = preset;
@@ -156,9 +156,9 @@ export const onClientException = ({preset, step, dispatch, customFunctions}) => 
     dispatch({ type: "AMAZON_AUTH_LOGOUT" });
 };
 /**
- * onCustomerAbort 
+ * On Customer Abort
  * @param {Object} params
- * @param {Object} params.params the parameters passed to onCustomerAbort from custom Functions or initial functions 
+ * @param {Object} params.params the parameters passed to onCustomerAbort from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
 export const onCustomerAbort = ({ params, customFunctions }) => {
