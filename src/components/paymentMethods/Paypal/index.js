@@ -26,7 +26,7 @@ const prepareButtonProps = ({ initialConfiguration, listConfiguration, props }) 
         onCancel: data => props.cancelAction({ customFunctions: props.customFunctions, data }),
     };
 };
-/**he
+/**
  * Paypal main component
  * @param {Object} props
  * @return {JSX.Element}
@@ -42,11 +42,5 @@ const Paypal = props => {
 };
 
 Paypal.propTypes = {};
-
-// const mapStateToProps = ({ config, list }) => ({
-//     paypalConfig: config.paypalConfig,
-//     configLoaded: config.configLoaded,
-//     contractData: list.networks.PAYPAL.contractData,
-// });
 
 export default connect(null, { paymentAction, authorizeAction, cancelAction })(Paypal);

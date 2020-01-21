@@ -32,23 +32,24 @@ export const getRedirectUrl = (url, parameters) => {
  */
 export const interactionCodeHandler = ({code, preset, step, dispatch, customFunctions}) => {
     switch (code) {
-        case "ABORT":
+        case "ABORT": // last payment method used and failed
             onAbort({params:{preset, step, dispatch}, customFunctions});
             break;
 
-        case "TRY_OTHER_NETWORK":
+        case "TRY_OTHER_NETWORK":// don't make hard reload bcz express list is static and won't remove
+                                // the failed network from the response, so should be handled in front end
             onReload({params:{preset, step, dispatch}, customFunctions});
             break;
 
-        case "TRY_OTHER_ACCOUNT":
+        case "TRY_OTHER_ACCOUNT":// the end customer can retry and will see all network and nothing should change
             onRetry({params:{preset, step, dispatch}, customFunctions});
             break;
 
-        case "RETRY":
+        case "RETRY": //  same as try other account
             onRetry({params:{preset, step, dispatch}, customFunctions});
             break;
 
-        case "RELOAD":
+        case "RELOAD":// make sure to call express list again
             onReload({params:{preset, step, dispatch}, customFunctions});
             break;
 
@@ -58,6 +59,7 @@ export const interactionCodeHandler = ({code, preset, step, dispatch, customFunc
 };
 /**
  * Prepare error object to return 
+ * 
  * @param {Object} err 
  * @param {Object} network 
  * @return {Object} preset
