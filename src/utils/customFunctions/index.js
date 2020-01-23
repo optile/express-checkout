@@ -140,9 +140,8 @@ export const onRetry = ({ params, customFunctions }) => {
  * @param {Object} params.customFunctions
  */
 export const onClientException = ({ preset, step, dispatch, customFunctions }) => {
-    // useCorrectFunction({ params, functionName: "onRetry", customFunctions });
-    const onClientExceptionClient = get(customFunctions, "onClientExceptionClient", false);
-    const onErrorClient = get(customFunctions, "onErrorClient", false);
+    const onClientExceptionClient = get(customFunctions, "onClientException", false);
+    const onErrorClient = get(customFunctions, "onError", false);
     if (onClientExceptionClient) {
         onClientExceptionClient({ preset, step });
         return;
@@ -153,7 +152,7 @@ export const onClientException = ({ preset, step, dispatch, customFunctions }) =
     }
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
-    // TODO Logout Amazon pay
+    // TODO Logout Amazon pay using dispatch if needed
 };
 /**
  * On Customer Abort

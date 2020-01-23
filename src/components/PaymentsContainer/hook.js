@@ -1,30 +1,42 @@
 import get from "lodash/get";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getExpressList, onClientException } from "../../utils/customFunctions";
-import { errorPreset } from "../../utils";
-import { setListLoading, setListError, storeList } from "./redux";
+import { getExpressList } from "../../utils/customFunctions";
+import { handleError } from "../../utils";
+import { setListLoading, setListError, storeList, listLoading } from "./redux";
+
 /**
- * Handle Error
+ * On Error
+ *
  * @param {Object} params
- * @param {Object} params.error
- * @param {Object} params.dispatch
+ * @param {Object} params.err
+ * @param {Function} params.dispatch
  * @param {Object} params.customFunctions
  */
-const handleError = ({ error, dispatch, customFunctions }) => {
-    const preset = errorPreset(error, "LIST");
-    dispatch(setListError(error));
-    onClientException({preset, step:"list", dispatch, customFunctions});
-    dispatch(setListLoading(false));
+const onError = ({ err, dispatch, customFunctions }) => {
+    const step = "LIST";
+    const network = "";
+    const errorProps = {
+        err,
+        step,
+        network,
+        updateState: () => {
+            dispatch(setListError(err));
+            dispatch(setListLoading(false));
+        },
+        dispatch,
+        customFunctions,
+    };
+    handleError(errorProps);
 };
 /**
  * Fetch List
- * 
- * @param {Object} params 
- * @param {Object} params.dispatch 
- * @param {Object} params.customFunctions 
- * @param {String} params.baseURL 
- * @param {String} params.clientId 
+ *
+ * @param {Object} params
+ * @param {Object} params.dispatch
+ * @param {Object} params.customFunctions
+ * @param {String} params.baseURL
+ * @param {String} params.clientId
  * @param {String} params.country
  */
 const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country }) => {
@@ -34,27 +46,27 @@ const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country
         if (result.response.ok) {
             const { data } = result;
             const networksArray = get(data, ["networks", "applicable"], false);
-            if (networksArray) {
+            if (networksArray && networksArray.length) {
                 dispatch(storeList(networksArray));
                 dispatch(setListLoading(false));
             } else {
-                const error = {
+                const err = {
                     message: "Server response does not contain proper network data",
                 };
-                handleError({ error, dispatch, customFunctions });
+                onError({ err, dispatch, customFunctions });
             }
         } else {
-            const { error } = result;
-            handleError({ error, dispatch, customFunctions });
+            const { err } = result;
+            onError({ err, dispatch, customFunctions });
         }
-    } catch (err) {
-        const error = { message: err.message };
-        handleError({ error, dispatch, customFunctions });
+    } catch (error) {
+        const err = { message: error.message };
+        onError({ err, dispatch, customFunctions });
     }
 };
 /**
  * Custom hook that run list async and store list response
- * @param {Object} customFunctions 
+ * @param {Object} customFunctions
  */
 const useList = customFunctions => {
     const dispatch = useDispatch();
@@ -68,4 +80,4 @@ const useList = customFunctions => {
     }, [baseURL, clientId, country]);
 };
 
-export { useList, fetchList, handleError };
+export { useList, fetchList, onError };

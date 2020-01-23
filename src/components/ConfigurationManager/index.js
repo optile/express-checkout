@@ -9,7 +9,6 @@ import PaymentsSummaryContainer from "../PaymentsSummaryContainer";
 // create another component to replace paymentContainer, in case mode is Confirm/summary or others
 // implement the new component and the flow
 // add inline comments as suggested by tal to make it easier to read
-//Remove repetition of handleError code and unify it in utils to be reused
 
 /**
  * Configuration Manager
@@ -26,10 +25,10 @@ const ConfigurationManager = props => {
         dispatch(storeConfiguration(props.configuration));
         dispatch(storeMode(props.mode));
         dispatch(storeSuffix());
-    }, []);    //Called only one time when this component is created and rendered
-    
-    console.log("here you are in this mode: ", mode);//TODO: remove later when commit:
-    return (mode === "Summary")? <PaymentsSummaryContainer {...props}/> : <PaymentsContainer {...props}/>;
+    }, []); //Called only one time when this component is created and rendered
+
+    console.log("here you are in this mode: ", mode); //TODO: remove later when commit:
+    return mode === "Summary" ? <PaymentsSummaryContainer {...props} /> : <PaymentsContainer {...props} />;
 };
 
 ConfigurationManager.propTypes = {
