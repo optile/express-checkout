@@ -52,8 +52,6 @@ const fetchPresetAccountOk = ({ result, dispatch }) => {
  * @param {Object} params.dispatch
  * @param {Object} params.customFunctions
  * @param {String} params.baseURL
- * @param {String} params.clientId
- * @param {String} params.country
  * @param {String} params.longId
  */
 const fetchPresetAccount = async ({ dispatch, customFunctions, baseURL, longId }) => {
