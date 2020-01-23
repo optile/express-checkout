@@ -47,7 +47,7 @@ const attributes = {
             };
         },
         customFunctions: {
-            // onProceed: ({ preset }) => {
+            // onProceed: ({ preset, step, dispatch }) => {
             //     console.log("here it is rewritten onProceed function to disable the redirect after operation");
             //     if (!preset.redirect) {
             //         console.log("Redirect information is not found in Preset response");

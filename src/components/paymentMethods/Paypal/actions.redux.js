@@ -1,4 +1,4 @@
-import { createExpressPreset, updateExpressPreset, onCustomerAbort, onClientException, onProceed } from "../../../utils/customFunctions";
+import { createExpressPreset, updateExpressPreset, onCustomerAbort, onProceed } from "../../../utils/customFunctions";
 import get from "lodash/get";
 import find from "lodash/find";
 import { toRequestData, interactionCodeHandler, handleError } from "../../../utils";
@@ -108,7 +108,7 @@ const authorizeActionOk = ({ result, dispatch, customFunctions }) => {
     if (presetReady) {
         dispatch(storePaypalPreset(data));
         dispatch(storePaypalStatus("Authorization Done"));
-        onProceed({ params: { preset: data }, customFunctions });
+        onProceed({ params: { preset: data }, step: "update", dispatch, customFunctions });
     }
 };
 

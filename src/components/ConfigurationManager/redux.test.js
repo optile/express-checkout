@@ -5,6 +5,8 @@ import {
     configuration,
     mode,
     storeMode,
+    longId,
+    storeLongId,
 } from "./redux";
 
 /* -------------------------------------------------------------------------- */
@@ -20,6 +22,12 @@ describe("actions", () => {
         const payload = "Confirm";
         const action = storeMode(payload);
         expect(action.type).toEqual("STOREMODE");
+        expect(action.payload).toEqual(payload);
+    });
+    it("Store LongId", () => {
+        const payload = "12321";
+        const action = storeLongId(payload);
+        expect(action.type).toEqual("STORELONGID");
         expect(action.payload).toEqual(payload);
     });
     it("Store Configuration", () => {
@@ -40,9 +48,6 @@ describe("actions", () => {
  * initial empty string
  */
 const initialStringState = "";
-const initialBooleanState = false;
-const initialObjectState = {};
-const initialArrayState = [];
 const initialConfigurationState = {
     baseURL: "",
     clientId: "",
@@ -74,6 +79,20 @@ describe("reducers", () => {
             expect(
                 mode([], {
                     type: "STOREMODE",
+                    payload,
+                })
+            ).toEqual(payload);
+        });
+    });
+    describe("longId", () => {
+        it("should return the initial state", () => {
+            expect(longId(undefined, {})).toEqual(initialStringState);
+        });
+        it("should update value", () => {
+            const payload = "123123123";
+            expect(
+                longId([], {
+                    type: "STORELONGID",
                     payload,
                 })
             ).toEqual(payload);

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getExpressList } from "../../utils/customFunctions";
 import { handleError } from "../../utils";
-import { setListLoading, setListError, storeList, listLoading } from "./redux";
+import { setListLoading, setListError, storeList } from "./redux";
 
 /**
  * On Error
@@ -30,6 +30,27 @@ const onError = ({ err, dispatch, customFunctions }) => {
     handleError(errorProps);
 };
 /**
+ * Handle Fetch List when response is ok
+ *
+ * @param {Object} params
+ * @param {Object} params.result
+ * @param {Object} params.dispatch
+ * @param {Object} params.customFunctions
+ */
+const fetchListOk = ({ result, dispatch, customFunctions }) => {
+    const { data } = result;
+    const networksArray = get(data, ["networks", "applicable"], false);
+    if (networksArray && networksArray.length) {
+        dispatch(storeList(networksArray));
+        dispatch(setListLoading(false));
+    } else {
+        const err = {
+            message: "Server response does not contain proper network data",
+        };
+        onError({ err, dispatch, customFunctions });
+    }
+};
+/**
  * Fetch List
  *
  * @param {Object} params
@@ -44,17 +65,7 @@ const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country
     try {
         const result = await getExpressList({ params: { url: baseURL, clientId, country } }, customFunctions);
         if (result.response.ok) {
-            const { data } = result;
-            const networksArray = get(data, ["networks", "applicable"], false);
-            if (networksArray && networksArray.length) {
-                dispatch(storeList(networksArray));
-                dispatch(setListLoading(false));
-            } else {
-                const err = {
-                    message: "Server response does not contain proper network data",
-                };
-                onError({ err, dispatch, customFunctions });
-            }
+            fetchListOk({ result, dispatch, customFunctions });
         } else {
             const { err } = result;
             onError({ err, dispatch, customFunctions });

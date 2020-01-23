@@ -116,7 +116,7 @@ const attributes = {
         updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
         confirmExpressPreset: ({ url, network }) => console.log(""), 
         
-        onProceed: ({ preset }) => console.log(""), 
+        onProceed: ({ preset, step, dispatch }) => console.log(""), 
         onAbort: ({ preset, step, dispatch }) => console.log(""), 
         onReload: ({ preset, step, dispatch }) => console.log(""), 
         onRetry: ({ preset, step, dispatch }) => console.log(""), 
@@ -216,7 +216,7 @@ render(<Demo />, document.querySelector("#demo"));
                     updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
                     confirmExpressPreset: ({ url, network }) => console.log(""), 
                     
-                    onProceed: ({ preset }) => console.log(""), 
+                    onProceed: ({ preset, step, dispatch }) => console.log(""), 
                     onAbort: ({ preset, step, dispatch }) => console.log(""), 
                     onReload: ({ preset, step, dispatch }) => console.log(""), 
                     onRetry: ({ preset, step, dispatch }) => console.log(""), 

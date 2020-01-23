@@ -22,6 +22,11 @@ const mode = createReducer(initialStringState, {
     [storeMode]: (state, action) => action.payload,
 });
 
+const storeLongId = createAction("STORELONGID");
+const longId = createReducer(initialStringState, {
+    [storeLongId]: (state, action) => action.payload,
+});
+
 const storeConfiguration = createAction("STORECONFIGURATION");
 const configuration = createReducer(initialConfigurationState, {
     [storeConfiguration]: (state, action) => action.payload,
@@ -32,6 +37,8 @@ export {
     storeSuffix,
     mode,
     storeMode,
+    longId,
+    storeLongId,
     storeConfiguration,
     configuration,
 };
