@@ -2,15 +2,18 @@ import React, { Fragment } from "react";
 /**
  * Payments Summary Container
  * Render a button to allow the end user to Summary the payment by calling
- * Summary express list that it can be rewritten using custom functions
+ * Confirm express list that it can be rewritten using custom functions
  * 
  * @param {Object} props
  * @return {JSX.Element}
  */
 const PaymentsSummaryContainer = props => {
+    //TODO: Make http request to get pret account
+    // Save the response in the state in a specific place
+    // 
     return (
         <Fragment>
-            <div>TODO: Implement Summary mode used in summary page but for now:<br />Welcome to Summary mode <br /> {JSON.stringify(props)}</div>
+            <button>Confirm</button>
         </Fragment>
     );
 };

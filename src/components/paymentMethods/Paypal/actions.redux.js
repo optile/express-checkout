@@ -6,7 +6,7 @@ import { storePaypalStatus, storePaypalPaymentID, storePaypalPreset, storePaypal
 
 function getNetworkList(getState) {
     var state = getState();
-    return get(state, "list", null);
+    return get(state, "list.data", null);
 }
 function getPaypalList(getState) {
     const list = getNetworkList(getState);

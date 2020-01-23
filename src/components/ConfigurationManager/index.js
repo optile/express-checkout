@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import PaymentsContainer from "../PaymentsContainer";
 import PaymentsSummaryContainer from "../PaymentsSummaryContainer";
 //TODO: for PCX-636:
-// move ue list to paymentContainer, bcz it is not needed in all modes and remove the check of list Of payment methods too
-// create another component to replace paymentContainer, in case mode is Confirm/summary or others
 // implement the new component and the flow
 // add inline comments as suggested by tal to make it easier to read
 

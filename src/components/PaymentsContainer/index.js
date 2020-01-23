@@ -27,7 +27,7 @@ const loadPaymentMethodByCode = (code, bindingProps, index) => {
  * @return {JSX.Element}
  */
 const PaymentsContainer = props => {
-    const listOfPaymentMethods = useSelector(state => state.list);
+    const listOfPaymentMethods = useSelector(state => state.list.data);
     useList(props.customFunctions);
     return (
         <Fragment>
