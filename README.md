@@ -7,7 +7,7 @@
 Express Checkout is an abstraction for third-party express checkout providers such as PayPal Express and Amazon Pay.
 For more details please check the official documentation:
 
-https://www.optile.io/express-checkout
+<https://www.optile.io/express-checkout>
 
 ## Prerequisites
 * node - for installation visit <https://nodejs.org/en/download/>

@@ -13,9 +13,10 @@ import ConfigurationManager from "./components/ConfigurationManager";
  * @param {Object} props.configuration
  * @param {Function} props.createTransactionDetails
  * @param {Object} props.customFunctions
+ * @param {String} props.mode
  * @return {JSX.Element}
  */
-const ExpressCheckout = ({ configuration, createTransactionDetails, customFunctions }) => {
+const ExpressCheckout = ({ configuration, createTransactionDetails, customFunctions, mode }) => {
     const store = initStore();
 
     return (
@@ -24,6 +25,7 @@ const ExpressCheckout = ({ configuration, createTransactionDetails, customFuncti
                 configuration={configuration}
                 createTransactionDetails={createTransactionDetails}
                 customFunctions={customFunctions}
+                mode={mode}
             />
         </Provider>
     );
@@ -33,6 +35,7 @@ ExpressCheckout.propTypes = {
     configuration: PropTypes.object.isRequired,
     createTransactionDetails: PropTypes.func.isRequired,
     customFunctions: PropTypes.object,
+    mode: PropTypes.string,
 };
 
 export default ExpressCheckout;
