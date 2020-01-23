@@ -47,20 +47,20 @@ const attributes = {
             };
         },
         customFunctions: {
-            onProceed: ({ preset }) => {
-                console.log("here it is rewritten onProceed function to disable the redirect after operation");
-                if (!preset.redirect) {
-                    console.log("Redirect information is not found in Preset response");
-                    return;
-                }
-                const { url, method, parameters } = preset.redirect;
-                if (method === "GET") {
-                    console.log("we should be redirected to: " + getRedirectUrl(url, parameters));
-                    // window.location.assign(getRedirectUrl(url, parameters));
-                } else {
-                    console.log(`Redirect via ${method} is not supported`);
-                }
-            },
+            // onProceed: ({ preset }) => {
+            //     console.log("here it is rewritten onProceed function to disable the redirect after operation");
+            //     if (!preset.redirect) {
+            //         console.log("Redirect information is not found in Preset response");
+            //         return;
+            //     }
+            //     const { url, method, parameters } = preset.redirect;
+            //     if (method === "GET") {
+            //         console.log("we should be redirected to: " + getRedirectUrl(url, parameters));
+            //         // window.location.assign(getRedirectUrl(url, parameters));
+            //     } else {
+            //         console.log(`Redirect via ${method} is not supported`);
+            //     }
+            // },
         },
     },
 };

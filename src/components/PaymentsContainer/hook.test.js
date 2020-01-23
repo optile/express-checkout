@@ -1,4 +1,4 @@
-import { useList, fetchList, handleError } from "./hook";
+import { fetchList, handleError } from "./hook";
 
 describe("fetchData", () => {
     let actions = [];

@@ -1,13 +1,14 @@
 import React, { useEffect /*, useState*/ } from "react";
 import PropTypes from "prop-types";
 import { storeConfiguration, storeSuffix, storeMode } from "./redux";
-import { useList } from "./hook";
 import { useDispatch, useSelector } from "react-redux";
 import PaymentsContainer from "../PaymentsContainer";
+import PaymentsSummaryContainer from "../PaymentsSummaryContainer";
 //TODO: for PCX-636:
 // move ue list to paymentContainer, bcz it is not needed in all modes and remove the check of list Of payment methods too
-//create another component to replace paymentContainer, in case mode is confirm/summary or others
-//add inline comments as suggested by tal to make it easier to read
+// create another component to replace paymentContainer, in case mode is Confirm/summary or others
+// implement the new component and the flow
+// add inline comments as suggested by tal to make it easier to read
 
 /**
  * The main component to render express checkout widget
@@ -17,7 +18,7 @@ import PaymentsContainer from "../PaymentsContainer";
  */
 const ConfigurationManager = props => {
     const dispatch = useDispatch();
-    const listOfPaymentMethods = useSelector(state => state.list);
+    const mode = useSelector(state => state.mode);
     /**
      * Called only one time when this component is created and rendered
      */
@@ -26,9 +27,8 @@ const ConfigurationManager = props => {
         dispatch(storeMode(props.mode));
         dispatch(storeSuffix());
     }, []);
-    useList(props.customFunctions);
-    console.log("here you are in this mode: ", props.mode);
-    return <div>{listOfPaymentMethods && listOfPaymentMethods.length ? <PaymentsContainer {...props}/> : null}</div>;
+    console.log("here you are in this mode: ", mode);//TODO: remove later when commit:
+    return (mode === "Summary")? <PaymentsSummaryContainer {...props}/> : <PaymentsContainer {...props}/>;
 };
 
 ConfigurationManager.propTypes = {
