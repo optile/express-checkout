@@ -19,7 +19,6 @@ import ConfigurationManager from "./components/ConfigurationManager";
  */
 const ExpressCheckout = ({ configuration, createTransactionDetails, customFunctions, mode, longId }) => {
     const store = initStore();
-
     return (
         <Provider store={store}>
             <ConfigurationManager

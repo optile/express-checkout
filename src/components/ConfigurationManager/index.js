@@ -19,15 +19,17 @@ import PaymentsSummaryContainer from "../PaymentsSummaryContainer";
 const ConfigurationManager = props => {
     const dispatch = useDispatch();
     const mode = useSelector(state => state.mode);
+    const longId = useSelector(state => state.longId);
     console.log("longId value is:", props.longId); //TODO: remove later just before last commit
     useEffect(() => {
         dispatch(storeConfiguration(props.configuration));
+        dispatch(storeSuffix());
         dispatch(storeMode(props.mode));
         dispatch(storeLongId(props.longId));
-        dispatch(storeSuffix());
-    }, []); //Called only one time when this component is created and rendered
+    }, [props.longId, props.mode]); 
 
     console.log("here you are in this mode: ", mode); //TODO: remove later just before last commit
+    console.log("here you have this longId saved: ", longId); //TODO: remove later just before last commit
     return mode === "Summary" ? <PaymentsSummaryContainer {...props} /> : <PaymentsContainer {...props} />;
 };
 

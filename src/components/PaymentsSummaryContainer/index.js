@@ -12,6 +12,7 @@ import { usePresetAccount } from "./hook";
 const PaymentsSummaryContainer = props => {
     //TODO: Create the action on button click and run confirm express checkout customized fct
     // write tests for usePresetAccount hook
+    // update readme with the new customizable functions like get preset account
     const presetAccount = useSelector(state => state.presetAccount.data);
     usePresetAccount(props.customFunctions);
     return (
