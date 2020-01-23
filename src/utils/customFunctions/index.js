@@ -28,7 +28,7 @@ var internalFunctions = {
         console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
         if (!preset.redirect) {
             console.log("Redirect information is not found in Preset response");
-            dispatch({ type: "AMAZON_AUTH_LOGOUT" });
+            // TODO Logout Amazon pay
             return;
         }
         const { url, method, parameters } = preset.redirect;
@@ -41,12 +41,12 @@ var internalFunctions = {
     onReload: ({ preset, step, dispatch }) => {
         const { resultInfo } = preset;
         console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
-        dispatch({ type: "AMAZON_AUTH_LOGOUT" });
+        // TODO Logout Amazon pay
     },
     onRetry: ({ preset, step, dispatch }) => {
         const { resultInfo } = preset;
         console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
-        dispatch({ type: "AMAZON_AUTH_LOGOUT" });
+        // TODO Logout Amazon pay
     },
     onCustomerAbort: ({ preset, step, dispatch }) => {
         console.log("Canceled by user");
@@ -153,7 +153,7 @@ export const onClientException = ({ preset, step, dispatch, customFunctions }) =
     }
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
-    dispatch({ type: "AMAZON_AUTH_LOGOUT" });
+    // TODO Logout Amazon pay
 };
 /**
  * On Customer Abort

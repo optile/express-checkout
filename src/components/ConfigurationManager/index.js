@@ -1,9 +1,13 @@
 import React, { useEffect /*, useState*/ } from "react";
 import PropTypes from "prop-types";
-import { storeConfiguration, storeSuffix } from "./redux";
+import { storeConfiguration, storeSuffix, storeMode } from "./redux";
 import { useList } from "./hook";
 import { useDispatch, useSelector } from "react-redux";
 import PaymentsContainer from "../PaymentsContainer";
+//TODO: for PCX-636:
+// move ue list to paymentContainer, bcz it is not needed in all modes and remove the check of list Of payment methods too
+//create another component to replace paymentContainer, in case mode is confirm/summary or others
+//add inline comments as suggested by tal to make it easier to read
 
 /**
  * The main component to render express checkout widget
@@ -19,6 +23,7 @@ const ConfigurationManager = props => {
      */
     useEffect(() => {
         dispatch(storeConfiguration(props.configuration));
+        dispatch(storeMode(props.mode));
         dispatch(storeSuffix());
     }, []);
     useList(props.customFunctions);

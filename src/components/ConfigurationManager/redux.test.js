@@ -9,6 +9,8 @@ import {
     listError,
     storeList,
     list,
+    mode,
+    storeMode,
 } from "./redux";
 
 /* -------------------------------------------------------------------------- */
@@ -19,6 +21,12 @@ describe("actions", () => {
         const action = storeSuffix();
         expect(action.type).toEqual("STORESUFFIX");
         expect(action.payload).toBeDefined();
+    });
+    it("Store Mode", () => {
+        const payload = "Confirm";
+        const action = storeMode(payload);
+        expect(action.type).toEqual("STOREMODE");
+        expect(action.payload).toEqual(payload);
     });
     it("Store Configuration", () => {
         const payload = { what: "whatever" };
@@ -39,7 +47,7 @@ describe("actions", () => {
         expect(action).toEqual(expectedAction);
     });
     it("Set List Error", () => {
-        const payload = {message: "whatever"};
+        const payload = { message: "whatever" };
         const expectedAction = {
             type: "LISTERROR",
             payload,
@@ -75,7 +83,6 @@ const initialConfigurationState = {
     baseURL: "",
     clientId: "",
     country: "",
-    functions: {},
     paymentMethodsConfiguration: [],
 };
 
@@ -89,6 +96,20 @@ describe("reducers", () => {
             expect(
                 suffix([], {
                     type: "STORESUFFIX",
+                    payload,
+                })
+            ).toEqual(payload);
+        });
+    });
+    describe("mode", () => {
+        it("should return the initial state", () => {
+            expect(mode(undefined, {})).toEqual(initialStringState);
+        });
+        it("should update value", () => {
+            const payload = "confirm";
+            expect(
+                mode([], {
+                    type: "STOREMODE",
                     payload,
                 })
             ).toEqual(payload);
