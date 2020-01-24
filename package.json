@@ -11,8 +11,9 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component",
-    "ghpages": "gh-pages -d build",
+    "onlybuild": "nwb build-react-component && node build",
+    "build": "npm run onlybuild",
+    "ghpages": "gh-pages -d demo/dist",
     "postbuild": "npm run ghpages",
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
