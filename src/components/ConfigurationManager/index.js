@@ -20,7 +20,7 @@ const ConfigurationManager = props => {
     const dispatch = useDispatch();
     const mode = useSelector(state => state.mode);
     const longId = useSelector(state => state.longId);
-    console.log("longId value is:", props.longId); //TODO: remove later just before last commit
+    
     useEffect(() => {
         dispatch(storeConfiguration(props.configuration));
         dispatch(storeSuffix());
@@ -28,8 +28,6 @@ const ConfigurationManager = props => {
         dispatch(storeLongId(props.longId));
     }, [props.longId, props.mode]); 
 
-    console.log("here you are in this mode: ", mode); //TODO: remove later just before last commit
-    console.log("here you have this longId saved: ", longId); //TODO: remove later just before last commit
     return mode === "Summary" ? <PaymentsSummaryContainer {...props} /> : <PaymentsContainer {...props} />;
 };
 

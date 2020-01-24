@@ -114,8 +114,8 @@ const attributes = {
         getExpressList: ({ url, clientId, country }) => console.log(""),
         createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
         updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
+        getExpressPresetAccount: ({ url }) => console.log(""), // Get the Preset Account, first step in summary page
         confirmExpressPreset: ({ url, network }) => console.log(""), 
-        
         onProceed: ({ preset, step, dispatch }) => console.log(""), 
         onAbort: ({ preset, step, dispatch }) => console.log(""), 
         onReload: ({ preset, step, dispatch }) => console.log(""), 
@@ -215,6 +215,7 @@ render(<Demo />, document.querySelector("#demo"));
                     createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
                     updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
                     confirmExpressPreset: ({ url, network }) => console.log(""), 
+                    getExpressPresetAccount: ({ url }) => console.log("") // Get the Preset Account, first step in summary page
                     
                     onProceed: ({ preset, step, dispatch }) => console.log(""), 
                     onAbort: ({ preset, step, dispatch }) => console.log(""), 

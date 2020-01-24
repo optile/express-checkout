@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, connect } from "react-redux";
 import { usePresetAccount } from "./hook";
+import { confirmAction } from "./actions.redux";
 /**
  * Payments Summary Container
  * Render a button to allow the end user to Summary the payment by calling
@@ -10,18 +11,16 @@ import { usePresetAccount } from "./hook";
  * @return {JSX.Element}
  */
 const PaymentsSummaryContainer = props => {
-    //TODO: Create the action on button click and run confirm express checkout customized fct
-    // update readme with the new customizable functions like get preset account
     const presetAccount = useSelector(state => state.presetAccount.data);
     usePresetAccount(props.customFunctions);
     return (
         <Fragment>
             <div>{JSON.stringify(presetAccount)}</div>
-            <button>Confirm</button>
+            <button onClick={() => props.confirmAction({ customFunctions: props.customFunctions })}>Confirm</button>
         </Fragment>
     );
 };
 
 PaymentsSummaryContainer.propTypes = {};
 
-export default PaymentsSummaryContainer;
+export default connect(null, { confirmAction })(PaymentsSummaryContainer);

@@ -108,7 +108,7 @@ const authorizeActionOk = ({ result, dispatch, customFunctions }) => {
     if (presetReady) {
         dispatch(storePaypalPreset(data));
         dispatch(storePaypalStatus("Authorization Done"));
-        onProceed({ params: { preset: data }, step: "update", dispatch, customFunctions });
+        onProceed({ params: { preset: data, step: "update", dispatch }, customFunctions });
     }
 };
 

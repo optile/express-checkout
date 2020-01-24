@@ -31,11 +31,13 @@ const Demo = () => {
     //   }, []);
     return (
         <div>
-            <ul className="products">
-                <li>
-                    <strong>USB C cable: 2Euro</strong>
-                </li>
-            </ul>
+            {mode !== "Summary" && (
+                <ul className="products">
+                    <li>
+                        <strong>USB C cable: 2Euro</strong>
+                    </li>
+                </ul>
+            )}
             <ExpressCheckout {...attributes} mode={mode} longId={longId} />
         </div>
     );

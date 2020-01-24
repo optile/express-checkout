@@ -5,6 +5,12 @@ import {
     presetAccountError,
     storePresetAccount,
     presetAccount,
+    setConfirmAccountLoading,
+    confirmAccountLoading,
+    setConfirmAccountError,
+    confirmAccountError,
+    storeConfirmAccount,
+    confirmAccount,
 } from "./redux";
 
 const initialBooleanState = false;
@@ -23,6 +29,15 @@ describe("actions", () => {
         const action = setPresetAccountLoading(payload);
         expect(action).toEqual(expectedAction);
     });
+    it("Set Confirm Account Loading", () => {
+        const payload = true;
+        const expectedAction = {
+            type: "CONFIRMACCOUNTLOADING",
+            payload,
+        };
+        const action = setConfirmAccountLoading(payload);
+        expect(action).toEqual(expectedAction);
+    });
     it("Set Preset Account Error", () => {
         const payload = { message: "whatever" };
         const expectedAction = {
@@ -30,6 +45,15 @@ describe("actions", () => {
             payload,
         };
         const action = setPresetAccountError(payload);
+        expect(action).toEqual(expectedAction);
+    });
+    it("Set Confirm Account Error", () => {
+        const payload = { message: "whatever" };
+        const expectedAction = {
+            type: "CONFIRMACCOUNTERROR",
+            payload,
+        };
+        const action = setConfirmAccountError(payload);
         expect(action).toEqual(expectedAction);
     });
     it("Store Preset Account", () => {
@@ -41,6 +65,15 @@ describe("actions", () => {
         const action = storePresetAccount(payload);
         expect(action).toEqual(expectedAction);
     });
+    it("Store Confirm Account", () => {
+        const payload = { message: "whatever" };
+        const expectedAction = {
+            type: "CONFIRMACCOUNT",
+            payload,
+        };
+        const action = storeConfirmAccount(payload);
+        expect(action).toEqual(expectedAction);
+    });
 });
 
 /* -------------------------------------------------------------------------- */
@@ -48,7 +81,7 @@ describe("actions", () => {
 /* -------------------------------------------------------------------------- */
 
 describe("reducers", () => {
-    describe("PresetAccountError", () => {
+    describe("presetAccountError", () => {
         it("should return the initial state", () => {
             expect(presetAccountError(undefined, {})).toEqual(initialObjectState);
         });
@@ -57,6 +90,20 @@ describe("reducers", () => {
             expect(
                 presetAccountError([], {
                     type: "PRESETACCOUNTERROR",
+                    payload,
+                })
+            ).toEqual(payload);
+        });
+    });
+    describe("confirmAccountError", () => {
+        it("should return the initial state", () => {
+            expect(confirmAccountError(undefined, {})).toEqual(initialObjectState);
+        });
+        it("should update value", () => {
+            const payload = { message: "Error happens" };
+            expect(
+                confirmAccountError([], {
+                    type: "CONFIRMACCOUNTERROR",
                     payload,
                 })
             ).toEqual(payload);
@@ -76,6 +123,20 @@ describe("reducers", () => {
             ).toEqual(payload);
         });
     });
+    describe("confirmAccountLoading", () => {
+        it("should return the initial state", () => {
+            expect(confirmAccountLoading(undefined, {})).toEqual(initialBooleanState);
+        });
+        it("should update value", () => {
+            const payload = true;
+            expect(
+                confirmAccountLoading([], {
+                    type: "CONFIRMACCOUNTLOADING",
+                    payload,
+                })
+            ).toEqual(payload);
+        });
+    });
     describe("presetAccount", () => {
         it("should return the initial state", () => {
             expect(presetAccount(undefined, {})).toEqual(initialObjectState);
@@ -83,10 +144,30 @@ describe("reducers", () => {
         it("should update value", () => {
             const payload = { what: "whatever" };
             expect(
-                presetAccount({}, {
-                    type: "PRESETACCOUNT",
-                    payload,
-                })
+                presetAccount(
+                    {},
+                    {
+                        type: "PRESETACCOUNT",
+                        payload,
+                    }
+                )
+            ).toEqual(payload);
+        });
+    });
+    describe("confirmAccount", () => {
+        it("should return the initial state", () => {
+            expect(confirmAccount(undefined, {})).toEqual(initialObjectState);
+        });
+        it("should update value", () => {
+            const payload = { what: "whatever" };
+            expect(
+                confirmAccount(
+                    {},
+                    {
+                        type: "CONFIRMACCOUNT",
+                        payload,
+                    }
+                )
             ).toEqual(payload);
         });
     });

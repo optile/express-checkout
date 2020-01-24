@@ -20,9 +20,9 @@ var internalFunctions = {
         const { url, method, parameters } = preset.redirect;
         if (method === "GET") {
             window.location.assign(getRedirectUrl(url, parameters));
-        } else {
-            console.log(`Redirect via ${method} is not supported`);
+            return;
         }
+        console.log(`Redirect via ${method} is not supported`);
     },
     onAbort: ({ preset, step, dispatch }) => {
         const { resultInfo } = preset;
@@ -104,8 +104,7 @@ export const confirmExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.params the parameters passed to onProceed from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onProceed = ({ params, customFunctions }) => 
-    useCorrectFunction({ params, functionName: "onProceed", customFunctions });
+export const onProceed = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onProceed", customFunctions });
 
 /**
  * On Abort
@@ -113,8 +112,7 @@ export const onProceed = ({ params, customFunctions }) =>
  * @param {Object} params.params the parameters passed to onAbort from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onAbort = ({ params, customFunctions }) => 
-    useCorrectFunction({ params, functionName: "onAbort", customFunctions });
+export const onAbort = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onAbort", customFunctions });
 
 /**
  * On Reload
@@ -122,8 +120,7 @@ export const onAbort = ({ params, customFunctions }) =>
  * @param {Object} params.params the parameters passed to onReload from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onReload = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "onReload", customFunctions });
+export const onReload = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onReload", customFunctions });
 
 /**
  * On Retry
@@ -131,8 +128,7 @@ export const onReload = ({ params, customFunctions }) =>
  * @param {Object} params.params the parameters passed to onRetry from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onRetry = ({ params, customFunctions }) => 
-    useCorrectFunction({ params, functionName: "onRetry", customFunctions });
+export const onRetry = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onRetry", customFunctions });
 
 /**
  * Get Express Preset Account
@@ -169,6 +165,5 @@ export const onClientException = ({ preset, step, dispatch, customFunctions }) =
  * @param {Object} params.params the parameters passed to onCustomerAbort from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onCustomerAbort = ({ params, customFunctions }) => 
+export const onCustomerAbort = ({ params, customFunctions }) =>
     useCorrectFunction({ params, functionName: "onCustomerAbort", customFunctions });
-

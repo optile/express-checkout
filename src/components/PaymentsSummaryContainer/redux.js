@@ -18,6 +18,21 @@ const presetAccount = createReducer(initialObjectState, {
     [storePresetAccount]: (state, action) => action.payload,
 });
 
+const setConfirmAccountLoading = createAction("CONFIRMACCOUNTLOADING");
+const confirmAccountLoading = createReducer(initialBooleanState, {
+    [setConfirmAccountLoading]: (state, action) => action.payload,
+});
+
+const setConfirmAccountError = createAction("CONFIRMACCOUNTERROR");
+const confirmAccountError = createReducer(initialObjectState, {
+    [setConfirmAccountError]: (state, action) => action.payload,
+});
+
+const storeConfirmAccount = createAction("CONFIRMACCOUNT");
+const confirmAccount = createReducer(initialObjectState, {
+    [storeConfirmAccount]: (state, action) => action.payload,
+});
+
 export {
     setPresetAccountLoading,
     presetAccountLoading,
@@ -25,4 +40,10 @@ export {
     presetAccountError,
     storePresetAccount,
     presetAccount,
-}
+    setConfirmAccountLoading,
+    confirmAccountLoading,
+    setConfirmAccountError,
+    confirmAccountError,
+    storeConfirmAccount,
+    confirmAccount,
+};
