@@ -11,7 +11,10 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component",
+    "onlybuild": "nwb build-react-component && node build",
+    "build": "npm run onlybuild",
+    "ghpages": "gh-pages -d demo/dist",
+    "postbuild": "npm run ghpages",
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
@@ -44,6 +47,7 @@
     "docdash": "^1.1.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
+    "gh-pages": "^2.2.0",
     "inferno": "^5.6.1",
     "jest": "^24.9.0",
     "jest-fetch-mock": "^2.1.2",
@@ -65,5 +69,6 @@
   "repository": "",
   "keywords": [
     "react-component"
-  ]
+  ],
+  "publicComponent": true
 }

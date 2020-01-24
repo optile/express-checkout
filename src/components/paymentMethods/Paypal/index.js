@@ -35,7 +35,7 @@ const Paypal = props => {
     const initialConfiguration = useSelector(state =>
         find(state.configuration.paymentMethodsConfiguration, item => item.code === "PAYPAL")
     );
-    const listConfiguration = useSelector(state => find(state.list, item => item.code === "PAYPAL"));
+    const listConfiguration = useSelector(state => find(state.list.data, item => item.code === "PAYPAL"));
 
     const buttonProps = prepareButtonProps({ initialConfiguration, listConfiguration, props });
     return <PaypalButton {...buttonProps} />;

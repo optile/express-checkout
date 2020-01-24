@@ -1,16 +1,16 @@
-import {onAbort, onReload, onRetry} from "./customFunctions";
+import { onAbort, onReload, onRetry, onClientException } from "./customFunctions";
 /**
  * Create a map from params
  * @param {Object} data
- * @returns {Object} data 
+ * @returns {Object} data
  */
 const objectToParams = data => Object.entries(data).map(([name, value]) => ({ name, value }));
 
 export const toRequestData = (providerCode, data) => ({ providerCode, parameters: objectToParams(data) });
 /**
  * Get Redirect Url
- * @param {String} url 
- * @param {Object} parameters 
+ * @param {String} url
+ * @param {Object} parameters
  * @return {String} redirect url link
  */
 export const getRedirectUrl = (url, parameters) => {
@@ -22,7 +22,7 @@ export const getRedirectUrl = (url, parameters) => {
 };
 /**
  * Handle the response
- * 
+ *
  * @param {Object} params
  * @param {Object} params.code
  * @param {Object} params.preset
@@ -30,27 +30,27 @@ export const getRedirectUrl = (url, parameters) => {
  * @param {Object} params.dispatch
  * @param {Object} params.customFunctions
  */
-export const interactionCodeHandler = ({code, preset, step, dispatch, customFunctions}) => {
+export const interactionCodeHandler = ({ code, preset, step, dispatch, customFunctions }) => {
     switch (code) {
         case "ABORT": // last payment method used and failed
-            onAbort({params:{preset, step, dispatch}, customFunctions});
+            onAbort({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "TRY_OTHER_NETWORK":// don't make hard reload bcz express list is static and won't remove
-                                // the failed network from the response, so should be handled in front end
-            onReload({params:{preset, step, dispatch}, customFunctions});
+        case "TRY_OTHER_NETWORK": // don't make hard reload bcz express list is static and won't remove
+            // the failed network from the response, so should be handled in front end
+            onReload({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "TRY_OTHER_ACCOUNT":// the end customer can retry and will see all network and nothing should change
-            onRetry({params:{preset, step, dispatch}, customFunctions});
+        case "TRY_OTHER_ACCOUNT": // the end customer can retry and will see all network and nothing should change
+            onRetry({ params: { preset, step, dispatch }, customFunctions });
             break;
 
         case "RETRY": //  same as try other account
-            onRetry({params:{preset, step, dispatch}, customFunctions});
+            onRetry({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "RELOAD":// make sure to call express list again
-            onReload({params:{preset, step, dispatch}, customFunctions});
+        case "RELOAD": // make sure to call express list again
+            onReload({ params: { preset, step, dispatch }, customFunctions });
             break;
 
         default:
@@ -58,11 +58,12 @@ export const interactionCodeHandler = ({code, preset, step, dispatch, customFunc
     }
 };
 /**
- * Prepare error object to return 
- * 
- * @param {Object} err 
- * @param {Object} network 
- * @return {Object} preset
+ * Prepare error object to return
+ *
+ * @param {Object} err
+ * @param {Object} network
+ *
+ * @return {Object} preset error object in specific structure
  */
 export const errorPreset = (err, network) => {
     const message = err.message ? err.message : "Payment canceled";
@@ -75,4 +76,22 @@ export const errorPreset = (err, network) => {
         network: network,
     };
     return preset;
+};
+/**
+ * Handle Error
+ * Can handle all errors in unified form and gives power to handle the state outside of this scope
+ * dispatch is needed for onClientException function customizable by initial props of main component
+ *
+ * @param {Object} params
+ * @param {Object} params.err
+ * @param {String} params.step
+ * @param {String} params.network could be empty string in case of list request
+ * @param {Function} params.dispatch
+ * @param {Function} params.updateState
+ * @param {Object} params.customFunctions
+ */
+export const handleError = ({ err, step, network, dispatch, updateState, customFunctions }) => {
+    const data = errorPreset(err, network); // create object structure for error
+    updateState(); // run some updates for the store in redux
+    onClientException({ preset: data, step, dispatch, customFunctions }); // run customized function to handle the error
 };
