@@ -1,4 +1,4 @@
-import { useList, fetchList, handleError } from "./hook";
+import { fetchList, onError } from "./hook";
 
 describe("fetchData", () => {
     let actions = [];
@@ -41,13 +41,13 @@ describe("fetchData", () => {
     });
 });
 
-describe("handleError", () => {
+describe("onError", () => {
     
     let actions = [];
-    const error = {message: "Error here"}
+    const err = {message: "Error here"}
     const dispatch = action => actions.push(action);
-    const functionAttrs = { error, dispatch, customFunctions: {}};
-    handleError(functionAttrs);
+    const functionAttrs = { err, dispatch, customFunctions: {}};
+    onError(functionAttrs);
 
     it("put error", () => {
         expect(actions[0].type).toBe("LISTERROR");

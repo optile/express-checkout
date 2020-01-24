@@ -7,7 +7,7 @@
 Express Checkout is an abstraction for third-party express checkout providers such as PayPal Express and Amazon Pay.
 For more details please check the official documentation:
 
-https://www.optile.io/express-checkout
+<https://www.optile.io/express-checkout>
 
 ## Prerequisites
 * node - for installation visit <https://nodejs.org/en/download/>
@@ -114,9 +114,9 @@ const attributes = {
         getExpressList: ({ url, clientId, country }) => console.log(""),
         createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
         updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
+        getExpressPresetAccount: ({ url }) => console.log(""), // Get the Preset Account, first step in summary page
         confirmExpressPreset: ({ url, network }) => console.log(""), 
-        
-        onProceed: ({ preset }) => console.log(""), 
+        onProceed: ({ preset, step, dispatch }) => console.log(""), 
         onAbort: ({ preset, step, dispatch }) => console.log(""), 
         onReload: ({ preset, step, dispatch }) => console.log(""), 
         onRetry: ({ preset, step, dispatch }) => console.log(""), 
@@ -215,8 +215,9 @@ render(<Demo />, document.querySelector("#demo"));
                     createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
                     updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
                     confirmExpressPreset: ({ url, network }) => console.log(""), 
+                    getExpressPresetAccount: ({ url }) => console.log("") // Get the Preset Account, first step in summary page
                     
-                    onProceed: ({ preset }) => console.log(""), 
+                    onProceed: ({ preset, step, dispatch }) => console.log(""), 
                     onAbort: ({ preset, step, dispatch }) => console.log(""), 
                     onReload: ({ preset, step, dispatch }) => console.log(""), 
                     onRetry: ({ preset, step, dispatch }) => console.log(""), 
