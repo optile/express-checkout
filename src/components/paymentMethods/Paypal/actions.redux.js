@@ -113,7 +113,6 @@ const authorizeActionOk = ({ result, dispatch, customFunctions }) => {
 };
 
 const authorizeAction = ({ customFunctions, data }) => async (dispatch, getState) => {
-    console.log("customFunctions in authorize", customFunctions);
     dispatch(storePaypalStatus("Authorization Pending"));
     try {
         const updateURL = getUpdateLink(getState);

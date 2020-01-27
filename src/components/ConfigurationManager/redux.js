@@ -10,13 +10,6 @@ const initialConfigurationState = {
     paymentMethodsConfiguration: [],
 };
 
-const storeSuffix = createAction("STORESUFFIX", () => ({
-    payload: new Date().getTime(),
-}));
-const suffix = createReducer(initialStringState, {
-    [storeSuffix]: (state, action) => action.payload,
-});
-
 const storeMode = createAction("STOREMODE");
 const mode = createReducer(initialStringState, {
     [storeMode]: (state, action) => action.payload,
@@ -33,8 +26,6 @@ const configuration = createReducer(initialConfigurationState, {
 });
 
 export {
-    suffix,
-    storeSuffix,
     mode,
     storeMode,
     longId,
