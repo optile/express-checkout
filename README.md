@@ -2,7 +2,6 @@
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
 
 Express Checkout is an abstraction for third-party express checkout providers such as PayPal Express and Amazon Pay.
 For more details please check the official documentation:
@@ -21,35 +20,12 @@ For more details please check the official documentation:
 * Create Merchant Application and make sure to pass correct URL for (returnUrl, cancelUrl, summaryUrl, notificationUrl) - visit <https://optile.io>
 
 
-## Steps to run demo that present the component usage
-
-`npm install`
-
-`npm start`
-
-Open <http://localhost:3000/>
-
-## Steps to build the component
-
-`npm install`
-
-`npm run build`
-
-## Steps to run test cases
-
-`npm test`
-
-
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
-
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
-
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
-
 ## How to implement
+
+Install the component using npm
+
+`npm install express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
+
 
 ### React implementation
 
@@ -157,7 +133,7 @@ render(<Demo />, document.querySelector("#demo"));
         
         <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
-        <script src="https/domain/express-checkout.js"></script>
+        <script src="./node_modules/express-checkout/express-checkout.js"></script>
         <script>
             var attributes = {
                 configuration: {
@@ -239,3 +215,22 @@ render(<Demo />, document.querySelector("#demo"));
     </body>
 </html>
 ```
+
+
+## Steps to run demo that present the component usage
+
+`npm install`
+
+`npm start`
+
+Open <http://localhost:3000/>
+
+## Steps to build the component
+
+`npm install`
+
+`npm run build`
+
+## Steps to run test cases
+
+`npm test`
