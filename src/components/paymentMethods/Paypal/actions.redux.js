@@ -1,8 +1,8 @@
-import { createExpressPreset, updateExpressPreset, onCustomerAbort, onProceed } from "../../../utils/customFunctions";
+import { createExpressPreset, updateExpressPreset, onCustomerAbort, onProceed, cancelExpressPreset } from "../../../utils/customFunctions";
 import get from "lodash/get";
 import find from "lodash/find";
 import { toRequestData, interactionCodeHandler, handleError } from "../../../utils";
-import { storePaypalStatus, storePaypalPaymentID, storePaypalPreset, storePaypalCancelData, storePaypalError } from "./redux";
+import { storePaypalStatus, storePaypalPaymentID, storePaypalPreset, storePaypalCancelData , storePaypalError } from "./redux";
 
 function getNetworkList(getState) {
     var state = getState();
@@ -134,11 +134,39 @@ const authorizeAction = ({ customFunctions, data }) => async (dispatch, getState
         return handleCatch({ err, dispatch, step: "update", customFunctions });
     }
 };
-const cancelAction = ({ customFunctions, data }) => async (dispatch, getState) => {
-    //TODO: sendData({ url, method: "PUT", body: transaction }) and use prest cancelUel
-    const presetVal = get(getState(), "paypal.preset", {});
+const cancelActionOk = ({ result, dispatch, customFunctions }) => {
+    const { data } = result;
+    const { code, reason } = data.interaction;
+    console.log(code, reason);
+    if (code !== "PROCEED") {
+        dispatch(storePaypalStatus("Payment Session Cancel Error"));
+        interactionCodeHandler({ code, preset: data, step: "cancel", dispatch, customFunctions });
+        return;
+    }
     dispatch(storePaypalCancelData(data));
     dispatch(storePaypalStatus("Payment Session Cancelled"));
-    onCustomerAbort({ params: { preset: presetVal, dispatch }, customFunctions });
+    onCustomerAbort({ params: { data: data, dispatch }, customFunctions });
+};
+const cancelAction = ({ customFunctions, data }) => async (dispatch, getState) => {
+    dispatch(storePaypalStatus("Payment Session Cancel Pending"));
+    try {
+        const cancelUrl = data.cancelUrl;
+        const providerRequest = toRequestData("PAYPAL", data);
+        if (cancelUrl) {
+            const result = await cancelExpressPreset({
+                params: { url: cancelUrl, transaction: { providerRequest }, network: "PAYPAL" },
+                customFunctions,
+            });
+            if (result.response.ok) {
+                return cancelActionOk({ result, dispatch, customFunctions });
+            } else {
+                return handleNotOkResponse({ result, dispatch, step: "cancel", customFunctions });
+            }
+        } else {
+            throw new Error("Cancel link is not found");
+        }
+    } catch (err) {
+        return handleCatch({ err, dispatch, step: "cancel", customFunctions });
+    }
 };
 export { paymentAction, cancelAction, authorizeAction };

@@ -10,6 +10,7 @@ var internalFunctions = {
     createExpressPreset: ({ url, transaction, network, clientId }) =>
         sendDataWithParams({ baseURL: url, method: "POST", params: { clientId }, body: transaction }), // Creates Express Preset,
     updateExpressPreset: ({ url, transaction, network }) => sendData({ url, method: "PUT", body: transaction }), // Update Express Preset,
+    cancelExpressPreset: ({ url, transaction, network }) => sendData({ url, method: "POST", body: {} }), // Cancel Express Preset,
     getExpressPresetAccount: ({ url }) => sendDataWithParams({ baseURL: url, method: "GET", params: {} }), // Get the Preset Account, first step in summary page
     confirmExpressPreset: ({ url, network }) => sendData({ url, method: "POST", body: {} }),
     onProceed: ({ preset, step, dispatch }) => {
@@ -50,7 +51,16 @@ var internalFunctions = {
         // TODO Logout Amazon pay
     },
     onCustomerAbort: ({ preset, step, dispatch }) => {
-        console.log("Canceled by user");
+        if (!preset.redirect) {
+            console.log("Redirect information is not found in Preset response");
+            return;
+        }
+        const { url, method, parameters } = preset.redirect;
+        if (method === "GET") {
+            window.location.assign(getRedirectUrl(url, parameters));
+            return;
+        }
+        console.log(`Redirect via ${method} is not supported`);
     },
 };
 /**
@@ -90,6 +100,14 @@ export const createExpressPreset = ({ params, customFunctions }) =>
  */
 export const updateExpressPreset = ({ params, customFunctions }) =>
     useCorrectFunction({ params, functionName: "updateExpressPreset", customFunctions });
+/**
+ * Cancel Express Preset
+ * @param {Object} params
+ * @param {Object} params.params the parameters passed to updateExpressPreset from custom Functions or initial functions
+ * @param {Object} params.customFunctions
+ */
+export const cancelExpressPreset = ({ params, customFunctions }) =>
+    useCorrectFunction({ params, functionName: "cancelExpressPreset", customFunctions });
 /**
  * Confirm Express Preset
  * @param {Object} params

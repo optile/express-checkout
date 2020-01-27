@@ -16,7 +16,7 @@ const preset = createReducer(initialObjectState, {
     [storePaypalPreset]: (state, action) => action.payload,
 });
 const storePaypalCancelData = createAction("STOREPAYPALCANCELDATA");
-const cancelData = createReducer(initialStringState, {
+const cancelData = createReducer(initialObjectState, {
     [storePaypalCancelData]: (state, action) => action.payload,
 });
 const storePaypalError = createAction("STOREPAYPALERROR");
