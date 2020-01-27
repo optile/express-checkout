@@ -118,7 +118,7 @@ describe("reducers", () => {
     });
     describe("cancelData", () => {
         it("should return the initial state", () => {
-            expect(cancelData(undefined, {})).toEqual(initialStringState);
+            expect(cancelData(undefined, {})).toEqual(initialObjectState);
         });
         it("should update value", () => {
             const payload = "something";

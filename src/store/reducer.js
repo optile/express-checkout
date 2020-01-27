@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { suffix, configuration, mode, longId } from "../components/ConfigurationManager/redux";
+import { configuration, mode, longId } from "../components/ConfigurationManager/redux";
 import { list, listError, listLoading } from "../components/PaymentsContainer/redux";
 import {
     presetAccount,
@@ -13,7 +13,6 @@ import {
 import { paypalStatus, paymentID, preset, cancelData, error } from "../components/paymentMethods/Paypal/redux";
 
 const rootReducer = combineReducers({
-    suffix,
     mode,
     longId,
     configuration,

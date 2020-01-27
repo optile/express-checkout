@@ -1,6 +1,4 @@
 import {
-    suffix,
-    storeSuffix,
     storeConfiguration,
     configuration,
     mode,
@@ -13,11 +11,6 @@ import {
 /*                               Action creators                              */
 /* -------------------------------------------------------------------------- */
 describe("actions", () => {
-    it("Store Suffix", () => {
-        const action = storeSuffix();
-        expect(action.type).toEqual("STORESUFFIX");
-        expect(action.payload).toBeDefined();
-    });
     it("Store Mode", () => {
         const payload = "Confirm";
         const action = storeMode(payload);
@@ -56,20 +49,6 @@ const initialConfigurationState = {
 };
 
 describe("reducers", () => {
-    describe("suffix", () => {
-        it("should return the initial state", () => {
-            expect(suffix(undefined, {})).toEqual(initialStringState);
-        });
-        it("should update value", () => {
-            const payload = 1000;
-            expect(
-                suffix([], {
-                    type: "STORESUFFIX",
-                    payload,
-                })
-            ).toEqual(payload);
-        });
-    });
     describe("mode", () => {
         it("should return the initial state", () => {
             expect(mode(undefined, {})).toEqual(initialStringState);
