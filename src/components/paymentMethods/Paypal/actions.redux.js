@@ -2,7 +2,7 @@ import { createExpressPreset, updateExpressPreset, onCustomerAbort, onProceed, c
 import get from "lodash/get";
 import find from "lodash/find";
 import { toRequestData, interactionCodeHandler, handleError } from "../../../utils";
-import { storePaypalStatus, storePaypalPaymentID, storePaypalPreset, storePaypalCancelData , storePaypalError } from "./redux";
+import { storePaypalStatus, storePaypalPaymentID, storePaypalPreset, storePaypalCancelData, storePaypalError } from "./redux";
 
 function getNetworkList(getState) {
     var state = getState();
