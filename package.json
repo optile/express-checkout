@@ -1,6 +1,6 @@
 {
   "name": "express-checkout",
-  "version": "1.0.2",
+  "version": "1.0.3-beta",
   "description": "express-checkout React component",
   "main": "lib/index.js",
   "module": "es/index.js",
