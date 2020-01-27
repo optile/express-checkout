@@ -221,12 +221,12 @@ render(<Demo />, document.querySelector("#demo"));
 ### More information about how to use ExpressCheckout Component
 
 It is the main component to render express checkout widget
- * @param {Object} params
- * @param {Object} params.configuration like in the example, it contains (baseURL, clientId, country and paymentMethodsConfiguration)
- * @param {Function} params.createTransactionDetails it is a function that will generate transaction object used in createExpressPreset
- * @param {Object} params.customFunctions your customized function, for more informations, look below
- * @param {String} params.mode when it is not set, it is first page, for second page, it should be set to "Summary"
- * @param {String} params.longId in mode === "Summary", it is obligatory to be set, you can find it from the result of successful updateExpressPreset
+ * @param {Object} params it contains
+   * @param {Object} params.configuration like in the example, it contains (baseURL, clientId, country and paymentMethodsConfiguration)
+   * @param {Function} params.createTransactionDetails it is a function that will generate transaction object used in createExpressPreset
+   * @param {Object} params.customFunctions your customized function, for more informations, look below
+   * @param {String} params.mode when it is not set, it is first page, for second page, it should be set to "Summary"
+   * @param {String} params.longId in mode === "Summary", it is obligatory to be set, you can find it from the result of successful updateExpressPreset
 
 
 
@@ -235,114 +235,114 @@ It is the main component to render express checkout widget
 #### getExpressList
 
 Called to get list of applicable payment methods, it is first step in mode === null (first page)
- * @param {Object} params
- * @param {String} params.url
- * @param {String} params.clientId
- * @param {String} params.country
+ * @param {Object} params it contains
+   * @param {String} params.url
+   * @param {String} params.clientId
+   * @param {String} params.country
 
 
 #### createExpressPreset
 
 Called to create payment session, for example in PAYPAL it is passed under payment for loading Paypal button in mode === null (first page)
- * @param {Object} params
- * @param {String} params.url
- * @param {Object} params.transaction result of createTransactionDetails function, mandatory prop for ExpressCheckout
- * @param {String} params.network payment code, for example: "PAYPAL"
- * @param {String} params.clientId
+ * @param {Object} params it contains
+   * @param {String} params.url
+   * @param {Object} params.transaction result of createTransactionDetails function, mandatory prop for ExpressCheckout
+   * @param {String} params.network payment code, for example: "PAYPAL"
+   * @param {String} params.clientId
 
 
 #### updateExpressPreset
 
 Called to update payment session, for example in PAYPAL it is passed under onAuthorize for loading Paypal button in mode==null (first page)
- * @param {Object} params
- * @param {String} params.url
- * @param {Object} params.transaction providerRequest
- * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {Object} params it contains
+   * @param {String} params.url
+   * @param {Object} params.transaction providerRequest
+   * @param {String} params.network payment code, for example: "PAYPAL"
 
 
 #### cancelExpressPreset
 
 Called to cancel payment session, for example in PAYPAL, when the end customer click on cancel link.
 It is passed under onCancel for loading Paypal button in mode==null (first page)
- * @param {Object} params
- * @param {String} params.url
- * @param {Object} params.transaction providerRequest
- * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {Object} params it contains
+   * @param {String} params.url
+   * @param {Object} params.transaction providerRequest
+   * @param {String} params.network payment code, for example: "PAYPAL"
 
 
 #### getExpressPresetAccount
 
 Called to confirm preset account, for example in PAYPAL, when the end customer sees the information about the payment and click a button to confirm.
 It is used in onClick of Confirm button in mode==Summary (second page)
- * @param {Object} params
- * @param {String} params.url
- * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {Object} params it contains
+   * @param {String} params.url
+   * @param {String} params.network payment code, for example: "PAYPAL"
 
 
 #### onProceed
 
 Called when the http request returns data.interaction.code === "PROCEED"
- * @param {Object} params
- * @param {Object} params.preset
- * @param {String} params.step it indicates the current step for example Update, so the proceed function will know that we need to load confirm/summary mode
- * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {Object} params it contains
+   * @param {Object} params.preset
+   * @param {String} params.step it indicates the current step for example Update, so the proceed function will know that we need to load confirm/summary mode
+   * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
 
 #### onAbort
 
 Called when the http request returns data.interaction.code === "ABORT".
 For example when last payment method is used and failed
- * @param {Object} params
- * @param {Object} params.preset
- * @param {String} params.step it indicates the current step for example Update
- * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {Object} params it contains
+   * @param {Object} params.preset
+   * @param {String} params.step it indicates the current step for example Update
+   * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
 
 #### onReload
 
 Called when the http request returns data.interaction.code === "TRY_OTHER_NETWORK" || data.interaction.code === "RELOAD"
- * @param {Object} params
- * @param {Object} params.preset
- * @param {String} params.step it indicates the current step for example Update
- * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {Object} params it contains
+   * @param {Object} params.preset
+   * @param {String} params.step it indicates the current step for example Update
+   * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
 
 #### onRetry
 
 Called when the http request returns data.interaction.code === "RETRY" || data.interaction.code === "TRY_OTHER_ACCOUNT".
 The end customer can retry and will see all network and nothing should change
- * @param {Object} params
- * @param {Object} params.preset
- * @param {String} params.step it indicates the current step for example Update
- * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {Object} params it contains
+   * @param {Object} params.preset
+   * @param {String} params.step it indicates the current step for example Update
+   * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
 
 #### onCustomerAbort
 
 Called when the end user click on cancel, for example in Paypal popup
- * @param {Object} params
- * @param {Object} params.preset
- * @param {String} params.step it indicates the current step for example Update
- * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {Object} params it contains
+   * @param {Object} params.preset
+   * @param {String} params.step it indicates the current step for example Update
+   * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
 
 #### onClientException
 
 Called when an exception or error happen, if set onError function will be ignored
- * @param {Object} params
- * @param {Object} params.preset
- * @param {String} params.step it indicates the current step for example Update
- * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {Object} params it contains
+   * @param {Object} params.preset
+   * @param {String} params.step it indicates the current step for example Update
+   * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
 
 #### onError
 
 Called when an exception or error happen, it is only used if onClientException is not set
- * @param {Object} params
- * @param {Object} params.resultInfo
- * @param {String} params.network payment code, for example: "PAYPAL"
- * @param {String} params.step it indicates the current step for example Update
- * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {Object} params it contains
+   * @param {Object} params.resultInfo
+   * @param {String} params.network payment code, for example: "PAYPAL"
+   * @param {String} params.step it indicates the current step for example Update
+   * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
 
 
