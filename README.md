@@ -1,4 +1,4 @@
-# express-checkout
+# Express Checkout
 
 Express Checkout is an abstraction for third-party express checkout providers such as PayPal Express and Amazon Pay.
 For more details please check the official documentation:
@@ -17,11 +17,11 @@ For more details please check the official documentation:
 * Create Merchant Application and make sure to pass correct URL for (returnUrl, cancelUrl, summaryUrl, notificationUrl) - visit <https://optile.io>
 
 
-## How to implement
+## How to use Express Checkout
 
 Install the component using npm
 
-`npm install express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
+`npm install --save express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
 
 
 ### React implementation
