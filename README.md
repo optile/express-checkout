@@ -1,8 +1,5 @@
 # express-checkout
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-
 Express Checkout is an abstraction for third-party express checkout providers such as PayPal Express and Amazon Pay.
 For more details please check the official documentation:
 
