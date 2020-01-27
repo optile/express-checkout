@@ -41,7 +41,6 @@ const onError = ({ err, dispatch, customFunctions }) => {
  * @param {Object} params.customFunctions
  */
 const fetchPresetAccountOk = ({ result, dispatch }) => {
-    console.log("result data of get preset account", result.data);
     dispatch(storePresetAccount(result.data));
     dispatch(setPresetAccountLoading(false));
 };

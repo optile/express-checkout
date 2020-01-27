@@ -23,7 +23,6 @@ const ConfigurationManager = props => {
     
     useEffect(() => {
         dispatch(storeConfiguration(props.configuration));
-        dispatch(storeSuffix());
         dispatch(storeMode(props.mode));
         dispatch(storeLongId(props.longId));
     }, [props.longId, props.mode]); 
