@@ -145,7 +145,7 @@ const cancelActionOk = ({ result, dispatch, customFunctions }) => {
     }
     dispatch(storePaypalCancelData(data));
     dispatch(storePaypalStatus("Payment Session Cancelled"));
-    onCustomerAbort({ params: { data: data, dispatch }, customFunctions });
+    onCustomerAbort({ params: { preset: data, dispatch }, customFunctions });
 };
 const cancelAction = ({ customFunctions, data }) => async (dispatch, getState) => {
     dispatch(storePaypalStatus("Payment Session Cancel Pending"));

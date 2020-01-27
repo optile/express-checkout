@@ -1,8 +1,4 @@
-# express-checkout
-
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
+# Express Checkout
 
 Express Checkout is an abstraction for third-party express checkout providers such as PayPal Express and Amazon Pay.
 For more details please check the official documentation:
@@ -21,35 +17,12 @@ For more details please check the official documentation:
 * Create Merchant Application and make sure to pass correct URL for (returnUrl, cancelUrl, summaryUrl, notificationUrl) - visit <https://optile.io>
 
 
-## Steps to run demo that present the component usage
+## How to use Express Checkout
 
-`npm install`
+Install the component using npm
 
-`npm start`
+`npm install --save express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
 
-Open <http://localhost:3000/>
-
-## Steps to build the component
-
-`npm install`
-
-`npm run build`
-
-## Steps to run test cases
-
-`npm test`
-
-
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
-
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
-
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
-
-## How to implement
 
 ### React implementation
 
@@ -114,6 +87,7 @@ const attributes = {
         getExpressList: ({ url, clientId, country }) => console.log(""),
         createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
         updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
+        cancelExpressPreset: ({ url, transaction, network }) => console.log(""), 
         getExpressPresetAccount: ({ url }) => console.log(""), // Get the Preset Account, first step in summary page
         confirmExpressPreset: ({ url, network }) => console.log(""), 
         onProceed: ({ preset, step, dispatch }) => console.log(""), 
@@ -156,7 +130,7 @@ render(<Demo />, document.querySelector("#demo"));
         
         <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
-        <script src="https/domain/express-checkout.js"></script>
+        <script src="./node_modules/express-checkout/express-checkout.js"></script>
         <script>
             var attributes = {
                 configuration: {
@@ -214,9 +188,9 @@ render(<Demo />, document.querySelector("#demo"));
                     getExpressList: ({ url, clientId, country }) => console.log(""),
                     createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
                     updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
+                    cancelExpressPreset: ({ url, transaction, network }) => console.log(""), 
+                    getExpressPresetAccount: ({ url }) => console.log(""), // Get the Preset Account, first step in summary page
                     confirmExpressPreset: ({ url, network }) => console.log(""), 
-                    getExpressPresetAccount: ({ url }) => console.log("") // Get the Preset Account, first step in summary page
-                    
                     onProceed: ({ preset, step, dispatch }) => console.log(""), 
                     onAbort: ({ preset, step, dispatch }) => console.log(""), 
                     onReload: ({ preset, step, dispatch }) => console.log(""), 
@@ -238,3 +212,22 @@ render(<Demo />, document.querySelector("#demo"));
     </body>
 </html>
 ```
+
+
+## Steps to run demo that present the component usage
+
+`npm install`
+
+`npm start`
+
+Open <http://localhost:3000/>
+
+## Steps to build the component
+
+`npm install`
+
+`npm run build`
+
+## Steps to run test cases
+
+`npm test`
