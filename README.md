@@ -291,7 +291,7 @@ Called to create payment session, for example in PAYPAL it is passed under payme
 
 #### updateExpressPreset
 
-Called to update payment session, for example in PAYPAL it is passed under onAuthorize for loading Paypal button in mode==null (first page)
+Called to update payment session, for example in PAYPAL it is passed under onAuthorize. Used in mode==null (first page)
  * @param {Object} params it contains
    * @param {String} url
    * @param {Object} transaction providerRequest
@@ -303,7 +303,7 @@ Called to update payment session, for example in PAYPAL it is passed under onAut
 #### cancelExpressPreset
 
 Called to cancel payment session, for example in PAYPAL, when the end customer click on cancel link.
-It is passed under onCancel for loading Paypal button in mode==null (first page)
+It is passed under onCancel. Used in mode==null (first page)
  * @param {Object} params it contains
    * @param {String} url
    * @param {Object} transaction providerRequest
@@ -382,7 +382,7 @@ Called when the end user click on cancel, for example in Paypal popup
 
 #### onClientException
 
-Called when an exception or error happen, if set onError function will be ignored
+Called when an exception or error happen. If set, onError function will be ignored
  * @param {Object} params it contains
    * @param {Object} preset
    * @param {String} step it indicates the current step for example Update
@@ -393,7 +393,7 @@ Called when an exception or error happen, if set onError function will be ignore
 
 #### onError
 
-Called when an exception or error happen, it is only used if onClientException is not set
+Called when an exception or error happen. It is only used if onClientException is not set
  * @param {Object} params it contains
    * @param {Object} resultInfo
    * @param {String} network payment code, for example: "PAYPAL"
