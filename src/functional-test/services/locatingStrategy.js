@@ -1,7 +1,7 @@
-const {By,until} = require("selenium-webdriver");
+const { By, until } = require("selenium-webdriver");
 
-function getElement(element) { 
+function getElement(element) {
     return DRIVER.wait(until.elementLocated(By.css(element)), TIME);
 }
 
-module.exports = {getElement}
+module.exports = { getElement };

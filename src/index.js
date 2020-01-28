@@ -17,7 +17,7 @@ import ConfigurationManager from "./components/ConfigurationManager";
  * @param {String} props.longId
  * @return {JSX.Element}
  */
-const ExpressCheckout = ({ configuration, createTransactionDetails, customFunctions, mode, longId }) => {
+const ExpressCheckout = ({ configuration, createTransactionDetails, customFunctions, mode, longId}) => {
     const store = initStore();
     return (
         <Provider store={store}>

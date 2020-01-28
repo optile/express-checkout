@@ -1,3 +1,3 @@
 module.exports = {
-    testMatch: ["**/config/testSuite.js"]
-  };
+    testMatch: ["**/config/testSuite.js"],
+};

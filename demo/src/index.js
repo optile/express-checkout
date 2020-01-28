@@ -38,7 +38,9 @@ const Demo = () => {
                     </li>
                 </ul>
             )}
-            <ExpressCheckout {...attributes} mode={mode} longId={longId} />
+            <ExpressCheckout {...attributes} mode={mode} longId={longId}     test-id="paypal-button"      
+            />
+             
         </div>
     );
 };
