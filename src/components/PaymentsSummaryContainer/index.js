@@ -17,7 +17,6 @@ const PaymentsSummaryContainer = props => {
 
     return (
         <div test-id="payments-summary-container">
-            <div>{JSON.stringify(presetAccount)}</div>
             <button onClick={() => props.confirmAction({ customFunctions: props.customFunctions })}>Confirm</button>
         </div>
     );
