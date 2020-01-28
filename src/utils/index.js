@@ -36,7 +36,7 @@ export const interactionCodeHandler = ({ code, preset, step, dispatch, customFun
             onAbort({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "TRY_OTHER_NETWORK": // don't make hard reload bcz express list is static and won't remove
+        case "TRY_OTHER_NETWORK": // TODO: don't make hard reload bcz express list is static and won't remove
             // the failed network from the response, so should be handled in front end
             onReload({ params: { preset, step, dispatch }, customFunctions });
             break;
@@ -49,7 +49,7 @@ export const interactionCodeHandler = ({ code, preset, step, dispatch, customFun
             onRetry({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "RELOAD": // make sure to call express list again
+        case "RELOAD": // TODO: make sure to call express list again
             onReload({ params: { preset, step, dispatch }, customFunctions });
             break;
 
