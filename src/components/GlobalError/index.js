@@ -10,11 +10,7 @@ const redError = { color: "#c22d2d" };
  * @return {JSX.Element}
  */
 const GlobalError = ({ message }) => {
-    return (
-        <Fragment>
-            <div test-id="global-error" style={redError}>{message}</div>
-        </Fragment>
-    );
+    return <div test-id="global-error" style={redError}></div>;
 };
 
 GlobalError.propTypes = {

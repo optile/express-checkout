@@ -311,6 +311,7 @@ export const onClientException = ({ preset, step, dispatch, customFunctions }) =
     const message = "Error has occurred: " + resultInfo + ",  Step: " + step;
     dispatch(storeGlobalError(message));
     dispatch(storeDisplayGlobalError(true));
+    console.log(message);
     // TODO Logout Amazon pay using dispatch if needed
 };
 
