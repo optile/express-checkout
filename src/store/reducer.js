@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 
 import { configuration, mode, longId } from "../components/ConfigurationManager/redux";
 import { list, listError, listLoading } from "../components/PaymentsContainer/redux";
+import { globalError, displayGlobalError } from "../components/GlobalError/redux";
 import {
     presetAccount,
     presetAccountError,
@@ -38,6 +39,8 @@ const rootReducer = combineReducers({
         confirmAccountError,
         confirmAccountLoading,
     }),
+    globalError,
+    displayGlobalError,
 });
 
 export default rootReducer;
