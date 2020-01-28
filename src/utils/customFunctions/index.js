@@ -91,6 +91,7 @@ const onProceedInternal = ({ preset, step, dispatch }) => {
         return;
     }
     console.log(`Redirect via ${method} is not supported`);
+    return;
 };
 
 /**
