@@ -48,7 +48,7 @@ const confirmActionOk = ({ result, dispatch, customFunctions }) => {
         return;
     }
     dispatch(storeConfirmAccount(data));
-    onProceed({ params: { preset: data, step: "confirm", dispatch }, customFunctions });
+    return onProceed({ params: { preset: data, step: "confirm", dispatch }, customFunctions });
 };
 const confirmAction = ({ customFunctions }) => async (dispatch, getState) => {
     dispatch(setConfirmAccountLoading(true));

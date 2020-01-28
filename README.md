@@ -5,6 +5,13 @@ For more details please check the official documentation:
 
 <https://www.optile.io/express-checkout>
 
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 ## Prerequisites
 * node - for installation visit <https://nodejs.org/en/download/>
 
@@ -17,12 +24,22 @@ For more details please check the official documentation:
 * Create Merchant Application and make sure to pass correct URL for (returnUrl, cancelUrl, summaryUrl, notificationUrl) - visit <https://optile.io>
 
 
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 ## How to use Express Checkout
 
 Install the component using npm
 
 `npm install --save express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
 
+
+<br/>
+<br/>
 
 ### React implementation
 
@@ -114,7 +131,8 @@ const Demo = () => {
 render(<Demo />, document.querySelector("#demo"));
 ```
 
-
+<br/>
+<br/>
 
 ### Umd implementation
 
@@ -218,6 +236,15 @@ render(<Demo />, document.querySelector("#demo"));
     </body>
 </html>
 ```
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
+
 ### More information about how to use ExpressCheckout Component
 
 It is the main component to render express checkout widget
@@ -229,8 +256,15 @@ It is the main component to render express checkout widget
    * @param {String} longId in mode === "Summary", it is obligatory to be set, you can find it from the result of successful updateExpressPreset
 
 
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
 
 ### More information about how to use customFunctions
+
 
 #### getExpressList
 
@@ -240,6 +274,8 @@ Called to get list of applicable payment methods, it is first step in mode === n
    * @param {String} clientId
    * @param {String} country
 
+<br/>
+<br/>
 
 #### createExpressPreset
 
@@ -250,25 +286,31 @@ Called to create payment session, for example in PAYPAL it is passed under payme
    * @param {String} network payment code, for example: "PAYPAL"
    * @param {String} clientId
 
+<br/>
+<br/>
 
 #### updateExpressPreset
 
-Called to update payment session, for example in PAYPAL it is passed under onAuthorize for loading Paypal button in mode==null (first page)
+Called to update payment session, for example in PAYPAL it is passed under onAuthorize. Used in mode==null (first page)
  * @param {Object} params it contains
    * @param {String} url
    * @param {Object} transaction providerRequest
    * @param {String} network payment code, for example: "PAYPAL"
 
+<br/>
+<br/>
 
 #### cancelExpressPreset
 
 Called to cancel payment session, for example in PAYPAL, when the end customer click on cancel link.
-It is passed under onCancel for loading Paypal button in mode==null (first page)
+It is passed under onCancel. Used in mode==null (first page)
  * @param {Object} params it contains
    * @param {String} url
    * @param {Object} transaction providerRequest
    * @param {String} network payment code, for example: "PAYPAL"
 
+<br/>
+<br/>
 
 #### getExpressPresetAccount
 
@@ -278,6 +320,8 @@ It is used in onClick of Confirm button in mode==Summary (second page)
    * @param {String} url
    * @param {String} network payment code, for example: "PAYPAL"
 
+<br/>
+<br/>
 
 #### onProceed
 
@@ -287,6 +331,8 @@ Called when the http request returns data.interaction.code === "PROCEED"
    * @param {String} step it indicates the current step for example Update, so the proceed function will know that we need to load confirm/summary mode
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
+<br/>
+<br/>
 
 #### onAbort
 
@@ -297,6 +343,8 @@ For example when last payment method is used and failed
    * @param {String} step it indicates the current step for example Update
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
+<br/>
+<br/>
 
 #### onReload
 
@@ -306,6 +354,8 @@ Called when the http request returns data.interaction.code === "TRY_OTHER_NETWOR
    * @param {String} step it indicates the current step for example Update
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
+<br/>
+<br/>
 
 #### onRetry
 
@@ -316,6 +366,8 @@ The end customer can retry and will see all network and nothing should change
    * @param {String} step it indicates the current step for example Update
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
+<br/>
+<br/>
 
 #### onCustomerAbort
 
@@ -325,25 +377,36 @@ Called when the end user click on cancel, for example in Paypal popup
    * @param {String} step it indicates the current step for example Update
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
+<br/>
+<br/>
 
 #### onClientException
 
-Called when an exception or error happen, if set onError function will be ignored
+Called when an exception or error happen. If set, onError function will be ignored
  * @param {Object} params it contains
    * @param {Object} preset
    * @param {String} step it indicates the current step for example Update
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
+<br/>
+<br/>
 
 #### onError
 
-Called when an exception or error happen, it is only used if onClientException is not set
+Called when an exception or error happen. It is only used if onClientException is not set
  * @param {Object} params it contains
    * @param {Object} resultInfo
    * @param {String} network payment code, for example: "PAYPAL"
    * @param {String} step it indicates the current step for example Update
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
 
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
 
 
 ## Steps to run demo that present the component usage
@@ -354,11 +417,27 @@ Called when an exception or error happen, it is only used if onClientException i
 
 Open <http://localhost:3000/>
 
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 ## Steps to build the component
 
 `npm install`
 
 `npm run build`
+
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 
 ## Steps to run test cases
 

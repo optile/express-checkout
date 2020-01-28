@@ -1,6 +1,7 @@
 import get from "lodash/get";
 import { sendData, sendDataWithParams } from "../network";
 import { getRedirectUrl } from "../index";
+import { storeGlobalError, storeDisplayGlobalError } from "../../components/GlobalError/redux";
 
 /**
  * Internal implementation for getExpressList function
@@ -90,6 +91,7 @@ const onProceedInternal = ({ preset, step, dispatch }) => {
         return;
     }
     console.log(`Redirect via ${method} is not supported`);
+    return;
 };
 
 /**
@@ -307,7 +309,10 @@ export const onClientException = ({ preset, step, dispatch, customFunctions }) =
         return;
     }
     const { resultInfo } = preset;
-    console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
+    const message = "Error has occurred: " + resultInfo + ",  Step: " + step;
+    dispatch(storeGlobalError(message));
+    dispatch(storeDisplayGlobalError(true));
+    console.log(message);
     // TODO Logout Amazon pay using dispatch if needed
 };
 
