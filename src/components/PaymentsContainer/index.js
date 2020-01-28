@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useList } from "./hook";
 import Paypal from "../paymentMethods/Paypal";
@@ -30,10 +30,10 @@ const PaymentsContainer = props => {
     const listOfPaymentMethods = useSelector(state => state.list.data);
     useList(props.customFunctions);
     return (
-        <Fragment>
+        <div test-id="payments-container">
             {listOfPaymentMethods &&
                 map(listOfPaymentMethods, (method,i) => loadPaymentMethodByCode(method.code, props, i))}
-        </Fragment>
+        </div>
     );
 };
 

@@ -12,7 +12,7 @@ const redError = { color: "#c22d2d" };
 const GlobalError = ({ message }) => {
     return (
         <Fragment>
-            <div style={redError}>{message}</div>
+            <div test-id="global-error" style={redError}>{message}</div>
         </Fragment>
     );
 };
