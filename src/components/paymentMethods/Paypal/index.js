@@ -38,7 +38,7 @@ const Paypal = props => {
     const listConfiguration = useSelector(state => find(state.list.data, item => item.code === "PAYPAL"));
 
     const buttonProps = prepareButtonProps({ initialConfiguration, listConfiguration, props });
-    return <PaypalButton {...buttonProps} />;
+    return <div test-id="paypal-button-container"><PaypalButton {...buttonProps}/></div>;
 };
 
 Paypal.propTypes = {};

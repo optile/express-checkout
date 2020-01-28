@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getExpressPresetAccount } from "../../utils/customFunctions";
+import { getExpressPresetAccount, onClientException } from "../../utils/customFunctions";
 import { handleError } from "../../utils";
 import { setPresetAccountLoading, setPresetAccountError, storePresetAccount } from "./redux";
+import { removeGlobalError } from "../GlobalError/redux";
 
 const getPresetLink = (baseURL, longId) => {
     return `${baseURL.replace("/pci/v1/express", "/pci/v1/presets")}/${longId}`;
@@ -83,5 +84,21 @@ const usePresetAccount = customFunctions => {
         }
     }, [baseURL, longId]);
 };
+/**
+ * Custom hook to display or hide global error depending of params
+ * @param {Object} customFunctions
+ */
+const useCheckPropsForSummary = customFunctions => {
+    const dispatch = useDispatch();
+    const mode = useSelector(state => state.mode);
+    const longId = useSelector(state => state.longId);
+    useEffect(() => {
+        if (mode === "Summary" && !longId) {
+            onClientException({ preset: { resultInfo: "No longId" }, step: "Init Summary", dispatch, customFunctions });
+        } else {
+            removeGlobalError(dispatch);
+        }
+    }, [mode, longId]);
+};
 
-export { usePresetAccount, fetchPresetAccount, onError };
+export { usePresetAccount, fetchPresetAccount, onError, useCheckPropsForSummary };

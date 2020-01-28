@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useSelector, connect } from "react-redux";
-import { usePresetAccount } from "./hook";
+import { usePresetAccount, useCheckPropsForSummary } from "./hook";
 import { confirmAction } from "./actions.redux";
 /**
  * Payments Summary Container
@@ -13,11 +13,12 @@ import { confirmAction } from "./actions.redux";
 const PaymentsSummaryContainer = props => {
     const presetAccount = useSelector(state => state.presetAccount.data);
     usePresetAccount(props.customFunctions);
+    useCheckPropsForSummary(props.customFunctions);
+
     return (
-        <Fragment>
-            <div>{JSON.stringify(presetAccount)}</div>
+        <div test-id="payments-summary-container">
             <button onClick={() => props.confirmAction({ customFunctions: props.customFunctions })}>Confirm</button>
-        </Fragment>
+        </div>
     );
 };
 
