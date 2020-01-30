@@ -1,7 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-const redError = { color: "#c22d2d" };
 /**
  * Global error that display a message
  * Display Global error message
@@ -10,7 +9,7 @@ const redError = { color: "#c22d2d" };
  * @return {JSX.Element}
  */
 const GlobalError = ({ message }) => {
-    return <div test-id="global-error" style={redError}></div>;
+    return <div test-id="global-error" className="global-error"></div>;
 };
 
 GlobalError.propTypes = {

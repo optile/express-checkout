@@ -11,13 +11,12 @@ import { confirmAction } from "./actions.redux";
  * @return {JSX.Element}
  */
 const PaymentsSummaryContainer = props => {
-    const presetAccount = useSelector(state => state.presetAccount.data);
     usePresetAccount(props.customFunctions);
     useCheckPropsForSummary(props.customFunctions);
 
     return (
-        <div test-id="payments-summary-container">
-            <button onClick={() => props.confirmAction({ customFunctions: props.customFunctions })}>Confirm</button>
+        <div test-id="payments-summary-container"  test-id="payments-summary-container">
+            <button test-id="payments-summary-confirm-button" className="payments-summary-confirm-button" onClick={() => props.confirmAction({ customFunctions: props.customFunctions })}>Confirm</button>
         </div>
     );
 };
