@@ -4,4 +4,8 @@ function getElement(element) {
     return DRIVER.wait(until.elementLocated(By.css(element)), TIME);
 }
 
-module.exports = { getElement };
+function getElementByXpath(element){
+    return DRIVER.wait(until.elementLocated(By.xpath(element)), TIME);
+}
+
+module.exports = { getElement, getElementByXpath };

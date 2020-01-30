@@ -1,5 +1,5 @@
 const { Builder, By } = require("selenium-webdriver");
-const { getElement } = require("../services/locatingStrategy");
+const { getElement, getElementByXpath } = require("../services/locatingStrategy");
 import "babel-polyfill";
 const BASE_URL = "http://localhost:3000";
 const LONG_WAIT = 50000;
@@ -32,7 +32,13 @@ const payPalTests = () => {
         await getElement("#password").sendKeys("123456789");
         (await getElement("#btnLogin")).click();
         await DRIVER.sleep(9000);
-        (await getElement("#acceptAllButton")).click();
+        await DRIVER.manage().deleteAllCookies();   
+        await DRIVER.sleep(2000);   
+        (await getElement("#confirmButtonTop")).click();
+        await DRIVER.sleep(4000);
+        (await getElementByXpath("//button[text()='Confirm']")).click();
+        await DRIVER.sleep(4000);
+        
     });
 };
 module.exports = payPalTests;
