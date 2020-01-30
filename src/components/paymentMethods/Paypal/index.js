@@ -6,18 +6,18 @@ import { paymentAction, authorizeAction, cancelAction } from "./actions.redux";
 /**
  * Prepare Paypal button needed props
  * @param {Object} params
- * @param {Object} params.initialConfiguration
+ * @param {Object} params.initialConfigurationStyle
+ * @param {String} params.initialConfigurationLanguage passed under configuration initially
  * @param {Object} params.listConfiguration
  * @param {Object} params.props
  */
-const prepareButtonProps = ({ initialConfiguration, listConfiguration, props }) => {
-    const { style, locale } = initialConfiguration;
+const prepareButtonProps = ({ initialConfigurationStyle, initialConfigurationLanguage, listConfiguration, props }) => {
     const {
         contractData: { PAGE_ENVIRONMENT, PAGE_BUTTON_LOCALE },
     } = listConfiguration;
     return {
-        style,
-        locale: PAGE_BUTTON_LOCALE || locale,
+        style:initialConfigurationStyle,
+        locale: initialConfigurationLanguage || PAGE_BUTTON_LOCALE,
         commit: false,
         env: PAGE_ENVIRONMENT,
         payment: () =>
@@ -35,9 +35,11 @@ const Paypal = props => {
     const initialConfiguration = useSelector(state =>
         find(state.configuration.paymentMethodsConfiguration, item => item.code === "PAYPAL")
     );
+    const initialConfigurationStyle = initialConfiguration.style;
+    const initialConfigurationLanguage = useSelector(state => state.configuration.language);
     const listConfiguration = useSelector(state => find(state.list.data, item => item.code === "PAYPAL"));
 
-    const buttonProps = prepareButtonProps({ initialConfiguration, listConfiguration, props });
+    const buttonProps = prepareButtonProps({ initialConfigurationStyle, initialConfigurationLanguage, listConfiguration, props });
     return <div test-id="paypal-button-container" className="paypal-button-container"><PaypalButton {...buttonProps}/></div>;
 };
 

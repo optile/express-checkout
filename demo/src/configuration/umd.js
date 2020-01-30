@@ -4,6 +4,7 @@ window.attributes = {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
             clientId: "v1.opt-div-app.bd0dca87952d454ebb5eaf2398069667",
             country: "DE",
+            language: "en_US",
 
             paymentMethodsConfiguration: [
                 {
@@ -14,7 +15,6 @@ window.attributes = {
                         shape: "rect",
                         label: "checkout",
                     },
-                    locale: "en_US",
                 },
             ],
         },

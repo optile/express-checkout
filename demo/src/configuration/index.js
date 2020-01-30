@@ -11,7 +11,7 @@ const attributes = {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
             clientId: "v1.opt-div-app.1b293aa844de46d4860da0ad5d29f0fe",
             country: "DE",
-
+            language: "en_US",
             paymentMethodsConfiguration: [
                 {
                     code: "PAYPAL",
@@ -21,7 +21,6 @@ const attributes = {
                         shape: "rect",
                         label: "checkout",
                     },
-                    locale: "en_US",
                 },
             ],
         },
@@ -46,15 +45,14 @@ const attributes = {
                 ],
             };
         },
-        customFunctions: {
-        },
+        customFunctions: {},
     },
     integration: {
         configuration: {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
             clientId: "v1.opt-div-app.d1f6628b66064154b5bde44cf095ad61",
             country: "DE",
-
+            language: "en_US",
             paymentMethodsConfiguration: [
                 {
                     code: "PAYPAL",
@@ -64,7 +62,6 @@ const attributes = {
                         shape: "rect",
                         label: "checkout",
                     },
-                    locale: "en_US",
                 },
             ],
         },
@@ -89,8 +86,7 @@ const attributes = {
                 ],
             };
         },
-        customFunctions: {
-        },
+        customFunctions: {},
     },
 };
 
