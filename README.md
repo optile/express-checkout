@@ -244,6 +244,26 @@ render(<Demo />, document.querySelector("#demo"));
 <br/>
 <br/>
 
+### How to style Express Checkout
+
+Most important classes, that you may need to style using CSS
+
+ * class "payments-summary-confirm-button":   In Summary page, a Confirm button will be rendered,
+  This button can be styled by using the class "payments-summary-confirm-button"
+  and styling it in CSS in your page.
+
+ * class "global-error": In case of Error, Express Checkout will render only Global Error component, which contains a message but it is hidden by default, by using class "global-error", 
+  it is possible to make it visible
+  
+
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 
 ### More information about how to use ExpressCheckout Component
 

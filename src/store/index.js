@@ -13,5 +13,6 @@ const enhancer = process.env.NODE_ENV === "development" ? composeWithDevTools(ap
  * @return {Object} redux store
  */
 const initStore = () => createStore(rootReducer, enhancer);
+const store = initStore();
 
-export default initStore;
+export default store;

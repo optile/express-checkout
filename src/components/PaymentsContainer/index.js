@@ -30,7 +30,7 @@ const PaymentsContainer = props => {
     const listOfPaymentMethods = useSelector(state => state.list.data);
     useList(props.customFunctions);
     return (
-        <div test-id="payments-container">
+        <div test-id="payments-container" className="payments-container">
             {listOfPaymentMethods &&
                 map(listOfPaymentMethods, (method,i) => loadPaymentMethodByCode(method.code, props, i))}
         </div>
