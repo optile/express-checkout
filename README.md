@@ -469,7 +469,7 @@ dispatch(action);
 Available actions in usual order:
 
 To store the configuration
-```json
+```javascript
 { 
     type: "STORECONFIGURATION",
     payload: {
@@ -487,7 +487,7 @@ To store the configuration
 <br/>
 
 To store the mode
-```json
+```javascript
 {
   type: "STOREMODE",
   payload: "Summary
@@ -498,7 +498,7 @@ To store the mode
 <br/>
 
 To store the longId
-```json
+```javascript
 {
   type: "STORELONGID",
   payload: "12345678901234567890"
@@ -509,7 +509,7 @@ To store the longId
 <br/>
 
 To set list loading to true or false, when you start the call and when you get the response
-```json
+```javascript
 {
   type: "LISTLOADING",
   payload: true
@@ -520,7 +520,7 @@ To set list loading to true or false, when you start the call and when you get t
 <br/>
 
 To store the list of applicable networks from list response
-```json
+```javascript
 {
   type: "STORELIST",
   payload: [
@@ -537,7 +537,7 @@ To store the list of applicable networks from list response
 <br/>
 
 To set get preset account loading to true or false
-```json
+```javascript
 {
   type: "PRESETACCOUNTLOADING",
   payload: true
@@ -548,7 +548,7 @@ To set get preset account loading to true or false
 <br/>
 
 To store the preset account, usually first step in Summary mode
-```json
+```javascript
 {
   type: "PRESETACCOUNT",
   payload: {
@@ -577,7 +577,7 @@ To store the preset account, usually first step in Summary mode
 <br/>
 
 To set if global error should be displayed
-```json
+```javascript
 {
   type: "STOREDISPLAYGLOBALERROR",
   payload: false
@@ -588,7 +588,7 @@ To set if global error should be displayed
 <br/>
 
 To set the value of global error message
-```json
+```javascript
 {
   type: "STOREGLOBALERROR",
   payload: "An Error happen"
@@ -599,7 +599,7 @@ To set the value of global error message
 <br/>
 
 To set is the process of confirm started or finished
-```json
+```javascript
 {
   type: "CONFIRMACCOUNTLOADING",
   payload: true
@@ -610,7 +610,7 @@ To set is the process of confirm started or finished
 <br/>
 
 To set is the process of confirm started
-```json
+```javascript
 {
   type: "CONFIRMACCOUNT",
   payload: {
@@ -639,7 +639,7 @@ To set is the process of confirm started
 
 Actions related to paypal
 
-```json
+```javascript
 {
   type: "STOREPAYPALSTATUS",
   payload: "Payment Session Pending"
