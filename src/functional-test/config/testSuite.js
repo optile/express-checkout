@@ -8,9 +8,9 @@ describe("Test Suite", () => {
         global.TIME = 5000;
     });
 
-    // afterAll(async () => {
-    //   await DRIVER.quit();
-    // });
+    afterAll(async () => {
+        await DRIVER.quit();
+    });
 
     describe("PayPal Express Checkout Tests", payPalTests);
 });

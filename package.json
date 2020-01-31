@@ -22,8 +22,6 @@
     "test_dev": "jest --watch src",
     "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
     "uitest": "jest -c src/functional-test/config/jest.config.js"
-  
-
   },
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
