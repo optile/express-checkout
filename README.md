@@ -284,7 +284,7 @@ Most important classes, that you may need to style using CSS
 
 It is the main component to render express checkout widget
  * @param {Object} params it contains
-   * @param {Object} configuration like in the example, it contains (baseURL, clientId, country and paymentMethodsConfiguration)
+   * @param {Object} configuration like in the example, it contains (baseURL, clientId, country, language, translation and paymentMethodsConfiguration)
    * @param {Function} createTransactionDetails it is a function that will generate transaction object used in createExpressPreset
    * @param {Object} customFunctions your customized function, for more information, look below
    * @param {String} mode when it is not set, it is first page, for second page, it should be set to "Summary"
@@ -434,6 +434,243 @@ Called when an exception or error happen. It is only used if onClientException i
    * @param {String} network payment code, for example: "PAYPAL"
    * @param {String} step it indicates the current step for example Update
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+##### dispatch parameter passed in most of customFunctions
+
+The parameter dispatch that exists in most of customFunctions, is the store's reducing function in Redux,
+please check this link for more information <https://redux.js.org/api/store/#dispatchaction>
+It is not the most recommended way to make changes in the component, but it may be needed in some cases and the action keys should be known,
+and the structure.
+
+<br/>
+<br/>
+
+To use dispatch function, you should call the function by passing an object 
+that contains type ( the key or name of the action ), and payload, that represent the changes
+
+```javascript
+var action = { 
+    type: "STORECONFIGURATION",
+    payload: {
+        baseURL: "",
+        clientId: "",
+        country: "",
+        language: "",
+        translation: [],
+        paymentMethodsConfiguration: []
+    }
+};
+dispatch(action);
+```
+
+Available actions in usual order:
+
+To store the configuration
+```json
+{ 
+    type: "STORECONFIGURATION",
+    payload: {
+        baseURL: "",
+        clientId: "",
+        country: "",
+        language: "",
+        translation: [],
+        paymentMethodsConfiguration: []
+    }
+}
+```
+
+<br/>
+<br/>
+
+To store the mode
+```json
+{
+  type: "STOREMODE",
+  payload: "Summary
+}
+```
+
+<br/>
+<br/>
+
+To store the longId
+```json
+{
+  type: "STORELONGID",
+  payload: "12345678901234567890"
+}
+```
+
+<br/>
+<br/>
+
+To set list loading to true or false, when you start the call and when you get the response
+```json
+{
+  type: "LISTLOADING",
+  payload: true
+}
+```
+
+<br/>
+<br/>
+
+To store the list of applicable networks from list response
+```json
+{
+  type: "STORELIST",
+  payload: [
+    {
+      code: "PAYPAL",
+      label: "PayPal",
+      ...
+    }
+  ]
+}
+```
+
+<br/>
+<br/>
+
+To set get preset account loading to true or false
+```json
+{
+  type: "PRESETACCOUNTLOADING",
+  payload: true
+}
+```
+
+<br/>
+<br/>
+
+To store the preset account, usually first step in Summary mode
+```json
+{
+  type: "PRESETACCOUNT",
+  payload: {
+    links: {
+      confirm: "",
+      self: ""
+    },
+    resultInfo: "Pending; waiting for customer review and approval of payment details",
+    interaction: {
+      code: "PROCEED",
+      reason: "TAKE_ACTION"
+    },
+    redirect: {
+      url: "",
+      method: "GET",
+      parameters: [
+      ],
+      type: "SUMMARY"
+    },
+    network: "PAYPAL"
+  }
+}
+```
+
+<br/>
+<br/>
+
+To set if global error should be displayed
+```json
+{
+  type: "STOREDISPLAYGLOBALERROR",
+  payload: false
+}
+```
+
+<br/>
+<br/>
+
+To set the value of global error message
+```json
+{
+  type: "STOREGLOBALERROR",
+  payload: "An Error happen"
+}
+```
+
+<br/>
+<br/>
+
+To set is the process of confirm started or finished
+```json
+{
+  type: "CONFIRMACCOUNTLOADING",
+  payload: true
+}
+```
+
+<br/>
+<br/>
+
+To set is the process of confirm started
+```json
+{
+  type: "CONFIRMACCOUNT",
+  payload: {
+    links: {
+      self: ""
+    },
+    resultInfo: "Approved; The payment is pending because it is part of an order that has been authorized but not settled; Merchant protection: None",
+    interaction: {
+      code: "PROCEED",
+      reason: "OK"
+    },
+    redirect: {
+      url: "",
+      method: "GET",
+      parameters: [
+      ],
+      type: "RETURN"
+    },
+    network: "PAYPAL"
+  }
+}
+```
+
+<br/>
+<br/>
+
+Actions related to paypal
+
+```json
+{
+  type: "STOREPAYPALSTATUS",
+  payload: "Payment Session Pending"
+}
+
+{
+  type: "STOREPAYPALPRESET",
+  payload: {
+    links: {
+      self: ""
+    },
+    resultInfo: "Pending, you have to check the status later",
+    interaction: {
+      code: "PROCEED",
+      reason: "PENDING"
+    },
+    network: "PAYPAL",
+    providerResponse: {
+      providerCode: "PAYPAL",
+      parameters: [
+      ]
+    }
+  }
+}
+
+{
+  type: "STOREPAYPALPAYMENTID",
+  payload: "12345678901234567890"
+}
+```
+
 
 
 <br/>
