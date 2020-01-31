@@ -53,6 +53,21 @@ const attributes = {
         baseURL: "....",
         clientId: "....",
         country: "DE",
+        language: "en_US",
+        translation: [
+            {
+                language: "en",
+                resource: {
+                    confirm: "confirm",
+                },
+            },
+            {
+                language: "de",
+                resource: {
+                    confirm: "bestätigen",
+                },
+            },
+        ],
         paymentMethodsConfiguration: [
             {
                 code: "PAYPAL",
@@ -61,8 +76,7 @@ const attributes = {
                     color: "gold",
                     shape: "rect",
                     label: "checkout",
-                },
-                locale: "en_US",
+                }
             },
             {
                 code: "AMAZONPAY",
@@ -158,6 +172,21 @@ render(<Demo />, document.querySelector("#demo"));
                     baseURL: "....",
                     clientId: "....",
                     country: "DE",
+                    language: "en_US",
+                    translation: [
+                        {
+                            language: "en",
+                            resource: {
+                                confirm: "confirm",
+                            },
+                        },
+                        {
+                            language: "de",
+                            resource: {
+                                confirm: "bestätigen",
+                            },
+                        },
+                    ],
                     paymentMethodsConfiguration: [
                         {
                             code: "PAYPAL",
@@ -166,21 +195,7 @@ render(<Demo />, document.querySelector("#demo"));
                                 color: "gold",
                                 shape: "rect",
                                 label: "checkout",
-                            },
-                            locale: "en_US",
-                        },
-                        {
-                            code: "AMAZONPAY",
-                            type: "PwA",
-                            color: "Gold",
-                            size: "small",
-                            language: "en-GB",
-                            proceedButtonText: "Continue",
-                            cancelButtonText: "Cancel Payment",
-                            constraints: {
-                                PaymentMethodNotAllowed:
-                                    "There has been a problem with the selected payment method from your Amazon account, please update the payment method or choose another one.",
-                            },
+                            }
                         },
                     ],
                 },
