@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
  * @return {JSX.Element}
  */
 const PaymentsSummaryContainer = props => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     usePresetAccount(props.customFunctions);
     useCheckPropsForSummary(props.customFunctions);
     

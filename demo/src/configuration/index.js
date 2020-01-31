@@ -16,13 +16,13 @@ const attributes = {
                 {
                     language: "en",
                     resource: {
-                        confirm: "continue...",
+                        confirm: "Confirm",
                     },
                 },
                 {
                     language: "de",
                     resource: {
-                        confirm: "fortsetzen...",
+                        confirm: "Bestätigen",
                     },
                 },
             ],
@@ -67,6 +67,20 @@ const attributes = {
             clientId: "v1.opt-div-app.d1f6628b66064154b5bde44cf095ad61",
             country: "DE",
             language: "en_US",
+            translation: [
+                {
+                    language: "en",
+                    resource: {
+                        confirm: "confirm",
+                    },
+                },
+                {
+                    language: "de",
+                    resource: {
+                        confirm: "bestätigen",
+                    },
+                },
+            ],
             paymentMethodsConfiguration: [
                 {
                     code: "PAYPAL",

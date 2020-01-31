@@ -39,9 +39,11 @@ const ConfigurationManager = props => {
             props.configuration.translation.forEach(tr => {
                 i18n.addResourceBundle(tr.language, "global", tr.resource);
             });
+        }
+        if (props.configuration.language) {
             i18n.changeLanguage(use2LettersLanguage(props.configuration.language));
         }
-    }, [props.configuration.translation]);
+    }, [props.configuration]);
 
     if (displayGlobalError) {
         return <GlobalError message={globalError} />;

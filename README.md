@@ -54,6 +54,20 @@ const attributes = {
         clientId: "....",
         country: "DE",
         language: "en_US",
+        translation: [
+            {
+                language: "en",
+                resource: {
+                    confirm: "confirm",
+                },
+            },
+            {
+                language: "de",
+                resource: {
+                    confirm: "bestätigen",
+                },
+            },
+        ],
         paymentMethodsConfiguration: [
             {
                 code: "PAYPAL",
@@ -159,6 +173,20 @@ render(<Demo />, document.querySelector("#demo"));
                     clientId: "....",
                     country: "DE",
                     language: "en_US",
+                    translation: [
+                        {
+                            language: "en",
+                            resource: {
+                                confirm: "confirm",
+                            },
+                        },
+                        {
+                            language: "de",
+                            resource: {
+                                confirm: "bestätigen",
+                            },
+                        },
+                    ],
                     paymentMethodsConfiguration: [
                         {
                             code: "PAYPAL",

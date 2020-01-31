@@ -5,7 +5,20 @@ window.attributes = {
             clientId: "v1.opt-div-app.bd0dca87952d454ebb5eaf2398069667",
             country: "DE",
             language: "en_US",
-
+            translation: [
+                {
+                    language: "en",
+                    resource: {
+                        confirm: "confirm",
+                    },
+                },
+                {
+                    language: "de",
+                    resource: {
+                        confirm: "bestätigen",
+                    },
+                },
+            ],
             paymentMethodsConfiguration: [
                 {
                     code: "PAYPAL",
