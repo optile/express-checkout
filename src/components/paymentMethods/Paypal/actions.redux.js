@@ -136,7 +136,6 @@ const authorizeAction = ({ customFunctions, data }) => async (dispatch, getState
 const cancelActionOk = ({ result, dispatch, customFunctions }) => {
     const { data } = result;
     const { code, reason } = data.interaction;
-    console.log(code, reason);
     if (code !== "PROCEED") {
         dispatch(storePaypalStatus("Payment Session Cancel Error"));
         return interactionCodeHandler({ code, preset: data, step: "cancel", dispatch, customFunctions });
