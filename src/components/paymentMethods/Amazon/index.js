@@ -1,6 +1,6 @@
 import React from "react";
 const Amazon = props => {
-    return <div>
+    return <div test-id="amazon-button-container" className="amazon-button-container">
     <input type="button" value="Amazon" />
     </div>;
 };

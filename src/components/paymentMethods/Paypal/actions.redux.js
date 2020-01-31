@@ -101,14 +101,13 @@ const authorizeActionOk = ({ result, dispatch, customFunctions }) => {
         const errorMessage = { message: data.resultInfo };
         dispatch(storePaypalError(errorMessage));
         dispatch(storePaypalStatus("Error"));
-        interactionCodeHandler({ code, preset: data, step: "update", dispatch, customFunctions });
-        return;
+        return interactionCodeHandler({ code, preset: data, step: "update", dispatch, customFunctions });
     }
     const presetReady = reason === "TAKE_ACTION";
     if (presetReady) {
         dispatch(storePaypalPreset(data));
         dispatch(storePaypalStatus("Authorization Done"));
-        onProceed({ params: { preset: data, step: "update", dispatch }, customFunctions });
+        return onProceed({ params: { preset: data, step: "update", dispatch }, customFunctions });
     }
 };
 
@@ -136,16 +135,14 @@ const authorizeAction = ({ customFunctions, data }) => async (dispatch, getState
 };
 const cancelActionOk = ({ result, dispatch, customFunctions }) => {
     const { data } = result;
-    const { code, reason } = data.interaction;
-    console.log(code, reason);
+    const { code } = data.interaction;
     if (code !== "PROCEED") {
         dispatch(storePaypalStatus("Payment Session Cancel Error"));
-        interactionCodeHandler({ code, preset: data, step: "cancel", dispatch, customFunctions });
-        return;
+        return interactionCodeHandler({ code, preset: data, step: "cancel", dispatch, customFunctions });
     }
     dispatch(storePaypalCancelData(data));
     dispatch(storePaypalStatus("Payment Session Cancelled"));
-    onCustomerAbort({ params: { preset: data, dispatch }, customFunctions });
+    return onCustomerAbort({ params: { preset: data, dispatch }, customFunctions });
 };
 const cancelAction = ({ customFunctions, data }) => async (dispatch, getState) => {
     dispatch(storePaypalStatus("Payment Session Cancel Pending"));

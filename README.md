@@ -5,6 +5,13 @@ For more details please check the official documentation:
 
 <https://www.optile.io/express-checkout>
 
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 ## Prerequisites
 * node - for installation visit <https://nodejs.org/en/download/>
 
@@ -17,12 +24,22 @@ For more details please check the official documentation:
 * Create Merchant Application and make sure to pass correct URL for (returnUrl, cancelUrl, summaryUrl, notificationUrl) - visit <https://optile.io>
 
 
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 ## How to use Express Checkout
 
 Install the component using npm
 
 `npm install --save express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
 
+
+<br/>
+<br/>
 
 ### React implementation
 
@@ -36,6 +53,21 @@ const attributes = {
         baseURL: "....",
         clientId: "....",
         country: "DE",
+        language: "en_US",
+        translation: [
+            {
+                language: "en",
+                resource: {
+                    confirm: "confirm",
+                },
+            },
+            {
+                language: "de",
+                resource: {
+                    confirm: "bestätigen",
+                },
+            },
+        ],
         paymentMethodsConfiguration: [
             {
                 code: "PAYPAL",
@@ -44,8 +76,7 @@ const attributes = {
                     color: "gold",
                     shape: "rect",
                     label: "checkout",
-                },
-                locale: "en_US",
+                }
             },
             {
                 code: "AMAZONPAY",
@@ -88,13 +119,16 @@ const attributes = {
         createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
         updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
         cancelExpressPreset: ({ url, transaction, network }) => console.log(""), 
-        getExpressPresetAccount: ({ url }) => console.log(""), // Get the Preset Account, first step in summary page
+        getExpressPresetAccount: ({ url }) => console.log(""), 
         confirmExpressPreset: ({ url, network }) => console.log(""), 
+
         onProceed: ({ preset, step, dispatch }) => console.log(""), 
         onAbort: ({ preset, step, dispatch }) => console.log(""), 
         onReload: ({ preset, step, dispatch }) => console.log(""), 
         onRetry: ({ preset, step, dispatch }) => console.log(""), 
         onCustomerAbort: ({ preset, step, dispatch }) => console.log(""), 
+        onClientException: ({ preset, step, dispatch }) => console.log(""), 
+        onError: ({ resultInfo, network, step, dispatch }) => console.log(""),
     },
 };
 const Demo = () => {
@@ -111,7 +145,8 @@ const Demo = () => {
 render(<Demo />, document.querySelector("#demo"));
 ```
 
-
+<br/>
+<br/>
 
 ### Umd implementation
 
@@ -137,6 +172,21 @@ render(<Demo />, document.querySelector("#demo"));
                     baseURL: "....",
                     clientId: "....",
                     country: "DE",
+                    language: "en_US",
+                    translation: [
+                        {
+                            language: "en",
+                            resource: {
+                                confirm: "confirm",
+                            },
+                        },
+                        {
+                            language: "de",
+                            resource: {
+                                confirm: "bestätigen",
+                            },
+                        },
+                    ],
                     paymentMethodsConfiguration: [
                         {
                             code: "PAYPAL",
@@ -145,21 +195,7 @@ render(<Demo />, document.querySelector("#demo"));
                                 color: "gold",
                                 shape: "rect",
                                 label: "checkout",
-                            },
-                            locale: "en_US",
-                        },
-                        {
-                            code: "AMAZONPAY",
-                            type: "PwA",
-                            color: "Gold",
-                            size: "small",
-                            language: "en-GB",
-                            proceedButtonText: "Continue",
-                            cancelButtonText: "Cancel Payment",
-                            constraints: {
-                                PaymentMethodNotAllowed:
-                                    "There has been a problem with the selected payment method from your Amazon account, please update the payment method or choose another one.",
-                            },
+                            }
                         },
                     ],
                 },
@@ -189,13 +225,16 @@ render(<Demo />, document.querySelector("#demo"));
                     createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
                     updateExpressPreset: ({ url, transaction, network }) => console.log(""), 
                     cancelExpressPreset: ({ url, transaction, network }) => console.log(""), 
-                    getExpressPresetAccount: ({ url }) => console.log(""), // Get the Preset Account, first step in summary page
+                    getExpressPresetAccount: ({ url }) => console.log(""), 
                     confirmExpressPreset: ({ url, network }) => console.log(""), 
+
                     onProceed: ({ preset, step, dispatch }) => console.log(""), 
                     onAbort: ({ preset, step, dispatch }) => console.log(""), 
                     onReload: ({ preset, step, dispatch }) => console.log(""), 
                     onRetry: ({ preset, step, dispatch }) => console.log(""), 
                     onCustomerAbort: ({ preset, step, dispatch }) => console.log(""), 
+                    onClientException: ({ preset, step, dispatch }) => console.log(""), 
+                    onError: ({ resultInfo, network, step, dispatch }) => console.log(""),
                 },
             };
             function showExpressCheckout(container) {
@@ -213,6 +252,197 @@ render(<Demo />, document.querySelector("#demo"));
 </html>
 ```
 
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
+### How to style Express Checkout
+
+Most important classes, that you may need to style using CSS
+
+ * class "payments-summary-confirm-button":   In Summary page, a Confirm button will be rendered,
+  This button can be styled by using the class "payments-summary-confirm-button"
+  and styling it in CSS in your page.
+
+ * class "global-error": In case of Error, Express Checkout will render only Global Error component, which contains a message but it is hidden by default, by using class "global-error", 
+  it is possible to make it visible
+  
+
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
+
+### More information about how to use ExpressCheckout Component
+
+It is the main component to render express checkout widget
+ * @param {Object} params it contains
+   * @param {Object} configuration like in the example, it contains (baseURL, clientId, country and paymentMethodsConfiguration)
+   * @param {Function} createTransactionDetails it is a function that will generate transaction object used in createExpressPreset
+   * @param {Object} customFunctions your customized function, for more information, look below
+   * @param {String} mode when it is not set, it is first page, for second page, it should be set to "Summary"
+   * @param {String} longId in mode === "Summary", it is obligatory to be set, you can find it from the result of successful updateExpressPreset
+
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
+### More information about how to use customFunctions
+
+
+#### getExpressList
+
+Called to get list of applicable payment methods, it is first step in mode === null (first page)
+ * @param {Object} params it contains
+   * @param {String} url
+   * @param {String} clientId
+   * @param {String} country
+
+<br/>
+<br/>
+
+#### createExpressPreset
+
+Called to create payment session, for example in PAYPAL it is passed under payment for loading Paypal button in mode === null (first page)
+ * @param {Object} params it contains
+   * @param {String} url
+   * @param {Object} transaction result of createTransactionDetails function, mandatory prop for ExpressCheckout
+   * @param {String} network payment code, for example: "PAYPAL"
+   * @param {String} clientId
+
+<br/>
+<br/>
+
+#### updateExpressPreset
+
+Called to update payment session, for example in PAYPAL it is passed under onAuthorize. Used in mode==null (first page)
+ * @param {Object} params it contains
+   * @param {String} url
+   * @param {Object} transaction providerRequest
+   * @param {String} network payment code, for example: "PAYPAL"
+
+<br/>
+<br/>
+
+#### cancelExpressPreset
+
+Called to cancel payment session, for example in PAYPAL, when the end customer click on cancel link.
+It is passed under onCancel. Used in mode==null (first page)
+ * @param {Object} params it contains
+   * @param {String} url
+   * @param {Object} transaction providerRequest
+   * @param {String} network payment code, for example: "PAYPAL"
+
+<br/>
+<br/>
+
+#### getExpressPresetAccount
+
+Called to confirm preset account, for example in PAYPAL, when the end customer sees the information about the payment and click a button to confirm.
+It is used in onClick of Confirm button in mode==Summary (second page)
+ * @param {Object} params it contains
+   * @param {String} url
+   * @param {String} network payment code, for example: "PAYPAL"
+
+<br/>
+<br/>
+
+#### onProceed
+
+Called when the http request returns data.interaction.code === "PROCEED"
+ * @param {Object} params it contains
+   * @param {Object} preset
+   * @param {String} step it indicates the current step for example Update, so the proceed function will know that we need to load confirm/summary mode
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+#### onAbort
+
+Called when the http request returns data.interaction.code === "ABORT".
+For example when last payment method is used and failed
+ * @param {Object} params it contains
+   * @param {Object} preset
+   * @param {String} step it indicates the current step for example Update
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+#### onReload
+
+Called when the http request returns data.interaction.code === "TRY_OTHER_NETWORK" || data.interaction.code === "RELOAD"
+ * @param {Object} params it contains
+   * @param {Object} preset
+   * @param {String} step it indicates the current step for example Update
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+#### onRetry
+
+Called when the http request returns data.interaction.code === "RETRY" || data.interaction.code === "TRY_OTHER_ACCOUNT".
+The end customer can retry and will see all network and nothing should change
+ * @param {Object} params it contains
+   * @param {Object} preset
+   * @param {String} step it indicates the current step for example Update
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+#### onCustomerAbort
+
+Called when the end user click on cancel, for example in Paypal popup
+ * @param {Object} params it contains
+   * @param {Object} preset
+   * @param {String} step it indicates the current step for example Update
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+#### onClientException
+
+Called when an exception or error happen. If set, onError function will be ignored
+ * @param {Object} params it contains
+   * @param {Object} preset
+   * @param {String} step it indicates the current step for example Update
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+#### onError
+
+Called when an exception or error happen. It is only used if onClientException is not set
+ * @param {Object} params it contains
+   * @param {Object} resultInfo
+   * @param {String} network payment code, for example: "PAYPAL"
+   * @param {String} step it indicates the current step for example Update
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 
 ## Steps to run demo that present the component usage
 
@@ -222,11 +452,27 @@ render(<Demo />, document.querySelector("#demo"));
 
 Open <http://localhost:3000/>
 
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 ## Steps to build the component
 
 `npm install`
 
 `npm run build`
+
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 
 ## Steps to run test cases
 

@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
-import { useSelector, connect } from "react-redux";
-import { usePresetAccount } from "./hook";
+import React from "react";
+import { connect } from "react-redux";
+import { usePresetAccount, useCheckPropsForSummary } from "./hook";
 import { confirmAction } from "./actions.redux";
+import { useTranslation } from "react-i18next";
 /**
  * Payments Summary Container
  * Render a button to allow the end user to Summary the payment by calling
@@ -11,13 +12,20 @@ import { confirmAction } from "./actions.redux";
  * @return {JSX.Element}
  */
 const PaymentsSummaryContainer = props => {
-    const presetAccount = useSelector(state => state.presetAccount.data);
+    const { t } = useTranslation();
     usePresetAccount(props.customFunctions);
+    useCheckPropsForSummary(props.customFunctions);
+    
     return (
-        <Fragment>
-            <div>{JSON.stringify(presetAccount)}</div>
-            <button onClick={() => props.confirmAction({ customFunctions: props.customFunctions })}>Confirm</button>
-        </Fragment>
+        <div test-id="payments-summary-container" test-id="payments-summary-container">
+            <button
+                test-id="payments-summary-confirm-button"
+                className="payments-summary-confirm-button"
+                onClick={() => props.confirmAction({ customFunctions: props.customFunctions })}
+            >
+                {t("confirm")}
+            </button>
+        </div>
     );
 };
 
