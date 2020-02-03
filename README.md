@@ -417,7 +417,7 @@ Called when the end user click on cancel, for example in Paypal popup
 
 #### onClientException
 
-Called when an exception or error happen. If set, onError function will be ignored
+Called when an exception or error happens. If set, onError function will be ignored
  * @param {Object} params it contains
    * @param {Object} preset
    * @param {String} step it indicates the current step for example Update
@@ -428,7 +428,7 @@ Called when an exception or error happen. If set, onError function will be ignor
 
 #### onError
 
-Called when an exception or error happen. It is only used if onClientException is not set
+Called when an exception or error happens. It is only used if onClientException is not set
  * @param {Object} params it contains
    * @param {Object} resultInfo
    * @param {String} network payment code, for example: "PAYPAL"
@@ -490,7 +490,7 @@ To store the mode
 ```javascript
 {
   type: "STOREMODE",
-  payload: "Summary
+  payload: "Summary"
 }
 ```
 
@@ -591,7 +591,7 @@ To set the value of global error message
 ```javascript
 {
   type: "STOREGLOBALERROR",
-  payload: "An Error happen"
+  payload: "An Error happens"
 }
 ```
 
@@ -700,7 +700,7 @@ Open <http://localhost:3000/>
 
 `npm install`
 
-`npm run build`
+`npm run onlybuild`
 
 
 <br/>
