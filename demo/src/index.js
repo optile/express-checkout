@@ -39,7 +39,9 @@ const Demo = () => {
                     </li>
                 </ul>
             )}
-            <ExpressCheckout {...attributes} mode={mode} longId={longId} />
+            <ExpressCheckout {...attributes} mode={mode} longId={longId} 
+            />
+             
         </div>
     );
 };
