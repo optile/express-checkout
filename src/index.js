@@ -4,7 +4,7 @@ import 'react-app-polyfill/stable';
 import React from "react";
 import PropTypes from "prop-types";
 import { Provider } from "react-redux";
-import initStore from "./store";
+import store from "./store";
 import ConfigurationManager from "./components/ConfigurationManager";
 
 /**
@@ -18,7 +18,6 @@ import ConfigurationManager from "./components/ConfigurationManager";
  * @return {JSX.Element}
  */
 const ExpressCheckout = ({ configuration, createTransactionDetails, customFunctions, mode, longId }) => {
-    const store = initStore();
     return (
         <Provider store={store}>
             <ConfigurationManager

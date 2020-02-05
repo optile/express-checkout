@@ -46,6 +46,7 @@ const initialConfigurationState = {
     clientId: "",
     country: "",
     paymentMethodsConfiguration: [],
+    language: ""
 };
 
 describe("reducers", () => {

@@ -9,9 +9,23 @@ const attributes = {
     local: {
         configuration: {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
-            clientId: "v1.opt-div-app.1b293aa844de46d4860da0ad5d29f0fe",
+            clientId: "v1.opt-div-app.bccdf4b9f6a04848bfcc13d356067d04",
             country: "DE",
-
+            language: "de_DE",
+            translation: [
+                {
+                    language: "en",
+                    resource: {
+                        confirm: "Confirm",
+                    },
+                },
+                {
+                    language: "de",
+                    resource: {
+                        confirm: "Bestätigen",
+                    },
+                },
+            ],
             paymentMethodsConfiguration: [
                 {
                     code: "PAYPAL",
@@ -21,7 +35,6 @@ const attributes = {
                         shape: "rect",
                         label: "checkout",
                     },
-                    locale: "en_US",
                 },
             ],
         },
@@ -46,15 +59,28 @@ const attributes = {
                 ],
             };
         },
-        customFunctions: {
-        },
+        customFunctions: {},
     },
     integration: {
         configuration: {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
             clientId: "v1.opt-div-app.d1f6628b66064154b5bde44cf095ad61",
             country: "DE",
-
+            language: "en_US",
+            translation: [
+                {
+                    language: "en",
+                    resource: {
+                        confirm: "confirm",
+                    },
+                },
+                {
+                    language: "de",
+                    resource: {
+                        confirm: "bestätigen",
+                    },
+                },
+            ],
             paymentMethodsConfiguration: [
                 {
                     code: "PAYPAL",
@@ -64,7 +90,6 @@ const attributes = {
                         shape: "rect",
                         label: "checkout",
                     },
-                    locale: "en_US",
                 },
             ],
         },
@@ -89,8 +114,7 @@ const attributes = {
                 ],
             };
         },
-        customFunctions: {
-        },
+        customFunctions: {},
     },
 };
 

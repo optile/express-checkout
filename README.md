@@ -31,6 +31,15 @@ For more details please check the official documentation:
 <br/>
 <br/>
 
+## Demos
+
+For React implementation but with normal redirect, without rewriting customFunctions, check the demo
+in this project under /demo
+
+For React implementation single page app, with replacing normal redirect by react-router-dom, check <https://github.com/optile/demo-express-checkout-react-spa>
+
+For UMD implementation with normal redirect, check <https://github.com/optile/demo-express-checkout-redirect>
+
 ## How to use Express Checkout
 
 Install the component using npm
@@ -53,6 +62,21 @@ const attributes = {
         baseURL: "....",
         clientId: "....",
         country: "DE",
+        language: "en_US",
+        translation: [
+            {
+                language: "en",
+                resource: {
+                    confirm: "confirm",
+                },
+            },
+            {
+                language: "de",
+                resource: {
+                    confirm: "bestätigen",
+                },
+            },
+        ],
         paymentMethodsConfiguration: [
             {
                 code: "PAYPAL",
@@ -61,8 +85,7 @@ const attributes = {
                     color: "gold",
                     shape: "rect",
                     label: "checkout",
-                },
-                locale: "en_US",
+                }
             },
             {
                 code: "AMAZONPAY",
@@ -158,6 +181,21 @@ render(<Demo />, document.querySelector("#demo"));
                     baseURL: "....",
                     clientId: "....",
                     country: "DE",
+                    language: "en_US",
+                    translation: [
+                        {
+                            language: "en",
+                            resource: {
+                                confirm: "confirm",
+                            },
+                        },
+                        {
+                            language: "de",
+                            resource: {
+                                confirm: "bestätigen",
+                            },
+                        },
+                    ],
                     paymentMethodsConfiguration: [
                         {
                             code: "PAYPAL",
@@ -166,21 +204,7 @@ render(<Demo />, document.querySelector("#demo"));
                                 color: "gold",
                                 shape: "rect",
                                 label: "checkout",
-                            },
-                            locale: "en_US",
-                        },
-                        {
-                            code: "AMAZONPAY",
-                            type: "PwA",
-                            color: "Gold",
-                            size: "small",
-                            language: "en-GB",
-                            proceedButtonText: "Continue",
-                            cancelButtonText: "Cancel Payment",
-                            constraints: {
-                                PaymentMethodNotAllowed:
-                                    "There has been a problem with the selected payment method from your Amazon account, please update the payment method or choose another one.",
-                            },
+                            }
                         },
                     ],
                 },
@@ -244,12 +268,32 @@ render(<Demo />, document.querySelector("#demo"));
 <br/>
 <br/>
 
+### How to style Express Checkout
+
+Most important classes, that you may need to style using CSS
+
+ * class "payments-summary-confirm-button":   In Summary page, a Confirm button will be rendered,
+  This button can be styled by using the class "payments-summary-confirm-button"
+  and styling it in CSS in your page.
+
+ * class "global-error": In case of Error, Express Checkout will render only Global Error component, which contains a message but it is hidden by default, by using class "global-error", 
+  it is possible to make it visible
+  
+
+
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+
 
 ### More information about how to use ExpressCheckout Component
 
 It is the main component to render express checkout widget
  * @param {Object} params it contains
-   * @param {Object} configuration like in the example, it contains (baseURL, clientId, country and paymentMethodsConfiguration)
+   * @param {Object} configuration like in the example, it contains (baseURL, clientId, country, language, translation and paymentMethodsConfiguration)
    * @param {Function} createTransactionDetails it is a function that will generate transaction object used in createExpressPreset
    * @param {Object} customFunctions your customized function, for more information, look below
    * @param {String} mode when it is not set, it is first page, for second page, it should be set to "Summary"
@@ -382,7 +426,7 @@ Called when the end user click on cancel, for example in Paypal popup
 
 #### onClientException
 
-Called when an exception or error happen. If set, onError function will be ignored
+Called when an exception or error happens. If set, onError function will be ignored
  * @param {Object} params it contains
    * @param {Object} preset
    * @param {String} step it indicates the current step for example Update
@@ -393,12 +437,249 @@ Called when an exception or error happen. If set, onError function will be ignor
 
 #### onError
 
-Called when an exception or error happen. It is only used if onClientException is not set
+Called when an exception or error happens. It is only used if onClientException is not set
  * @param {Object} params it contains
    * @param {Object} resultInfo
    * @param {String} network payment code, for example: "PAYPAL"
    * @param {String} step it indicates the current step for example Update
    * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+##### dispatch parameter passed in most of customFunctions
+
+The parameter dispatch that exists in most of customFunctions, is the store's reducing function in Redux,
+please check this link for more information <https://redux.js.org/api/store/#dispatchaction>
+It is not the most recommended way to make changes in the component, but it may be needed in some cases and the action keys should be known,
+and the structure.
+
+<br/>
+<br/>
+
+To use dispatch function, you should call the function by passing an object 
+that contains type ( the key or name of the action ), and payload, that represent the changes
+
+```javascript
+var action = { 
+    type: "STORECONFIGURATION",
+    payload: {
+        baseURL: "",
+        clientId: "",
+        country: "",
+        language: "",
+        translation: [],
+        paymentMethodsConfiguration: []
+    }
+};
+dispatch(action);
+```
+
+Available actions in usual order:
+
+To store the configuration
+```javascript
+{ 
+    type: "STORECONFIGURATION",
+    payload: {
+        baseURL: "",
+        clientId: "",
+        country: "",
+        language: "",
+        translation: [],
+        paymentMethodsConfiguration: []
+    }
+}
+```
+
+<br/>
+<br/>
+
+To store the mode
+```javascript
+{
+  type: "STOREMODE",
+  payload: "Summary"
+}
+```
+
+<br/>
+<br/>
+
+To store the longId
+```javascript
+{
+  type: "STORELONGID",
+  payload: "12345678901234567890"
+}
+```
+
+<br/>
+<br/>
+
+To set list loading to true or false, when you start the call and when you get the response
+```javascript
+{
+  type: "LISTLOADING",
+  payload: true
+}
+```
+
+<br/>
+<br/>
+
+To store the list of applicable networks from list response
+```javascript
+{
+  type: "STORELIST",
+  payload: [
+    {
+      code: "PAYPAL",
+      label: "PayPal",
+      ...
+    }
+  ]
+}
+```
+
+<br/>
+<br/>
+
+To set get preset account loading to true or false
+```javascript
+{
+  type: "PRESETACCOUNTLOADING",
+  payload: true
+}
+```
+
+<br/>
+<br/>
+
+To store the preset account, usually first step in Summary mode
+```javascript
+{
+  type: "PRESETACCOUNT",
+  payload: {
+    links: {
+      confirm: "",
+      self: ""
+    },
+    resultInfo: "Pending; waiting for customer review and approval of payment details",
+    interaction: {
+      code: "PROCEED",
+      reason: "TAKE_ACTION"
+    },
+    redirect: {
+      url: "",
+      method: "GET",
+      parameters: [
+      ],
+      type: "SUMMARY"
+    },
+    network: "PAYPAL"
+  }
+}
+```
+
+<br/>
+<br/>
+
+To set if global error should be displayed
+```javascript
+{
+  type: "STOREDISPLAYGLOBALERROR",
+  payload: false
+}
+```
+
+<br/>
+<br/>
+
+To set the value of global error message
+```javascript
+{
+  type: "STOREGLOBALERROR",
+  payload: "An Error happens"
+}
+```
+
+<br/>
+<br/>
+
+To set is the process of confirm started or finished
+```javascript
+{
+  type: "CONFIRMACCOUNTLOADING",
+  payload: true
+}
+```
+
+<br/>
+<br/>
+
+To set is the process of confirm started
+```javascript
+{
+  type: "CONFIRMACCOUNT",
+  payload: {
+    links: {
+      self: ""
+    },
+    resultInfo: "Approved; The payment is pending because it is part of an order that has been authorized but not settled; Merchant protection: None",
+    interaction: {
+      code: "PROCEED",
+      reason: "OK"
+    },
+    redirect: {
+      url: "",
+      method: "GET",
+      parameters: [
+      ],
+      type: "RETURN"
+    },
+    network: "PAYPAL"
+  }
+}
+```
+
+<br/>
+<br/>
+
+Actions related to paypal
+
+```javascript
+{
+  type: "STOREPAYPALSTATUS",
+  payload: "Payment Session Pending"
+}
+
+{
+  type: "STOREPAYPALPRESET",
+  payload: {
+    links: {
+      self: ""
+    },
+    resultInfo: "Pending, you have to check the status later",
+    interaction: {
+      code: "PROCEED",
+      reason: "PENDING"
+    },
+    network: "PAYPAL",
+    providerResponse: {
+      providerCode: "PAYPAL",
+      parameters: [
+      ]
+    }
+  }
+}
+
+{
+  type: "STOREPAYPALPAYMENTID",
+  payload: "12345678901234567890"
+}
+```
+
 
 
 <br/>
@@ -428,7 +709,7 @@ Open <http://localhost:3000/>
 
 `npm install`
 
-`npm run build`
+`npm run onlybuild`
 
 
 <br/>

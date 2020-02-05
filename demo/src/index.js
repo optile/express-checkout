@@ -3,6 +3,7 @@ import { render } from "react-dom";
 
 import getAttributes from "./configuration";
 import ExpressCheckout from "../../src";
+import "./style.css";
 
 const getMode = () => {
     let params = new URLSearchParams(window.location.search);
@@ -25,7 +26,7 @@ const Demo = () => {
     // let [longId, setLongId] = useState('');
     // useEffect(() => {
     //     setTimeout(() => {
-    //         setLongId("5e299540cf5ace17876aeb1ee8j6fr04d5l6gbucsa5ft576vs");
+    //         setLongId("5e32a9c4cf5ace6927ab0212ee1malpbp6clinu1tk4ghfiftb");
     //         setMode("Summary");
     //     }, 3000);
     //   }, []);
@@ -38,7 +39,9 @@ const Demo = () => {
                     </li>
                 </ul>
             )}
-            <ExpressCheckout {...attributes} mode={mode} longId={longId} />
+            <ExpressCheckout {...attributes} mode={mode} longId={longId} 
+            />
+             
         </div>
     );
 };
