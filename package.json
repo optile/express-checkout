@@ -11,7 +11,7 @@
     "umd"
   ],
   "scripts": {
-    "onlybuild": "nwb build-react-component && node build",
+    "onlybuild": "nwb build-react-component --copy-files && node build",
     "build": "npm run onlybuild",
     "ghpages": "gh-pages -d demo/dist",
     "postbuild": "npm run ghpages",
