@@ -31,6 +31,15 @@ For more details please check the official documentation:
 <br/>
 <br/>
 
+## Demos
+
+For React implementation but with normal redirect, without rewriting customFunctions, check the demo
+in this project under /demo
+
+For React implementation single page app, with replacing normal redirect by react-router-dom, check <https://github.com/optile/demo-express-checkout-react-spa>
+
+For UMD implementation with normal redirect, check <https://github.com/optile/demo-express-checkout-redirect>
+
 ## How to use Express Checkout
 
 Install the component using npm
