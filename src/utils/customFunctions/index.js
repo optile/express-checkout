@@ -122,7 +122,7 @@ const onAbortInternal = ({ preset, step, dispatch }) => {
 
 /**
  * Internal implementation for onReload function
- * called when the http request returns data.interaction.code === "TRY_OTHER_NETWORK" || data.interaction.code === "RELOAD"
+ * called when the http request returns data.interaction.code === "RELOAD"
  * That can be overwritten in customFunctions.onReload
  * @param {Object} params
  * @param {Object} params.preset
@@ -136,8 +136,23 @@ const onReloadInternal = ({ preset, step, dispatch }) => {
 };
 
 /**
+ * Internal implementation for onTryOtherNetwork function
+ * called when the http request returns data.interaction.code === "TRY_OTHER_NETWORK"
+ * That can be overwritten in customFunctions.onTryOtherNetwork
+ * @param {Object} params
+ * @param {Object} params.preset
+ * @param {String} params.step it indicates the current step for example Update
+ * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ */
+const onTryOtherNetworkInternal = ({ preset, step, dispatch }) => {
+    const { resultInfo } = preset;
+    console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
+    // TODO Logout Amazon pay
+};
+
+/**
  * Internal implementation for onRetry function
- * called when the http request returns data.interaction.code === "RETRY" || data.interaction.code === "TRY_OTHER_ACCOUNT"
+ * called when the http request returns data.interaction.code === "RETRY"
  * the end customer can retry and will see all network and nothing should change
  * That can be overwritten in customFunctions.onRetry
  * @param {Object} params
@@ -146,6 +161,22 @@ const onReloadInternal = ({ preset, step, dispatch }) => {
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
  */
 const onRetryInternal = ({ preset, step, dispatch }) => {
+    const { resultInfo } = preset;
+    console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
+    // TODO Logout Amazon pay
+};
+
+/**
+ * Internal implementation for onTryOtherAccount function
+ * called when the http request returns data.interaction.code === "TRY_OTHER_ACCOUNT"
+ * the end customer can retry and will see all network and nothing should change
+ * That can be overwritten in customFunctions.onTryOtherAccount
+ * @param {Object} params
+ * @param {Object} params.preset
+ * @param {String} params.step it indicates the current step for example Update
+ * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ */
+const onTryOtherAccountInternal = ({ preset, step, dispatch }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -189,6 +220,8 @@ var internalFunctions = {
     onReload: onReloadInternal,
     onRetry: onRetryInternal,
     onCustomerAbort: onCustomerAbortInternal,
+    onTryOtherNetwork: onTryOtherNetworkInternal,
+    onTryOtherAccount: onTryOtherAccountInternal,
 };
 
 /**
@@ -265,6 +298,22 @@ export const onProceed = ({ params, customFunctions }) => useCorrectFunction({ p
  * @param {Object} params.customFunctions
  */
 export const onAbort = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onAbort", customFunctions });
+
+/**
+ * On Try Other Account
+ * @param {Object} params
+ * @param {Object} params.params the parameters passed to onTryOtherAccount from custom Functions or initial functions
+ * @param {Object} params.customFunctions
+ */
+export const onTryOtherAccount = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onTryOtherAccount", customFunctions });
+
+/**
+ * On Try Other Network
+ * @param {Object} params
+ * @param {Object} params.params the parameters passed to onTryOtherNetwork from custom Functions or initial functions
+ * @param {Object} params.customFunctions
+ */
+export const onTryOtherNetwork = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onTryOtherNetwork", customFunctions });
 
 /**
  * On Reload

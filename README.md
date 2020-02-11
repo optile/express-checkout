@@ -134,6 +134,8 @@ const attributes = {
         onProceed: ({ preset, step, dispatch }) => console.log(""), 
         onAbort: ({ preset, step, dispatch }) => console.log(""), 
         onReload: ({ preset, step, dispatch }) => console.log(""), 
+        onTryOtherNetwork: ({ preset, step, dispatch }) => console.log(""), 
+        onTryOtherAccount: ({ preset, step, dispatch }) => console.log(""), 
         onRetry: ({ preset, step, dispatch }) => console.log(""), 
         onCustomerAbort: ({ preset, step, dispatch }) => console.log(""), 
         onClientException: ({ preset, step, dispatch }) => console.log(""), 
@@ -239,6 +241,8 @@ render(<Demo />, document.querySelector("#demo"));
 
                     onProceed: ({ preset, step, dispatch }) => console.log(""), 
                     onAbort: ({ preset, step, dispatch }) => console.log(""), 
+                    onTryOtherNetwork: ({ preset, step, dispatch }) => console.log(""), 
+                    onTryOtherAccount: ({ preset, step, dispatch }) => console.log(""), 
                     onReload: ({ preset, step, dispatch }) => console.log(""), 
                     onRetry: ({ preset, step, dispatch }) => console.log(""), 
                     onCustomerAbort: ({ preset, step, dispatch }) => console.log(""), 
@@ -392,7 +396,7 @@ For example when last payment method is used and failed
 
 #### onReload
 
-Called when the http request returns data.interaction.code === "TRY_OTHER_NETWORK" || data.interaction.code === "RELOAD"
+Called when the http request returns data.interaction.code === "RELOAD"
  * @param {Object} params it contains
    * @param {Object} preset
    * @param {String} step it indicates the current step for example Update
@@ -403,8 +407,29 @@ Called when the http request returns data.interaction.code === "TRY_OTHER_NETWOR
 
 #### onRetry
 
-Called when the http request returns data.interaction.code === "RETRY" || data.interaction.code === "TRY_OTHER_ACCOUNT".
-The end customer can retry and will see all network and nothing should change
+Called when the http request returns data.interaction.code === "RETRY".
+ * @param {Object} params it contains
+   * @param {Object} preset
+   * @param {String} step it indicates the current step for example Update
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+#### onTryOtherNetwork
+
+Called when the http request returns data.interaction.code === "TRY_OTHER_NETWORK".
+ * @param {Object} params it contains
+   * @param {Object} preset
+   * @param {String} step it indicates the current step for example Update
+   * @param {Function} dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+
+<br/>
+<br/>
+
+#### onTryOtherAccount
+
+Called when the http request returns data.interaction.code === "TRY_OTHER_ACCOUNT".
  * @param {Object} params it contains
    * @param {Object} preset
    * @param {String} step it indicates the current step for example Update

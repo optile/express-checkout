@@ -36,20 +36,19 @@ export const interactionCodeHandler = ({ code, preset, step, dispatch, customFun
             onAbort({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "TRY_OTHER_NETWORK": // TODO: don't make hard reload bcz express list is static and won't remove
-            // the failed network from the response, so should be handled in front end
-            onReload({ params: { preset, step, dispatch }, customFunctions });
+        case "TRY_OTHER_NETWORK":
+            onTryOtherNetwork({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "TRY_OTHER_ACCOUNT": // the end customer can retry and will see all network and nothing should change
+        case "TRY_OTHER_ACCOUNT":
+            onTryOtherAccount({ params: { preset, step, dispatch }, customFunctions });
+            break;
+
+        case "RETRY":
             onRetry({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "RETRY": //  same as try other account
-            onRetry({ params: { preset, step, dispatch }, customFunctions });
-            break;
-
-        case "RELOAD": // TODO: make sure to call express list again
+        case "RELOAD":
             onReload({ params: { preset, step, dispatch }, customFunctions });
             break;
 
@@ -122,7 +121,7 @@ export const getClass = props => {
  * @param {String} params.suffix
  * @return {Object} contains test-id and className
  */
-export const getIdentificationProps = (props) => {
+export const getIdentificationProps = props => {
     const emptyResult = { className: "", "test-id": "" };
     if (!props) {
         return emptyResult;
