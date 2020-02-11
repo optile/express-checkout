@@ -36,20 +36,19 @@ export const interactionCodeHandler = ({ code, preset, step, dispatch, customFun
             onAbort({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "TRY_OTHER_NETWORK": // TODO: don't make hard reload bcz express list is static and won't remove
-            // the failed network from the response, so should be handled in front end
-            onReload({ params: { preset, step, dispatch }, customFunctions });
+        case "TRY_OTHER_NETWORK":
+            onTryOtherNetwork({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "TRY_OTHER_ACCOUNT": // the end customer can retry and will see all network and nothing should change
+        case "TRY_OTHER_ACCOUNT":
+            onTryOtherAccount({ params: { preset, step, dispatch }, customFunctions });
+            break;
+
+        case "RETRY":
             onRetry({ params: { preset, step, dispatch }, customFunctions });
             break;
 
-        case "RETRY": //  same as try other account
-            onRetry({ params: { preset, step, dispatch }, customFunctions });
-            break;
-
-        case "RELOAD": // TODO: make sure to call express list again
+        case "RELOAD":
             onReload({ params: { preset, step, dispatch }, customFunctions });
             break;
 
@@ -94,4 +93,46 @@ export const handleError = ({ err, step, network, dispatch, updateState, customF
     const data = errorPreset(err, network); // create object structure for error
     updateState(); // run some updates for the store in redux
     onClientException({ preset: data, step, dispatch, customFunctions }); // run customized function to handle the error
+};
+/**
+ * Get Class
+ *
+ * @param {Object} params
+ * @param {String} params.className
+ * @param {String} params.suffix
+ * @return {String} new class name by adding "-suffix" to the end of the class if needed
+ */
+export const getClass = props => {
+    if (!props) {
+        return "";
+    }
+    const { className, suffix } = props;
+    if (!className) {
+        return "";
+    }
+    return suffix ? `${className}-${suffix}` : className;
+};
+
+/**
+ * get object used to pass to components as test-id and className
+ *
+ * @param {Object} params
+ * @param {String} params.className
+ * @param {String} params.suffix
+ * @return {Object} contains test-id and className
+ */
+export const getIdentificationProps = props => {
+    const emptyResult = { className: "", "test-id": "" };
+    if (!props) {
+        return emptyResult;
+    }
+    const { className, suffix } = props;
+    if (!className) {
+        return emptyResult;
+    }
+    if (!suffix) {
+        return { className, "test-id": className };
+    }
+    const withSuffix = suffix ? `${className}-${suffix}` : className;
+    return { "test-id": withSuffix, className: `${className} ${withSuffix}` };
 };

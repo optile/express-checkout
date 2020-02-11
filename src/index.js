@@ -11,13 +11,15 @@ import ConfigurationManager from "./components/ConfigurationManager";
  * The main component to render express checkout widget
  * @param {Object} props
  * @param {Object} props.configuration
- * @param {Function} props.createTransactionDetails
+ * @param {Function} props.createTransactionDetails only required when mode is not set ( checkout page )
  * @param {Object} props.customFunctions
  * @param {String} props.mode
  * @param {String} props.longId
+ * @param {String} props.suffix used to add to class, test-id and id if needed to identify exact components when multiple
+ * are in the same page
  * @return {JSX.Element}
  */
-const ExpressCheckout = ({ configuration, createTransactionDetails, customFunctions, mode, longId }) => {
+const ExpressCheckout = ({ configuration, createTransactionDetails, customFunctions, mode, longId, suffix }) => {
     return (
         <Provider store={store}>
             <ConfigurationManager
@@ -26,6 +28,7 @@ const ExpressCheckout = ({ configuration, createTransactionDetails, customFuncti
                 customFunctions={customFunctions}
                 mode={mode}
                 longId={longId}
+                suffix={suffix}
             />
         </Provider>
     );
@@ -33,10 +36,11 @@ const ExpressCheckout = ({ configuration, createTransactionDetails, customFuncti
 
 ExpressCheckout.propTypes = {
     configuration: PropTypes.object.isRequired,
-    createTransactionDetails: PropTypes.func.isRequired,
+    createTransactionDetails: PropTypes.func,
     customFunctions: PropTypes.object,
     mode: PropTypes.string,
     longId: PropTypes.string,
+    suffix: PropTypes.string,
 };
 
 export default ExpressCheckout;
