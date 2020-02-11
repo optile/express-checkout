@@ -95,3 +95,45 @@ export const handleError = ({ err, step, network, dispatch, updateState, customF
     updateState(); // run some updates for the store in redux
     onClientException({ preset: data, step, dispatch, customFunctions }); // run customized function to handle the error
 };
+/**
+ * Get Class
+ *
+ * @param {Object} params
+ * @param {String} params.className
+ * @param {String} params.suffix
+ * @return {String} new class name by adding "-suffix" to the end of the class if needed
+ */
+export const getClass = props => {
+    if (!props) {
+        return "";
+    }
+    const { className, suffix } = props;
+    if (!className) {
+        return "";
+    }
+    return suffix ? `${className}-${suffix}` : className;
+};
+
+/**
+ * get object used to pass to components as test-id and className
+ *
+ * @param {Object} params
+ * @param {String} params.className
+ * @param {String} params.suffix
+ * @return {Object} contains test-id and className
+ */
+export const getIdentificationProps = (props) => {
+    const emptyResult = { className: "", "test-id": "" };
+    if (!props) {
+        return emptyResult;
+    }
+    const { className, suffix } = props;
+    if (!className) {
+        return emptyResult;
+    }
+    if (!suffix) {
+        return { className, "test-id": className };
+    }
+    const withSuffix = suffix ? `${className}-${suffix}` : className;
+    return { "test-id": withSuffix, className: `${className} ${withSuffix}` };
+};
