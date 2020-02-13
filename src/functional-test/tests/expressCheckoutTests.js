@@ -8,7 +8,7 @@ const BASE_URL = "https://optile.github.io/express-checkout/?env=integration";
 const expressCheckoutTests = () => {
     beforeAll(async () => {
         await DRIVER.get(BASE_URL);
-        await waitForElement('[test-id=payments-container]');
+        await waitForElement("[test-id=payments-container-1]");
     });
 
     beforeEach(async () => {
@@ -16,17 +16,15 @@ const expressCheckoutTests = () => {
     });
 
     it("Check if Payments Container is Displayed", async () => {
-        await getElement('[test-id=payments-container]').isDisplayed();
+        await getElement("[test-id=payments-container-1]").isDisplayed();
     });
 
     it("Check if PayPal Container is Displayed", async () => {
-        await getElement('[test-id=paypal-button-container]').isDisplayed();
+        await getElement("[test-id=paypal-button-container-1]").isDisplayed();
     });
 
     it("Check if PayPal Button is Displayed", async () => {
-        await DRIVER.switchTo().frame(0);
-        await getElement(".paypal-button").isDisplayed();
-        await DRIVER.switchTo().defaultContent();
+        await getElement(".paypal-button-container.paypal-button-container-1").isDisplayed();
     });
 };
 module.exports = expressCheckoutTests;

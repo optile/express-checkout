@@ -12,8 +12,7 @@ describe("Test Suite", () => {
     afterAll(async () => {
         await DRIVER.quit();
     });
- 
+
     describe("Express Checkout Tests", expressCheckoutTests);
     describe("PayPal Tests", paypalTests);
-
 });
