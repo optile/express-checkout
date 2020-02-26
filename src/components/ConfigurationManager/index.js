@@ -17,6 +17,7 @@ import "../../i18next";
  * @param {Object} props.customFunctions
  * @param {String} props.mode
  * @param {String} props.longId
+ * @param {String} props.suffix
  * @return {JSX.Element}
  */
 const ConfigurationManager = props => {
@@ -46,7 +47,7 @@ const ConfigurationManager = props => {
     }, [props.configuration]);
 
     if (displayGlobalError) {
-        return <GlobalError message={globalError} />;
+        return <GlobalError message={globalError} suffix={props.suffix} />;
     }
 
     return mode === "Summary" ? <PaymentsSummaryContainer {...props} /> : <PaymentsContainer {...props} />;
@@ -54,10 +55,11 @@ const ConfigurationManager = props => {
 
 ConfigurationManager.propTypes = {
     configuration: PropTypes.object.isRequired,
-    createTransactionDetails: PropTypes.func.isRequired,
+    createTransactionDetails: PropTypes.func,
     customFunctions: PropTypes.object,
     mode: PropTypes.string,
     longId: PropTypes.string,
+    suffix: PropTypes.string,
 };
 
 export default ConfigurationManager;

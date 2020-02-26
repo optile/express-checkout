@@ -3,6 +3,7 @@ import { useSelector, connect } from "react-redux";
 import find from "lodash/find";
 import PaypalButton from "./PaypalButton";
 import { paymentAction, authorizeAction, cancelAction } from "./actions.redux";
+import { getIdentificationProps } from "../../../utils";
 /**
  * Prepare Paypal button needed props
  * @param {Object} params
@@ -16,7 +17,7 @@ const prepareButtonProps = ({ initialConfigurationStyle, initialConfigurationLan
         contractData: { PAGE_ENVIRONMENT, PAGE_BUTTON_LOCALE },
     } = listConfiguration;
     return {
-        style:initialConfigurationStyle,
+        style: initialConfigurationStyle,
         locale: initialConfigurationLanguage || PAGE_BUTTON_LOCALE,
         commit: false,
         env: PAGE_ENVIRONMENT,
@@ -38,9 +39,14 @@ const Paypal = props => {
     const initialConfigurationStyle = initialConfiguration.style;
     const initialConfigurationLanguage = useSelector(state => state.configuration.language);
     const listConfiguration = useSelector(state => find(state.list.data, item => item.code === "PAYPAL"));
-
+    const idProps = getIdentificationProps({ suffix: props.suffix, className: "paypal-button-container" });
     const buttonProps = prepareButtonProps({ initialConfigurationStyle, initialConfigurationLanguage, listConfiguration, props });
-    return <div test-id="paypal-button-container" className="paypal-button-container"><PaypalButton {...buttonProps}/></div>;
+
+    return (
+        <div {...idProps}>
+            <PaypalButton {...buttonProps} />
+        </div>
+    );
 };
 
 Paypal.propTypes = {};

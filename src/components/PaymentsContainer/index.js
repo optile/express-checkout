@@ -1,13 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import map from "lodash/map";
 import { useList } from "./hook";
 import Paypal from "../paymentMethods/Paypal";
 import Amazon from "../paymentMethods/Amazon";
-import map from "lodash/map";
+import { getIdentificationProps } from "../../utils";
 /**
  * Load Payment Method By Code
  * @param {String} code
  * @param {Object} bindingProps
+ * @param {Number} index
  */
 const loadPaymentMethodByCode = (code, bindingProps, index) => {
     switch (code) {
@@ -28,9 +30,10 @@ const loadPaymentMethodByCode = (code, bindingProps, index) => {
  */
 const PaymentsContainer = props => {
     const listOfPaymentMethods = useSelector(state => state.list.data);
+    const idProps = getIdentificationProps({ suffix: props.suffix, className: "payments-container" });
     useList(props.customFunctions);
     return (
-        <div test-id="payments-container" className="payments-container">
+        <div {...idProps}>
             {listOfPaymentMethods &&
                 map(listOfPaymentMethods, (method,i) => loadPaymentMethodByCode(method.code, props, i))}
         </div>

@@ -1,16 +1,18 @@
-const payPalTests = require("../tests/payPalTests");
+const paypalTests = require("../tests/payPalTests");
+const expressCheckoutTests = require("../tests/expressCheckoutTests");
 const LoadDriver = require("../services/loadDriver");
 jest.setTimeout(900000);
 
 describe("Test Suite", () => {
     beforeAll(async () => {
         global.DRIVER = LoadDriver();
-        global.TIME = 5000;
+        global.TIME = 30000;
     });
 
     afterAll(async () => {
         await DRIVER.quit();
     });
 
-    describe("PayPal Express Checkout Tests", payPalTests);
+    describe("Express Checkout Tests", expressCheckoutTests);
+    describe("PayPal Tests", paypalTests);
 });

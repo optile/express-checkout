@@ -1,8 +1,14 @@
 import React from "react";
+import { getIdentificationProps } from "../../../utils";
+
 const Amazon = props => {
-    return <div test-id="amazon-button-container" className="amazon-button-container">
-    <input type="button" value="Amazon" />
-    </div>;
+    const idProps = getIdentificationProps({ suffix, className: "amazon-button-container" });
+
+    return (
+        <div {...idProps}>
+            <input type="button" value="Amazon" />
+        </div>
+    );
 };
 
 Amazon.propTypes = {};
