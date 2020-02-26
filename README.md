@@ -44,8 +44,13 @@ For UMD implementation with normal redirect, check <https://github.com/optile/de
 
 Install the component using npm
 
-`npm install --save express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
+`npm install express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
 
+or
+
+`yarn add express-checkout@latest --registry https://packagecloud.io/optile/javascript/npm/`
+
+*Please do not forget to version the lock file (package-lock.json or yarn.lock respectively)*
 
 <br/>
 <br/>
@@ -143,8 +148,6 @@ const attributes = {
     },
 };
 const Demo = () => {
-    const attributes = getAttributes();
-
     return (
         <div>
             <h1>Merchant Demo</h1>
