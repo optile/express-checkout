@@ -176,7 +176,8 @@ render(<Demo />, document.querySelector("#demo"));
     <body>
         <h1>Umd demo shop</h1>
         <div id="container"></div>
-        
+        <!-- Used to write needed polyfills for react in ie11 -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=Symbol%2CSymbol.asyncIterator%2CSymbol.for%2CSymbol.hasInstance%2CSymbol.isConcatSpreadable%2CSymbol.iterator%2CSymbol.keyFor%2CSymbol.match%2CSymbol.prototype.description%2CSymbol.replace%2CSymbol.search%2CSymbol.species%2CSymbol.split%2CSymbol.toPrimitive%2CSymbol.toStringTag%2CSymbol.unscopables%2CArray.from%2CObject.assign%2Cfetch%2CPromise%2CPromise.prototype.finally"></script>
         <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
         <script src="./node_modules/express-checkout/express-checkout.js"></script>
