@@ -8,3 +8,6 @@
 /build
 npm-debug.log*
 /.vscode
+e2e-result.json
+browserstack.err
+.env

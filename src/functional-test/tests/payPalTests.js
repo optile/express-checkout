@@ -3,7 +3,7 @@ const { getElement, waitForElement } = require("../services/locatingStrategy");
 import "babel-polyfill";
 import { until } from "selenium-webdriver";
 import { composeInitialProps } from "react-i18next";
-const BASE_URL = "https://optile.github.io/express-checkout/?env=integration";
+const BASE_URL = "http://localhost:3000";
 
 const checkWindowCount = async number => {
     let windowCount = await DRIVER.getAllWindowHandles();
@@ -34,7 +34,7 @@ const paypalTests = () => {
         await DRIVER.close();
         await DRIVER.wait(() => checkWindowCount(1));
         await DRIVER.getAllWindowHandles().then(allhandles => DRIVER.switchTo().window(allhandles.pop()));
-        await DRIVER.wait(() => checkUrlTitle("optile.io"));
+        await DRIVER.wait(() => checkUrlTitle("mode=Cancel"));
     });
 
     it("Makes Payment with PayPal", async () => {
@@ -65,13 +65,14 @@ const paypalTests = () => {
         await DRIVER.manage()
             .window()
             .maximize();
+        await waitForElement("#confirmButtonTop");    
         (await getElement("#confirmButtonTop")).click();
         await DRIVER.wait(() => checkWindowCount(1));
         await DRIVER.getAllWindowHandles().then(allhandles => DRIVER.switchTo().window(allhandles.pop()));
         await DRIVER.wait(() => checkUrlTitle("interactionCode=PROCEED"));
         await waitForElement("[test-id=payments-summary-confirm-button]");
         (await getElement("[test-id=payments-summary-confirm-button]")).click();
-        await DRIVER.wait(() => checkUrlTitle("optile.net"));
+        await DRIVER.wait(() => checkUrlTitle("mode=Successful"));
     });
 };
 module.exports = paypalTests;
