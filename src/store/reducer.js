@@ -11,7 +11,7 @@ import {
     confirmAccountError,
     confirmAccount,
 } from "../components/PaymentsSummaryContainer/redux";
-import { paypalStatus, paymentID, preset, cancelData, error } from "../components/paymentMethods/Paypal/redux";
+import { paypalStatus, paymentID, preset, cancelData, error } from "../components/PaymentMethods/Paypal/redux";
 
 const rootReducer = combineReducers({
     mode,

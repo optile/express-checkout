@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import map from "lodash/map";
 import { useList } from "./hook";
-import Paypal from "../paymentMethods/Paypal";
-import Amazon from "../paymentMethods/Amazon";
+import Paypal from "../PaymentMethods/Paypal";
+import Amazon from "../PaymentMethods/Amazon";
 import { getIdentificationProps } from "../../utils";
 /**
  * Load Payment Method By Code
