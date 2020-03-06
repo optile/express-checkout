@@ -14,10 +14,13 @@ export const toRequestData = (providerCode, data) => ({ providerCode, parameters
  * @return {String} redirect url link
  */
 export const getRedirectUrl = (url, parameters) => {
-    const queryString = parameters.reduce(
-        (acc, current) => `${acc}${encodeURIComponent(current.name)}=${encodeURIComponent(current.value)}&`,
-        ""
-    );
+    let queryString = "";
+    if (parameters) {
+        queryString = parameters.reduce(
+            (acc, current) => `${acc}${encodeURIComponent(current.name)}=${encodeURIComponent(current.value)}&`,
+            ""
+        );
+    }
     return `${url}${url.includes("?") ? "&" : "?"}${queryString.slice(0, -1)}`;
 };
 /**
