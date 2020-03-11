@@ -58,7 +58,7 @@ const paypalTests = () => {
             let transactionCart = await getElement("#transactionCart");
             return transactionCart.isDisplayed();
         };
-        await DRIVER.wait(isPayPageDisplayed);
+        await DRIVER.wait(isPayPageDisplayed());
         if (await getElement("#acceptAllButton").isDisplayed()) {
             (await getElement("#acceptAllButton")).click();
         }
