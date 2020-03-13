@@ -35,7 +35,7 @@ For more details please check the official documentation:
 
 3 demos are available for different use-cases:
 
-* React implementation with a regular redirect (summary page on a separate URL), no overriding of  customFunctions. The demo is located inside this project under `/demo`
+* React implementation with a regular redirect (summary page on a separate URL), no overriding of customFunctions. The demo is located inside this project under `/demo`
 
 * React implementation for a single page application (replacing regular redirect with react-router-dom).  The demo is located [here](https://github.com/optile/demo-express-checkout-react-spa)
 
@@ -483,15 +483,14 @@ Called when an exception or error happens. It is only used if onClientException 
 
 ##### dispatch parameter passed in most of customFunctions
 
-The parameter dispatch that exists in most of the customFunctions, is the store's reducing function in Redux,
+The 'dispatch' parameter that exists in most of the customFunctions is the store's reducing function in Redux,
 please check [this link](https://redux.js.org/api/store/#dispatchaction) for more information.
 It is not the most recommended way to make changes in the component, but it may be needed in some cases and the action keys and structure should be known.
 
 <br/>
 <br/>
 
-To use the dispatch function, you should call the function by passing an object
-that contains type (the key or name of the action), and payload, that represent the changes.
+When calling the dispatch function, pass an object that contains a type (the key or name of the action) and a payload that represents the changes.
 
 ```javascript
 var action = {
