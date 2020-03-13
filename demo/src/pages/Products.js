@@ -16,7 +16,7 @@ const Products = () => {
     const mode = getMode();
     return (
         <div>
-            {mode === "Cancel" && <div>An Error happened, you can retry</div>}
+            {mode === "Cancel" && <div style={{color: "red"}}>An Error happened, you can retry</div>}
             <table>
                 <tbody>
                     <tr>
