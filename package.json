@@ -21,7 +21,6 @@
     "test": "jest src",
     "test_dev": "jest --watch src",
     "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
-    "functional-test": "cross-env RUNENV=remote concurrently \"npm run start\" \"BrowserStackLocal --key $BROWSERSTACK_KEY\" \"node src/functional-test/index.js \"",
     "functional-test-local": "cross-env RUNENV=local concurrently \"npm run start\" \"node src/functional-test/index.js \""
   },
   "dependencies": {
