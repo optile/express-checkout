@@ -651,7 +651,6 @@ CONFIRMACCOUNTLOADING (when set to `true`) represents the state after the end-cu
 <br/>
 
 CONFIRMACCOUNT is used to store the response from the backend that results from the confirmation call. Set it as per the following example:
-To set is the process of confirm started:
 ```javascript
 {
   type: "CONFIRMACCOUNT",
