@@ -1,6 +1,6 @@
 {
   "name": "express-checkout",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "express-checkout React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -20,12 +20,15 @@
     "start": "nwb serve-react-demo",
     "test": "jest src",
     "test_dev": "jest --watch src",
-    "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
+    "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
+    "functional-test-local": "cross-env RUNENV=local concurrently \"npm run start\" \"node src/functional-test/index.js \""
   },
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
     "@reduxjs/toolkit": "^1.1.0",
     "chromedriver": "^79.0.0",
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.1",
     "i18n": "^0.8.5",
     "i18next": "^19.1.0",
     "paypal-checkout": "^4.0.305",
@@ -35,6 +38,7 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "selenium-webdriver": "^4.0.0-alpha.5",
+    "shelljs": "^0.8.3",
     "webdriver-manager": "^12.1.7"
   },
   "peerDependencies": {
@@ -61,6 +65,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "redux-devtools-extension": "^2.13.8",
+    "browserstack-local": "^1.4.5",
     "serialize-javascript": ">=2.1.1"
   },
   "author": "",
