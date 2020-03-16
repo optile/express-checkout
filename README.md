@@ -577,7 +577,7 @@ STORELIST is used to store the list of applicable networks as per the LIST respo
 <br/>
 <br/>
 
-PRESETACCOUNTLOADING (when set to true) represents the state of waiting for the response to pre-setting an account. It can be set to `true` or `false` this way:
+PRESETACCOUNTLOADING (when set to `true`) represents the state of waiting for the response to pre-setting an account. It can be set to `true` or `false` this way:
 ```javascript
 {
   type: "PRESETACCOUNTLOADING",
@@ -639,7 +639,7 @@ STOREGLOBALERROR allows storing an error text which is displayed in case STOREDI
 <br/>
 <br/>
 
-CONFIRMACCOUNTLOADING (when set to true) represents the state after the end-customer clicked the 'Confirm' button, and before receiving a response from the backend. It can be set to `true` or `false` this way:
+CONFIRMACCOUNTLOADING (when set to `true`) represents the state after the end-customer clicked the 'Confirm' button, and before receiving a response from the backend. It can be set to `true` or `false` this way:
 ```javascript
 {
   type: "CONFIRMACCOUNTLOADING",
@@ -651,7 +651,6 @@ CONFIRMACCOUNTLOADING (when set to true) represents the state after the end-cust
 <br/>
 
 CONFIRMACCOUNT is used to store the response from the backend that results from the confirmation call. Set it as per the following example:
-To set is the process of confirm started:
 ```javascript
 {
   type: "CONFIRMACCOUNT",
