@@ -507,7 +507,7 @@ var action = {
 dispatch(action);
 ```
 
-Available actions in usual order:
+Available actions:
 
 To store the configuration:
 ```javascript
@@ -527,7 +527,7 @@ To store the configuration:
 <br/>
 <br/>
 
-To store the mode:
+To store the widget mode:
 ```javascript
 {
   type: "STOREMODE",
@@ -549,7 +549,7 @@ To store the longId:
 <br/>
 <br/>
 
-To set list loading to true or false, when you start the call and when you get the response:
+LISTLOADING (when set to `true`) represents the state of waiting for a LIST response. It can be set to `true` or `false` this way:
 ```javascript
 {
   type: "LISTLOADING",
@@ -560,7 +560,7 @@ To set list loading to true or false, when you start the call and when you get t
 <br/>
 <br/>
 
-To store the list of applicable networks from list response:
+STORELIST is used to store the list of applicable networks as per the LIST response. Set it as per the following example:
 ```javascript
 {
   type: "STORELIST",
@@ -577,7 +577,7 @@ To store the list of applicable networks from list response:
 <br/>
 <br/>
 
-To set get preset account loading to true or false:
+PRESETACCOUNTLOADING (when set to true) represents the state of waiting for the response to pre-setting an account. It can be set to `true` or `false` this way:
 ```javascript
 {
   type: "PRESETACCOUNTLOADING",
@@ -588,7 +588,7 @@ To set get preset account loading to true or false:
 <br/>
 <br/>
 
-To store the preset account, usually first step in Summary mode:
+PRESETACCOUNT is used to store the preset account (typically the first step in Summary mode). Set it as per the following example:
 ```javascript
 {
   type: "PRESETACCOUNT",
@@ -617,18 +617,18 @@ To store the preset account, usually first step in Summary mode:
 <br/>
 <br/>
 
-To set if global error should be displayed:
+STOREDISPLAYGLOBALERROR determines if the error component is loaded, and should be set to `true` when an error is encountered.
 ```javascript
 {
   type: "STOREDISPLAYGLOBALERROR",
-  payload: false
+  payload: true
 }
 ```
 
 <br/>
 <br/>
 
-To set the value of global error message:
+STOREGLOBALERROR allows storing an error text which is displayed in case STOREDISPLAYGLOBALERROR is set to `true`. Set it as per the following example:
 ```javascript
 {
   type: "STOREGLOBALERROR",
@@ -639,7 +639,7 @@ To set the value of global error message:
 <br/>
 <br/>
 
-To set is the process of confirm started or finished:
+CONFIRMACCOUNTLOADING (when set to true) represents the state after the end-customer clicked the 'Confirm' button, and before receiving a response from the backend. It can be set to `true` or `false` this way:
 ```javascript
 {
   type: "CONFIRMACCOUNTLOADING",
@@ -650,6 +650,7 @@ To set is the process of confirm started or finished:
 <br/>
 <br/>
 
+CONFIRMACCOUNT is used to store the response from the backend that results from the confirmation call. Set it as per the following example:
 To set is the process of confirm started:
 ```javascript
 {
