@@ -1,4 +1,4 @@
-import { onAbort, onReload, onRetry, onClientException } from "./customFunctions";
+import { onAbort, onReload, onRetry, onClientException, onTryOtherAccount, onTryOtherNetwork } from "./customFunctions";
 /**
  * Create a map from params
  * @param {Object} data
