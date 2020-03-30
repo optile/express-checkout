@@ -225,14 +225,14 @@ var internalFunctions = {
 };
 
 /**
- * Use Correct Function depending on if it is initialized in customFunctions or just use initialFunctions
+ * Get Correct Function depending on if it is initialized in customFunctions or just use initialFunctions
  * @param {Object} params
  * @param {Object} params.params
  * @param {String} params.functionName the key name of the function to check is defined as customFunctions
  * @param {Object} params.customFunctions
  * @returns {Function} Correct function
  */
-export const useCorrectFunction = ({ params, functionName, customFunctions }) => {
+export const getCorrectFunction = ({ params, functionName, customFunctions }) => {
     const customFunction = get(customFunctions, functionName, false);
     const internalFunction = get(internalFunctions, functionName, false);
     return customFunction ? customFunction(params) : internalFunction(params);
@@ -245,7 +245,7 @@ export const useCorrectFunction = ({ params, functionName, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const getExpressList = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "getExpressList", customFunctions });
+    getCorrectFunction({ params, functionName: "getExpressList", customFunctions });
 
 /**
  * Create Express Preset
@@ -254,7 +254,7 @@ export const getExpressList = ({ params, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const createExpressPreset = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "createExpressPreset", customFunctions });
+    getCorrectFunction({ params, functionName: "createExpressPreset", customFunctions });
 
 /**
  * Update Express Preset
@@ -263,7 +263,7 @@ export const createExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const updateExpressPreset = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "updateExpressPreset", customFunctions });
+    getCorrectFunction({ params, functionName: "updateExpressPreset", customFunctions });
 
 /**
  * Cancel Express Preset
@@ -272,7 +272,7 @@ export const updateExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const cancelExpressPreset = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "cancelExpressPreset", customFunctions });
+    getCorrectFunction({ params, functionName: "cancelExpressPreset", customFunctions });
 
 /**
  * Confirm Express Preset
@@ -281,7 +281,7 @@ export const cancelExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const confirmExpressPreset = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "confirmExpressPreset", customFunctions });
+    getCorrectFunction({ params, functionName: "confirmExpressPreset", customFunctions });
 
 /**
  * On Proceed
@@ -289,7 +289,7 @@ export const confirmExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.params the parameters passed to onProceed from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onProceed = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onProceed", customFunctions });
+export const onProceed = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onProceed", customFunctions });
 
 /**
  * On Abort
@@ -297,7 +297,7 @@ export const onProceed = ({ params, customFunctions }) => useCorrectFunction({ p
  * @param {Object} params.params the parameters passed to onAbort from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onAbort = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onAbort", customFunctions });
+export const onAbort = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onAbort", customFunctions });
 
 /**
  * On Try Other Account
@@ -305,7 +305,7 @@ export const onAbort = ({ params, customFunctions }) => useCorrectFunction({ par
  * @param {Object} params.params the parameters passed to onTryOtherAccount from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onTryOtherAccount = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onTryOtherAccount", customFunctions });
+export const onTryOtherAccount = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onTryOtherAccount", customFunctions });
 
 /**
  * On Try Other Network
@@ -313,7 +313,7 @@ export const onTryOtherAccount = ({ params, customFunctions }) => useCorrectFunc
  * @param {Object} params.params the parameters passed to onTryOtherNetwork from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onTryOtherNetwork = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onTryOtherNetwork", customFunctions });
+export const onTryOtherNetwork = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onTryOtherNetwork", customFunctions });
 
 /**
  * On Reload
@@ -321,7 +321,7 @@ export const onTryOtherNetwork = ({ params, customFunctions }) => useCorrectFunc
  * @param {Object} params.params the parameters passed to onReload from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onReload = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onReload", customFunctions });
+export const onReload = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onReload", customFunctions });
 
 /**
  * On Retry
@@ -329,7 +329,7 @@ export const onReload = ({ params, customFunctions }) => useCorrectFunction({ pa
  * @param {Object} params.params the parameters passed to onRetry from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onRetry = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onRetry", customFunctions });
+export const onRetry = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onRetry", customFunctions });
 
 /**
  * Get Express Preset Account
@@ -338,7 +338,7 @@ export const onRetry = ({ params, customFunctions }) => useCorrectFunction({ par
  * @param {Object} params.customFunctions
  */
 export const getExpressPresetAccount = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "getExpressPresetAccount", customFunctions });
+    getCorrectFunction({ params, functionName: "getExpressPresetAccount", customFunctions });
 
 /**
  * On Client Exception
@@ -372,4 +372,4 @@ export const onClientException = ({ preset, step, dispatch, customFunctions }) =
  * @param {Object} params.customFunctions
  */
 export const onCustomerAbort = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "onCustomerAbort", customFunctions });
+    getCorrectFunction({ params, functionName: "onCustomerAbort", customFunctions });

@@ -27,7 +27,7 @@ const ConfigurationManager = props => {
     const displayGlobalError = useSelector(state => state.displayGlobalError);
 
     const { i18n } = useTranslation();
-    const use2LettersLanguage = lg => (lg.length > 2 ? lg.substring(0, 2) : "en");
+    const get2LettersLanguage = lg => (lg.length > 2 ? lg.substring(0, 2) : "en");
 
     useEffect(() => {
         dispatch(storeConfiguration(props.configuration));
@@ -42,7 +42,7 @@ const ConfigurationManager = props => {
             });
         }
         if (props.configuration.language) {
-            i18n.changeLanguage(use2LettersLanguage(props.configuration.language));
+            i18n.changeLanguage(get2LettersLanguage(props.configuration.language));
         }
     }, [props.configuration]);
 

@@ -50,7 +50,7 @@ const onError = ({ err, dispatch, step, customFunctions }) => {
     handleError(errorProps);
 };
 const handleNotOkResponse = ({ result, dispatch, step, customFunctions }) => {
-    const { error: err } = result;
+    const err = { message: result.error.message.resultInfo };
     return onError({ err, dispatch, step, customFunctions });
 };
 const handleCatch = ({ err, dispatch, step, customFunctions }) => {

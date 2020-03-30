@@ -38,27 +38,7 @@ const attributes = {
                 },
             ],
         },
-        createTransactionDetails: function(requestData) {
-            return {
-                transactionId: "tr-" + new Date().getTime(),
-                country: "DE",
-                providerRequest: requestData,
-                payment: {
-                    amount: 2,
-                    currency: "EUR",
-                    reference: "Payment #1",
-                    longReference: {
-                        essential: "Thank you for your purchase!",
-                    },
-                },
-                products: [
-                    {
-                        name: "USB C cable",
-                        amount: 2,
-                    },
-                ],
-            };
-        },
+        // createTransactionDetails, is set in product1.js and product2.js
         customFunctions: {},
     },
     integration: {
@@ -93,6 +73,7 @@ const attributes = {
                 },
             ],
         },
+        // createTransactionDetails, is set in product1.js and product2.js
         customFunctions: {},
     },
 };
