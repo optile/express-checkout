@@ -41,6 +41,8 @@ For more details please check the official documentation:
 
 * UMD implementation with a regular redirect. The demo is located [here](https://github.com/optile/demo-express-checkout-redirect)
 
+* React regular redirect live demo - <https://optile.github.io/express-checkout/?env=integration>
+
 ## How to use Express Checkout
 
 Install the component using npm:
