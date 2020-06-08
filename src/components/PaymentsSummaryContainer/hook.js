@@ -58,7 +58,7 @@ const fetchPresetAccount = async ({ dispatch, customFunctions, baseURL, longId }
     dispatch(setPresetAccountLoading(true));
     try {
         const url = getPresetLink(baseURL, longId);
-        const result = await getExpressPresetAccount({ params: { url } }, customFunctions);
+        const result = await getExpressPresetAccount({ params: { url, longId } }, customFunctions);
         if (result.response.ok) {
             fetchPresetAccountOk({ result, dispatch });
         } else {

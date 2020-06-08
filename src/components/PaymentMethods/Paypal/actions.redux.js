@@ -10,7 +10,7 @@ function getNetworkList(getState) {
 }
 function getPaypalList(getState) {
     const list = getNetworkList(getState);
-    return find(list, function(element) {
+    return find(list, function (element) {
         return element.code === "PAYPAL";
     });
 }
@@ -25,6 +25,28 @@ function getOperationLink(getState) {
 function getUpdateLink(getState) {
     return get(getState(), "paypal.preset.links.self", "");
 }
+/**
+ *
+ * @param {Function} getState invoke getState to get the current redux state
+ * @param {Boolean} isPaypalPreset to select which path to fetch longId
+ * @returns {String} longId
+ */
+const getLongIdFromParameters = (getState, isPaypalPreset) => {
+    const path = isPaypalPreset ? "paypal.preset.redirect.parameters" : "presetAccount.data.redirect.parameters";
+    const parameters = get(getState(), path, []);
+    const longIdJson = parameters.find((item) => item.name === "longId");
+    return longIdJson ? longIdJson.value : "";
+};
+/**
+ *
+ * @param {String} url redirect Url which contains the longId as last path param
+ * @returns {String} longId
+ */
+const getLongIdFromRedirectUrl = (url) => {
+    const splittedUrl = url.split("/");
+    if (splittedUrl.length > 1) return splittedUrl[splittedUrl.length - 1];
+    return "";
+};
 /**
  * On Error
  *
@@ -117,8 +139,9 @@ const authorizeAction = ({ customFunctions, data }) => async (dispatch, getState
         const updateURL = getUpdateLink(getState);
         const providerRequest = toRequestData("PAYPAL", data);
         if (updateURL) {
+            const longId = getLongIdFromParameters(getState, true) || getLongIdFromRedirectUrl(updateURL);
             const result = await updateExpressPreset({
-                params: { url: updateURL, transaction: { providerRequest }, network: "PAYPAL" },
+                params: { url: updateURL, transaction: { providerRequest }, network: "PAYPAL", longId },
                 customFunctions,
             });
             if (result.response.ok) {
@@ -150,8 +173,9 @@ const cancelAction = ({ customFunctions, data }) => async (dispatch, getState) =
         const cancelUrl = data.cancelUrl;
         const providerRequest = toRequestData("PAYPAL", data);
         if (cancelUrl) {
+            const longId = getLongIdFromParameters(getState);
             const result = await cancelExpressPreset({
-                params: { url: cancelUrl, transaction: { providerRequest }, network: "PAYPAL" },
+                params: { url: cancelUrl, transaction: { providerRequest }, network: "PAYPAL", longId },
                 customFunctions,
             });
             if (result.response.ok) {

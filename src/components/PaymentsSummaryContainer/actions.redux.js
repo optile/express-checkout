@@ -5,6 +5,16 @@ import { setConfirmAccountLoading, setConfirmAccountError, storeConfirmAccount }
 import { confirmExpressPreset } from "../../utils/customFunctions";
 
 /**
+ *
+ * @param {Function} getState invoke getState to get the current redux state
+ * @returns {String} longId
+ */
+const getLongIdFromParameters = (getState) => {
+    const parameters = get(getState(), "presetAccount.data.redirect.parameters", []);
+    const longIdJson = parameters.find((item) => item.name === "longId");
+    return longIdJson ? longIdJson.value : "";
+};
+/**
  * On Error
  *
  * @param {Object} params
@@ -55,8 +65,9 @@ const confirmAction = ({ customFunctions }) => async (dispatch, getState) => {
     try {
         const confirmURL = get(getState(), "presetAccount.data.links.confirm", "");
         const network = get(getState(), "presetAccount.data.network", null);
+        const longId = getLongIdFromParameters(getState);
         const result = await confirmExpressPreset({
-            params: { url: confirmURL, network },
+            params: { url: confirmURL, network, longId },
             customFunctions,
         });
         if (result.response.ok) {

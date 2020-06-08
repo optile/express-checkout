@@ -60,10 +60,10 @@ const fetchListOk = ({ result, dispatch, customFunctions }) => {
  * @param {String} params.clientId
  * @param {String} params.country
  */
-const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country }) => {
+const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country, longId }) => {
     dispatch(setListLoading(true));
     try {
-        const result = await getExpressList({ params: { url: baseURL, clientId, country } }, customFunctions);
+        const result = await getExpressList({ params: { url: baseURL, clientId, country, longId } }, customFunctions);
         if (result.response.ok) {
             fetchListOk({ result, dispatch, customFunctions });
         } else {
@@ -84,9 +84,10 @@ const useList = customFunctions => {
     const baseURL = useSelector(state => state.configuration.baseURL);
     const clientId = useSelector(state => state.configuration.clientId);
     const country = useSelector(state => state.configuration.country);
+    const longId = useSelector(state => state.longId);
     useEffect(() => {
         if (baseURL && clientId && country) {
-            fetchList({ dispatch, customFunctions, baseURL, clientId, country });
+            fetchList({ dispatch, customFunctions, baseURL, clientId, country, longId });
         }
     }, [baseURL, clientId, country]);
 };
