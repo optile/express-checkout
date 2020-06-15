@@ -87,7 +87,6 @@ const useList = customFunctions => {
     const country = useSelector(state => state.configuration.country);
     useEffect(() => {
         if (baseURL && clientId && country) {
-            console.log("payment container");
             fetchList({ dispatch, customFunctions, baseURL, clientId, country });
         }
     }, [configuration]);

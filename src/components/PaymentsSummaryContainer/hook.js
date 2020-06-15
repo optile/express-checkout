@@ -81,7 +81,6 @@ const usePresetAccount = customFunctions => {
     const longId = useSelector(state => state.longId);
     useEffect(() => {
         if (baseURL && longId) {
-            console.log("payment summary container");
             fetchPresetAccount({ dispatch, customFunctions, baseURL, longId });
         }
     }, [configuration, longId]);
