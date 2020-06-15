@@ -76,13 +76,15 @@ const fetchPresetAccount = async ({ dispatch, customFunctions, baseURL, longId }
  */
 const usePresetAccount = customFunctions => {
     const dispatch = useDispatch();
+    const configuration = useSelector((state) => state.configuration);
     const baseURL = useSelector(state => state.configuration.baseURL);
     const longId = useSelector(state => state.longId);
     useEffect(() => {
         if (baseURL && longId) {
+            console.log("payment summary container");
             fetchPresetAccount({ dispatch, customFunctions, baseURL, longId });
         }
-    }, [baseURL, longId]);
+    }, [configuration, longId]);
 };
 /**
  * Custom hook to display or hide global error depending of params

@@ -81,14 +81,16 @@ const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country
  */
 const useList = customFunctions => {
     const dispatch = useDispatch();
+    const configuration = useSelector(state => state.configuration);
     const baseURL = useSelector(state => state.configuration.baseURL);
     const clientId = useSelector(state => state.configuration.clientId);
     const country = useSelector(state => state.configuration.country);
     useEffect(() => {
         if (baseURL && clientId && country) {
+            console.log("payment container");
             fetchList({ dispatch, customFunctions, baseURL, clientId, country });
         }
-    }, [baseURL, clientId, country]);
+    }, [configuration]);
 };
 
 export { useList, fetchList, onError };
