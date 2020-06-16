@@ -81,7 +81,7 @@ const usePresetAccount = (customFunctions) => {
     const longId = useSelector((state) => state.longId);
     useEffect(() => {
         // baseUrl is needed unless getExpressPresetAccount is customized
-        if ((customFunctions.getExpressPresetAccount || baseURL) && longId) {
+        if ((customFunctions?.getExpressPresetAccount || baseURL) && longId) {
             fetchPresetAccount({ dispatch, customFunctions, baseURL, longId });
         }
     }, [configuration, longId]);

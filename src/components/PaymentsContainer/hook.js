@@ -88,7 +88,7 @@ const useList = (customFunctions) => {
     const country = useSelector((state) => state.configuration.country);
     useEffect(() => {
         // baseUrl, clientId and country are needed unless getExpressList is customized
-        if (customFunctions.getExpressList || (baseURL && clientId && country)) {
+        if (customFunctions?.getExpressList || (baseURL && clientId && country)) {
             fetchList({ dispatch, customFunctions, baseURL, clientId, country });
         }
     }, [configuration]);
