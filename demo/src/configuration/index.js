@@ -1,5 +1,3 @@
-import { sendDataWithParams, sendData } from "../../../src/utils/network";
-
 export const getRedirectUrl = (url, parameters) => {
     const queryString = parameters.reduce(
         (acc, current) => `${acc}${encodeURIComponent(current.name)}=${encodeURIComponent(current.value)}&`,
@@ -41,31 +39,7 @@ const attributes = {
             ],
         },
         // createTransactionDetails, is set in product1.js and product2.js
-        customFunctions: {
-            getExpressList: ({ country }) => {
-                console.log("getExpressList", country);
-                const baseURL = "https://api.integration.oscato.com/pci/v1/express";
-                const params = { clientId: "v1.opt-div-app.82785031e74645ada48b966a5ecdd0db", country };
-                return sendDataWithParams({ baseURL, method: "GET", params });
-            },
-            createExpressPreset: ({ url, transaction, network, clientId }) => {
-                const baseURL = url;
-                const params = { clientId: "v1.opt-div-app.82785031e74645ada48b966a5ecdd0db" };
-                return sendDataWithParams({ baseURL, method: "POST", params, body: transaction });
-            },
-            getExpressPresetAccount: ({ url }) => {
-                console.log("configuration", url);
-                return sendDataWithParams({
-                    baseURL: `https://api.integration.oscato.com/pci/v1/presets${url}`,
-                    method: "GET",
-                    params: {},
-                });
-            },
-            updateExpressPreset: ({ url, longId, transaction }) => {
-                console.log("inside update", longId);
-                sendData({ url, method: "PUT", body: transaction });
-            },
-        },
+        customFunctions: {},
     },
     integration: {
         configuration: {
