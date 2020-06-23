@@ -89,10 +89,10 @@ const useList = (customFunctions) => {
     const country = useSelector((state) => state.configuration.country);
     useEffect(() => {
         // baseUrl, clientId and country are needed unless getExpressList is customized
-        if (loaded && (customFunctions?.getExpressList || (baseURL && clientId && country))) {
+        if (customFunctions?.getExpressList || (baseURL && clientId && country)) {
             fetchList({ dispatch, customFunctions, baseURL, clientId, country });
         }
-    }, [configuration]);
+    }, [configuration, loaded]); // loaded won't be true until configuration value is set
 };
 
 export { useList, fetchList, onError };
