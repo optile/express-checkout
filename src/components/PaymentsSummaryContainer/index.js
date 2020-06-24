@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { usePresetAccount, useCheckPropsForSummary } from "./hook";
 import { confirmAction } from "./actions.redux";

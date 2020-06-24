@@ -35,7 +35,7 @@ const PaymentsContainer = props => {
     return (
         <div {...idProps}>
             {listOfPaymentMethods &&
-                map(listOfPaymentMethods, (method,i) => loadPaymentMethodByCode(method.code, props, i))}
+                map(listOfPaymentMethods, (method, i) => loadPaymentMethodByCode(method.code, props, i))}
         </div>
     );
 };

@@ -8,7 +8,8 @@ const initialConfigurationState = {
     clientId: "",
     country: "",
     paymentMethodsConfiguration: [],
-    language: ""
+    language: "",
+    loaded: false
 };
 
 const storeMode = createAction("STOREMODE");

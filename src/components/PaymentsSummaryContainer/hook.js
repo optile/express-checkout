@@ -5,7 +5,7 @@ import { handleError } from "../../utils";
 import { setPresetAccountLoading, setPresetAccountError, storePresetAccount } from "./redux";
 import { removeGlobalError } from "../GlobalError/redux";
 
-const getPresetLink = (baseURL, longId) => {
+const getPresetLink = (baseURL = "", longId) => {
     return `${baseURL.replace("/pci/v1/express", "/pci/v1/presets")}/${longId}`;
 };
 
@@ -58,7 +58,7 @@ const fetchPresetAccount = async ({ dispatch, customFunctions, baseURL, longId }
     dispatch(setPresetAccountLoading(true));
     try {
         const url = getPresetLink(baseURL, longId);
-        const result = await getExpressPresetAccount({ params: { url } }, customFunctions);
+        const result = await getExpressPresetAccount({ params: { url }, customFunctions });
         if (result.response.ok) {
             fetchPresetAccountOk({ result, dispatch });
         } else {
@@ -74,24 +74,26 @@ const fetchPresetAccount = async ({ dispatch, customFunctions, baseURL, longId }
  * Custom hook that run get Preset Account async and store the response
  * @param {Object} customFunctions
  */
-const usePresetAccount = customFunctions => {
+const usePresetAccount = (customFunctions) => {
     const dispatch = useDispatch();
-    const baseURL = useSelector(state => state.configuration.baseURL);
-    const longId = useSelector(state => state.longId);
+    const configuration = useSelector((state) => state.configuration);
+    const baseURL = useSelector((state) => state.configuration.baseURL);
+    const longId = useSelector((state) => state.longId);
     useEffect(() => {
-        if (baseURL && longId) {
+        // baseUrl is needed unless getExpressPresetAccount is customized
+        if ((customFunctions?.getExpressPresetAccount || baseURL) && longId) {
             fetchPresetAccount({ dispatch, customFunctions, baseURL, longId });
         }
-    }, [baseURL, longId]);
+    }, [configuration, longId]);
 };
 /**
  * Custom hook to display or hide global error depending of params
  * @param {Object} customFunctions
  */
-const useCheckPropsForSummary = customFunctions => {
+const useCheckPropsForSummary = (customFunctions) => {
     const dispatch = useDispatch();
-    const mode = useSelector(state => state.mode);
-    const longId = useSelector(state => state.longId);
+    const mode = useSelector((state) => state.mode);
+    const longId = useSelector((state) => state.longId);
     useEffect(() => {
         if (mode === "Summary" && !longId) {
             onClientException({ preset: { resultInfo: "No longId" }, step: "Init Summary", dispatch, customFunctions });
