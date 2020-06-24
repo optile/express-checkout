@@ -44,7 +44,9 @@ const getLongIdFromParameters = (getState, isPaypalPreset) => {
  */
 const getLongIdFromRedirectUrl = (url) => {
     const splittedUrl = url.split("/");
-    if (splittedUrl.length > 1) return splittedUrl[splittedUrl.length - 1];
+    if (splittedUrl.length > 1) {
+        return splittedUrl[splittedUrl.length - 1];
+    }
     return "";
 };
 /**
