@@ -60,11 +60,11 @@ const fetchListOk = ({ result, dispatch, customFunctions }) => {
  * @param {String} params.clientId
  * @param {String} params.country
  */
-const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country }) => {
+const fetchList = async ({ dispatch, customFunctions, baseURL, clientId, country, longId }) => {
     dispatch(setListLoading(true));
     try {
         // baseUrl and clientId are mandatory when this function is not customized
-        const result = await getExpressList({ params: { url: baseURL, clientId, country }, customFunctions });
+        const result = await getExpressList({ params: { url: baseURL, clientId, country, longId }, customFunctions });
         if (result.response.ok) {
             fetchListOk({ result, dispatch, customFunctions });
         } else {
@@ -87,11 +87,12 @@ const useList = (customFunctions) => {
     const baseURL = useSelector((state) => state.configuration.baseURL);
     const clientId = useSelector((state) => state.configuration.clientId);
     const country = useSelector((state) => state.configuration.country);
+    const longId = useSelector((state) => state.longId);
     useEffect(() => {
         // baseUrl, clientId and country are needed unless getExpressList is customized
         // loaded won't be true until configuration value is set
         if (loaded && (customFunctions?.getExpressList || (baseURL && clientId && country))) {
-            fetchList({ dispatch, customFunctions, baseURL, clientId, country });
+            fetchList({ dispatch, customFunctions, baseURL, clientId, country, longId });
         }
     }, [configuration]);
 };

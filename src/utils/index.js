@@ -1,4 +1,5 @@
 import { onAbort, onReload, onRetry, onClientException, onTryOtherAccount, onTryOtherNetwork } from "./customFunctions";
+import get from "lodash/get";
 /**
  * Create a map from params
  * @param {Object} data
@@ -138,4 +139,17 @@ export const getIdentificationProps = props => {
     }
     const withSuffix = suffix ? `${className}-${suffix}` : className;
     return { "test-id": withSuffix, className: `${className} ${withSuffix}` };
+};
+
+/**
+ *
+ * @param {Function} getState invoke getState to get the current redux state
+ * @param {Boolean} isPaypalPreset to select which path to fetch longId
+ * @returns {String} longId
+ */
+export const getLongIdFromParameters = (getState, isPaypalPreset) => {
+    const path = isPaypalPreset ? "paypal.preset.redirect.parameters" : "presetAccount.data.redirect.parameters";
+    const parameters = get(getState(), path, []);
+    const longIdJson = parameters.find((item) => item.name === "longId");
+    return longIdJson ? longIdJson.value : "";
 };

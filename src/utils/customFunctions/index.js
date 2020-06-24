@@ -11,8 +11,9 @@ import { storeGlobalError, storeDisplayGlobalError } from "../../components/Glob
  * @param {String} params.url
  * @param {String} params.clientId
  * @param {String} params.country
+ * @param {String} params.longId identification for the session
  */
-const getExpressListInternal = ({ url, clientId, country }) =>
+const getExpressListInternal = ({ url, clientId, country, longId }) =>
     sendDataWithParams({ baseURL: url, method: "GET", params: { clientId, country } });
 
 /**
@@ -36,8 +37,9 @@ const createExpressPresetInternal = ({ url, transaction, network, clientId }) =>
  * @param {String} params.url
  * @param {Object} params.transaction providerRequest
  * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {String} params.longId identification for the session
  */
-const updateExpressPresetInternal = ({ url, transaction, network }) => sendData({ url, method: "PUT", body: transaction });
+const updateExpressPresetInternal = ({ url, transaction, network, longId }) => sendData({ url, method: "PUT", body: transaction });
 
 /**
  * Internal implementation for cancelExpressPreset function
@@ -48,8 +50,9 @@ const updateExpressPresetInternal = ({ url, transaction, network }) => sendData(
  * @param {String} params.url
  * @param {Object} params.transaction providerRequest
  * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {String} params.longId identification for the session
  */
-const cancelExpressPresetInternal = ({ url, transaction, network }) => sendData({ url, method: "POST", body: {} });
+const cancelExpressPresetInternal = ({ url, transaction, network, longId }) => sendData({ url, method: "POST", body: {longId} });
 
 /**
  * Internal implementation for getExpressPresetAccount function
@@ -57,8 +60,9 @@ const cancelExpressPresetInternal = ({ url, transaction, network }) => sendData(
  * That can be overwritten in customFunctions.getExpressPresetAccount
  * @param {Object} params
  * @param {String} params.url
+ * @param {String} params.longId identification for the session
  */
-const getExpressPresetAccountInternal = ({ url }) => sendDataWithParams({ baseURL: url, method: "GET", params: {} });
+const getExpressPresetAccountInternal = ({ url, longId }) => sendDataWithParams({ baseURL: url, method: "GET", params: {} });
 
 /**
  * Internal implementation for confirmExpressPreset function
@@ -68,8 +72,9 @@ const getExpressPresetAccountInternal = ({ url }) => sendDataWithParams({ baseUR
  * @param {Object} params
  * @param {String} params.url
  * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {String} params.longId identification for the session
  */
-const confirmExpressPresetInternal = ({ url, network }) => sendData({ url, method: "POST", body: {} });
+const confirmExpressPresetInternal = ({ url, network, longId }) => sendData({ url, method: "POST", body: {} });
 
 /**
  * Internal implementation for onProceed function
@@ -79,8 +84,9 @@ const confirmExpressPresetInternal = ({ url, network }) => sendData({ url, metho
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update, so the proceed function will know that we need to load confirm/summary mode
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onProceedInternal = ({ preset, step, dispatch }) => {
+const onProceedInternal = ({ preset, step, dispatch, longId }) => {
     if (!preset.redirect) {
         console.log("Redirect information is not found in Preset response");
         return;
@@ -103,8 +109,9 @@ const onProceedInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onAbortInternal = ({ preset, step, dispatch }) => {
+const onAbortInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     if (!preset.redirect) {
@@ -128,8 +135,9 @@ const onAbortInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onReloadInternal = ({ preset, step, dispatch }) => {
+const onReloadInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -143,8 +151,9 @@ const onReloadInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onTryOtherNetworkInternal = ({ preset, step, dispatch }) => {
+const onTryOtherNetworkInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -159,8 +168,9 @@ const onTryOtherNetworkInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onRetryInternal = ({ preset, step, dispatch }) => {
+const onRetryInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -175,8 +185,9 @@ const onRetryInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onTryOtherAccountInternal = ({ preset, step, dispatch }) => {
+const onTryOtherAccountInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -190,8 +201,9 @@ const onTryOtherAccountInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onCustomerAbortInternal = ({ preset, step, dispatch }) => {
+const onCustomerAbortInternal = ({ preset, step, dispatch, longId }) => {
     if (!preset.redirect) {
         console.log("Redirect information is not found in Preset response");
         return;
@@ -336,6 +348,7 @@ export const onRetry = ({ params, customFunctions }) => getCorrectFunction({ par
  * @param {Object} params
  * @param {Object} params.params the parameters passed to onRetry from custom Functions or initial functions
  * @param {Object} params.customFunctions
+ * @param {String} params.params.longId identification for the session
  */
 export const getExpressPresetAccount = ({ params, customFunctions }) =>
     getCorrectFunction({ params, functionName: "getExpressPresetAccount", customFunctions });
@@ -345,8 +358,9 @@ export const getExpressPresetAccount = ({ params, customFunctions }) =>
  * @param {Object} params
  * @param {Object} params.params the parameters passed to onClientException from custom Functions or initial functions
  * @param {Object} params.customFunctions
+ * @param {String} params.longId identification for the session
  */
-export const onClientException = ({ preset, step, dispatch, customFunctions }) => {
+export const onClientException = ({ preset, step, dispatch, customFunctions, longId }) => {
     const onClientExceptionClient = get(customFunctions, "onClientException", false);
     const onErrorClient = get(customFunctions, "onError", false);
     if (onClientExceptionClient) {

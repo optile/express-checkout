@@ -1,4 +1,4 @@
-import React, { useEffect /*, useState*/ } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { storeConfiguration, storeMode, storeLongId } from "./redux";
 import { useDispatch, useSelector } from "react-redux";
