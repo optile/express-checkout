@@ -1,7 +1,7 @@
 import { createExpressPreset, updateExpressPreset, onCustomerAbort, onProceed, cancelExpressPreset } from "../../../utils/customFunctions";
 import get from "lodash/get";
 import find from "lodash/find";
-import { toRequestData, interactionCodeHandler, handleError } from "../../../utils";
+import { toRequestData, interactionCodeHandler, handleError, getLongIdFromParameters } from "../../../utils";
 import { storePaypalStatus, storePaypalPaymentID, storePaypalPreset, storePaypalCancelData, storePaypalError } from "./redux";
 
 function getNetworkList(getState) {
@@ -25,18 +25,6 @@ function getOperationLink(getState) {
 function getUpdateLink(getState) {
     return get(getState(), "paypal.preset.links.self", "");
 }
-/**
- *
- * @param {Function} getState invoke getState to get the current redux state
- * @param {Boolean} isPaypalPreset to select which path to fetch longId
- * @returns {String} longId
- */
-const getLongIdFromParameters = (getState, isPaypalPreset) => {
-    const path = isPaypalPreset ? "paypal.preset.redirect.parameters" : "presetAccount.data.redirect.parameters";
-    const parameters = get(getState(), path, []);
-    const longIdJson = parameters.find((item) => item.name === "longId");
-    return longIdJson ? longIdJson.value : "";
-};
 /**
  *
  * @param {String} url redirect Url which contains the longId as last path param
