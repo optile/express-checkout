@@ -57,12 +57,12 @@ describe("Get Identification Props", () => {
 });
 
 describe("test util function getLongIdFromParameters", () => {
-    it("should return longId from the paramters from paypal preset", () => {
+    it("should return longId from the parameters from paypal preset", () => {
         const parameters = [{ name: "longId", value: "123456789" }];
         const getState = () => set({}, "paypal.preset.redirect.parameters", parameters);
         expect(getLongIdFromParameters(getState, true)).toEqual("123456789");
     });
-    it("should return longId from the paramters from preset account", () => {
+    it("should return longId from the parameters from preset account", () => {
         const parameters = [{ name: "longId", value: "123456789" }];
         const getState = () => set({}, "presetAccount.data.redirect.parameters", parameters);
         expect(getLongIdFromParameters(getState)).toEqual("123456789");
