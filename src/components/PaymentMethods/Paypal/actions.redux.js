@@ -30,7 +30,7 @@ function getUpdateLink(getState) {
  * @param {String} url redirect Url which contains the longId as last path param
  * @returns {String} longId
  */
-const getLongIdFromRedirectUrl = (url) => {
+export const getLongIdFromRedirectUrl = (url) => {
     const splittedUrl = url.split("/");
     if (splittedUrl.length > 1) {
         return splittedUrl[splittedUrl.length - 1];
