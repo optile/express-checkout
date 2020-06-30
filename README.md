@@ -41,6 +41,8 @@ For more details please check the official documentation:
 
 * UMD implementation with a regular redirect. The demo is located [here](https://github.com/optile/demo-express-checkout-redirect)
 
+* React regular redirect live demo - <https://optile.github.io/express-checkout/?env=integration>
+
 ## How to use Express Checkout
 
 Install the component using npm:
@@ -132,10 +134,10 @@ const attributes = {
     customFunctions: {
         getExpressList: ({ url, clientId, country }) => console.log(""),
         createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
-        updateExpressPreset: ({ url, transaction, network }) => console.log(""),
-        cancelExpressPreset: ({ url, transaction, network }) => console.log(""),
-        getExpressPresetAccount: ({ url }) => console.log(""),
-        confirmExpressPreset: ({ url, network }) => console.log(""),
+        updateExpressPreset: ({ url, transaction, network, longId }) => console.log(""),
+        cancelExpressPreset: ({ url, transaction, network, longId }) => console.log(""),
+        getExpressPresetAccount: ({ url, longId }) => console.log(""),
+        confirmExpressPreset: ({ url, network, longId }) => console.log(""),
 
         onProceed: ({ preset, step, dispatch }) => console.log(""),
         onAbort: ({ preset, step, dispatch }) => console.log(""),
@@ -239,10 +241,10 @@ render(<Demo />, document.querySelector("#demo"));
                 customFunctions: {
                     getExpressList: ({ url, clientId, country }) => console.log(""),
                     createExpressPreset: ({ url, transaction, network, clientId }) => console.log(""),
-                    updateExpressPreset: ({ url, transaction, network }) => console.log(""),
-                    cancelExpressPreset: ({ url, transaction, network }) => console.log(""),
-                    getExpressPresetAccount: ({ url }) => console.log(""),
-                    confirmExpressPreset: ({ url, network }) => console.log(""),
+                    updateExpressPreset: ({ url, transaction, network, longId }) => console.log(""),
+                    cancelExpressPreset: ({ url, transaction, network, longId }) => console.log(""),
+                    getExpressPresetAccount: ({ url, longId }) => console.log(""),
+                    confirmExpressPreset: ({ url, network, longId }) => console.log(""),
 
                     onProceed: ({ preset, step, dispatch }) => console.log(""),
                     onAbort: ({ preset, step, dispatch }) => console.log(""),
@@ -353,6 +355,7 @@ Called to update payment session, for example in PAYPAL it is passed under onAut
    * @param {String} url
    * @param {Object} transaction providerRequest
    * @param {String} network payment code, for example: "PAYPAL"
+   * @param {String} longId
 
 <br/>
 <br/>
@@ -365,6 +368,7 @@ It is passed under onCancel. Used in mode==null (first page)
    * @param {String} url
    * @param {Object} transaction providerRequest
    * @param {String} network payment code, for example: "PAYPAL"
+   * @param {String} longId
 
 <br/>
 <br/>
@@ -376,6 +380,7 @@ It is used in onClick of Confirm button in mode==Summary (second page)
  * @param {Object} params it contains
    * @param {String} url
    * @param {String} network payment code, for example: "PAYPAL"
+   * @param {String} longId
 
 <br/>
 <br/>

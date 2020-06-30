@@ -11,8 +11,9 @@ import { storeGlobalError, storeDisplayGlobalError } from "../../components/Glob
  * @param {String} params.url
  * @param {String} params.clientId
  * @param {String} params.country
+ * @param {String} params.longId identification for the session
  */
-const getExpressListInternal = ({ url, clientId, country }) =>
+const getExpressListInternal = ({ url, clientId, country, longId }) =>
     sendDataWithParams({ baseURL: url, method: "GET", params: { clientId, country } });
 
 /**
@@ -36,8 +37,9 @@ const createExpressPresetInternal = ({ url, transaction, network, clientId }) =>
  * @param {String} params.url
  * @param {Object} params.transaction providerRequest
  * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {String} params.longId identification for the session
  */
-const updateExpressPresetInternal = ({ url, transaction, network }) => sendData({ url, method: "PUT", body: transaction });
+const updateExpressPresetInternal = ({ url, transaction, network, longId }) => sendData({ url, method: "PUT", body: transaction });
 
 /**
  * Internal implementation for cancelExpressPreset function
@@ -48,8 +50,9 @@ const updateExpressPresetInternal = ({ url, transaction, network }) => sendData(
  * @param {String} params.url
  * @param {Object} params.transaction providerRequest
  * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {String} params.longId identification for the session
  */
-const cancelExpressPresetInternal = ({ url, transaction, network }) => sendData({ url, method: "POST", body: {} });
+const cancelExpressPresetInternal = ({ url, transaction, network, longId }) => sendData({ url, method: "POST", body: {longId} });
 
 /**
  * Internal implementation for getExpressPresetAccount function
@@ -57,8 +60,9 @@ const cancelExpressPresetInternal = ({ url, transaction, network }) => sendData(
  * That can be overwritten in customFunctions.getExpressPresetAccount
  * @param {Object} params
  * @param {String} params.url
+ * @param {String} params.longId identification for the session
  */
-const getExpressPresetAccountInternal = ({ url }) => sendDataWithParams({ baseURL: url, method: "GET", params: {} });
+const getExpressPresetAccountInternal = ({ url, longId }) => sendDataWithParams({ baseURL: url, method: "GET", params: {} });
 
 /**
  * Internal implementation for confirmExpressPreset function
@@ -68,8 +72,9 @@ const getExpressPresetAccountInternal = ({ url }) => sendDataWithParams({ baseUR
  * @param {Object} params
  * @param {String} params.url
  * @param {String} params.network payment code, for example: "PAYPAL"
+ * @param {String} params.longId identification for the session
  */
-const confirmExpressPresetInternal = ({ url, network }) => sendData({ url, method: "POST", body: {} });
+const confirmExpressPresetInternal = ({ url, network, longId }) => sendData({ url, method: "POST", body: {} });
 
 /**
  * Internal implementation for onProceed function
@@ -79,8 +84,9 @@ const confirmExpressPresetInternal = ({ url, network }) => sendData({ url, metho
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update, so the proceed function will know that we need to load confirm/summary mode
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onProceedInternal = ({ preset, step, dispatch }) => {
+const onProceedInternal = ({ preset, step, dispatch, longId }) => {
     if (!preset.redirect) {
         console.log("Redirect information is not found in Preset response");
         return;
@@ -103,8 +109,9 @@ const onProceedInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onAbortInternal = ({ preset, step, dispatch }) => {
+const onAbortInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     if (!preset.redirect) {
@@ -128,8 +135,9 @@ const onAbortInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onReloadInternal = ({ preset, step, dispatch }) => {
+const onReloadInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -143,8 +151,9 @@ const onReloadInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onTryOtherNetworkInternal = ({ preset, step, dispatch }) => {
+const onTryOtherNetworkInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -159,8 +168,9 @@ const onTryOtherNetworkInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onRetryInternal = ({ preset, step, dispatch }) => {
+const onRetryInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -175,8 +185,9 @@ const onRetryInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onTryOtherAccountInternal = ({ preset, step, dispatch }) => {
+const onTryOtherAccountInternal = ({ preset, step, dispatch, longId }) => {
     const { resultInfo } = preset;
     console.log("Error has occurred: ", resultInfo, ", ", "Step: ", step);
     // TODO Logout Amazon pay
@@ -190,8 +201,9 @@ const onTryOtherAccountInternal = ({ preset, step, dispatch }) => {
  * @param {Object} params.preset
  * @param {String} params.step it indicates the current step for example Update
  * @param {Function} params.dispatch the dispatch function used in redux to modify the store, the actions structures should be known
+ * @param {String} params.longId identification for the session
  */
-const onCustomerAbortInternal = ({ preset, step, dispatch }) => {
+const onCustomerAbortInternal = ({ preset, step, dispatch, longId }) => {
     if (!preset.redirect) {
         console.log("Redirect information is not found in Preset response");
         return;
@@ -225,14 +237,14 @@ var internalFunctions = {
 };
 
 /**
- * Use Correct Function depending on if it is initialized in customFunctions or just use initialFunctions
+ * Get Correct Function depending on if it is initialized in customFunctions or just use initialFunctions
  * @param {Object} params
  * @param {Object} params.params
  * @param {String} params.functionName the key name of the function to check is defined as customFunctions
  * @param {Object} params.customFunctions
  * @returns {Function} Correct function
  */
-export const useCorrectFunction = ({ params, functionName, customFunctions }) => {
+export const getCorrectFunction = ({ params, functionName, customFunctions }) => {
     const customFunction = get(customFunctions, functionName, false);
     const internalFunction = get(internalFunctions, functionName, false);
     return customFunction ? customFunction(params) : internalFunction(params);
@@ -245,7 +257,7 @@ export const useCorrectFunction = ({ params, functionName, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const getExpressList = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "getExpressList", customFunctions });
+    getCorrectFunction({ params, functionName: "getExpressList", customFunctions });
 
 /**
  * Create Express Preset
@@ -254,7 +266,7 @@ export const getExpressList = ({ params, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const createExpressPreset = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "createExpressPreset", customFunctions });
+    getCorrectFunction({ params, functionName: "createExpressPreset", customFunctions });
 
 /**
  * Update Express Preset
@@ -263,7 +275,7 @@ export const createExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const updateExpressPreset = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "updateExpressPreset", customFunctions });
+    getCorrectFunction({ params, functionName: "updateExpressPreset", customFunctions });
 
 /**
  * Cancel Express Preset
@@ -272,7 +284,7 @@ export const updateExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const cancelExpressPreset = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "cancelExpressPreset", customFunctions });
+    getCorrectFunction({ params, functionName: "cancelExpressPreset", customFunctions });
 
 /**
  * Confirm Express Preset
@@ -281,7 +293,7 @@ export const cancelExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.customFunctions
  */
 export const confirmExpressPreset = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "confirmExpressPreset", customFunctions });
+    getCorrectFunction({ params, functionName: "confirmExpressPreset", customFunctions });
 
 /**
  * On Proceed
@@ -289,7 +301,7 @@ export const confirmExpressPreset = ({ params, customFunctions }) =>
  * @param {Object} params.params the parameters passed to onProceed from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onProceed = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onProceed", customFunctions });
+export const onProceed = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onProceed", customFunctions });
 
 /**
  * On Abort
@@ -297,7 +309,7 @@ export const onProceed = ({ params, customFunctions }) => useCorrectFunction({ p
  * @param {Object} params.params the parameters passed to onAbort from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onAbort = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onAbort", customFunctions });
+export const onAbort = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onAbort", customFunctions });
 
 /**
  * On Try Other Account
@@ -305,7 +317,7 @@ export const onAbort = ({ params, customFunctions }) => useCorrectFunction({ par
  * @param {Object} params.params the parameters passed to onTryOtherAccount from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onTryOtherAccount = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onTryOtherAccount", customFunctions });
+export const onTryOtherAccount = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onTryOtherAccount", customFunctions });
 
 /**
  * On Try Other Network
@@ -313,7 +325,7 @@ export const onTryOtherAccount = ({ params, customFunctions }) => useCorrectFunc
  * @param {Object} params.params the parameters passed to onTryOtherNetwork from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onTryOtherNetwork = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onTryOtherNetwork", customFunctions });
+export const onTryOtherNetwork = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onTryOtherNetwork", customFunctions });
 
 /**
  * On Reload
@@ -321,7 +333,7 @@ export const onTryOtherNetwork = ({ params, customFunctions }) => useCorrectFunc
  * @param {Object} params.params the parameters passed to onReload from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onReload = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onReload", customFunctions });
+export const onReload = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onReload", customFunctions });
 
 /**
  * On Retry
@@ -329,24 +341,26 @@ export const onReload = ({ params, customFunctions }) => useCorrectFunction({ pa
  * @param {Object} params.params the parameters passed to onRetry from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onRetry = ({ params, customFunctions }) => useCorrectFunction({ params, functionName: "onRetry", customFunctions });
+export const onRetry = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onRetry", customFunctions });
 
 /**
  * Get Express Preset Account
  * @param {Object} params
  * @param {Object} params.params the parameters passed to onRetry from custom Functions or initial functions
  * @param {Object} params.customFunctions
+ * @param {String} params.params.longId identification for the session
  */
 export const getExpressPresetAccount = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "getExpressPresetAccount", customFunctions });
+    getCorrectFunction({ params, functionName: "getExpressPresetAccount", customFunctions });
 
 /**
  * On Client Exception
  * @param {Object} params
  * @param {Object} params.params the parameters passed to onClientException from custom Functions or initial functions
  * @param {Object} params.customFunctions
+ * @param {String} params.longId identification for the session
  */
-export const onClientException = ({ preset, step, dispatch, customFunctions }) => {
+export const onClientException = ({ preset, step, dispatch, customFunctions, longId }) => {
     const onClientExceptionClient = get(customFunctions, "onClientException", false);
     const onErrorClient = get(customFunctions, "onError", false);
     if (onClientExceptionClient) {
@@ -372,4 +386,4 @@ export const onClientException = ({ preset, step, dispatch, customFunctions }) =
  * @param {Object} params.customFunctions
  */
 export const onCustomerAbort = ({ params, customFunctions }) =>
-    useCorrectFunction({ params, functionName: "onCustomerAbort", customFunctions });
+    getCorrectFunction({ params, functionName: "onCustomerAbort", customFunctions });

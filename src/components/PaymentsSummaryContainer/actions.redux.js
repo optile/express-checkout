@@ -1,6 +1,6 @@
 import { onProceed } from "../../utils/customFunctions";
 import get from "lodash/get";
-import { interactionCodeHandler, handleError } from "../../utils";
+import { interactionCodeHandler, handleError, getLongIdFromParameters } from "../../utils";
 import { setConfirmAccountLoading, setConfirmAccountError, storeConfirmAccount } from "./redux";
 import { confirmExpressPreset } from "../../utils/customFunctions";
 
@@ -29,7 +29,7 @@ const onError = ({ err, dispatch, step, customFunctions }) => {
     handleError(errorProps);
 };
 const handleNotOkResponse = ({ result, dispatch, step, customFunctions }) => {
-    const { error: err } = result;
+    const err = { message: result.error.message.resultInfo };
     return onError({ err, dispatch, step, customFunctions });
 };
 const handleCatch = ({ err, dispatch, step, customFunctions }) => {
@@ -55,8 +55,9 @@ const confirmAction = ({ customFunctions }) => async (dispatch, getState) => {
     try {
         const confirmURL = get(getState(), "presetAccount.data.links.confirm", "");
         const network = get(getState(), "presetAccount.data.network", null);
+        const longId = getLongIdFromParameters(getState);
         const result = await confirmExpressPreset({
-            params: { url: confirmURL, network },
+            params: { url: confirmURL, network, longId },
             customFunctions,
         });
         if (result.response.ok) {

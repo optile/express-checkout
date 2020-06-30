@@ -1,4 +1,4 @@
-import React, { useEffect /*, useState*/ } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { storeConfiguration, storeMode, storeLongId } from "./redux";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,10 +27,10 @@ const ConfigurationManager = props => {
     const displayGlobalError = useSelector(state => state.displayGlobalError);
 
     const { i18n } = useTranslation();
-    const use2LettersLanguage = lg => (lg.length > 2 ? lg.substring(0, 2) : "en");
+    const get2LettersLanguage = lg => (lg.length > 2 ? lg.substring(0, 2) : "en");
 
     useEffect(() => {
-        dispatch(storeConfiguration(props.configuration));
+        dispatch(storeConfiguration({ ...props.configuration, loaded: true }));
         dispatch(storeMode(props.mode));
         dispatch(storeLongId(props.longId));
     }, [props.longId, props.mode]);
@@ -42,7 +42,7 @@ const ConfigurationManager = props => {
             });
         }
         if (props.configuration.language) {
-            i18n.changeLanguage(use2LettersLanguage(props.configuration.language));
+            i18n.changeLanguage(get2LettersLanguage(props.configuration.language));
         }
     }, [props.configuration]);
 
