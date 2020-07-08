@@ -7,8 +7,8 @@ if (typeof window !== "undefined" && !window.paypal) {
     window.paypal = paypal;
 }
 
-const ErrorHandling = () => <div>Server side rendering</div>;
+const Loading = () => <div>Please wait...</div>;
 
-const PaypalButton = typeof window !== "undefined" ? window?.paypal?.Button?.driver("react", { React, ReactDOM }) : ErrorHandling;
+const PaypalButton = typeof window !== "undefined" ? window?.paypal?.Button?.driver("react", { React, ReactDOM }) : Loading;
 
 export default PaypalButton;
