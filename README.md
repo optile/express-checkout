@@ -55,6 +55,18 @@ or
 
 *Please do not forget to version the lock file (package-lock.json or yarn.lock, respectively)*
 
+## How to run Express Checkout build locally
+
+- `npm run onlybuild` - this creates the build in `build` and in `demo/dist` folders. Note that if you run `npm run build` that will trigger to publish in gh-pages
+
+- `npx serve -p <port-number> demo/dist` - runs the build locally in the given port number. Say for example `npx serve -p 4444 demo/dist`
+
+- open in browser http://localhost:4444
+
+## How to publish Express Checkout in gh-pages
+
+- `npm run build`
+
 <br/>
 <br/>
 
