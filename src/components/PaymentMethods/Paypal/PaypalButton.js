@@ -1,8 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// To prevent multiple call for paypal-checkout, because it causes issues
+/**
+ * This is to check whether the window object is present or not before accessing it
+ * When ECO is rendered using SSR this check is necessary as there won't be window
+ * object in SSR
+ */
 const isWindowDefined = typeof window !== "undefined";
+
+// !window.paypal - To prevent multiple call for paypal-checkout, because it causes issues
 if (isWindowDefined && !window.paypal) {
     const paypal = require("paypal-checkout");
     window.paypal = paypal;
