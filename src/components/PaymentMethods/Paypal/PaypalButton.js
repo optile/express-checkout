@@ -1,10 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import paypal from 'paypal-checkout';
+import React from "react";
+import ReactDOM from "react-dom";
 
-// To prevent multiple call for paypal-checkout, because it causes issues
-if (!window.paypal) {
-  window.paypal = paypal;
+/**
+ * This is to check whether the window object is present or not before accessing it
+ * When ECO is rendered using SSR this check is necessary as there won't be window
+ * object in SSR
+ */
+const isWindowDefined = typeof window !== "undefined";
+
+// !window.paypal - To prevent multiple call for paypal-checkout, because it causes issues
+if (isWindowDefined && !window.paypal) {
+    const paypal = require("paypal-checkout");
+    window.paypal = paypal;
 }
 
-export default window.paypal.Button.driver('react', { React, ReactDOM });
+const Loading = () => <div>Please wait...</div>;
+
+const PaypalButton = isWindowDefined ? window?.paypal?.Button?.driver("react", { React, ReactDOM }) : Loading;
+
+export default PaypalButton;

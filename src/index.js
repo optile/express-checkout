@@ -40,4 +40,12 @@ ExpressCheckout.propTypes = {
     suffix: PropTypes.string,
 };
 
+ExpressCheckout.defaultProps = {
+    createTransactionDetails: (f) => f,
+    customFunctions: {},
+    mode: "",
+    longId: "",
+    suffix: "",
+};
+
 export default ExpressCheckout;
