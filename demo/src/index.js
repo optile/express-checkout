@@ -14,11 +14,26 @@ const Demo = () => {
     const mode = getMode();
     switch (mode) {
         case "Summary":
-            return <Summary></Summary>;
+            return (
+                <div>
+                    <div className="forTestOnly"></div>
+                    <Summary></Summary>
+                </div>
+            );
         case "Successful":
-            return <Thankyou></Thankyou>;
+            return (
+                <div>
+                    <div className="forTestOnly"></div>
+                    <Thankyou></Thankyou>
+                </div>
+            );
         default:
-            return <Products></Products>;
+            return (
+                <div>
+                    <div className="forTestOnly"></div>
+                    <Products></Products>
+                </div>
+            );
     }
 };
 
