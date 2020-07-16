@@ -2,12 +2,7 @@ import React from "react";
 
 import getAttributes from "../configuration";
 import ExpressCheckout from "../../../src";
-
-const getLongId = () => {
-    let params = new URLSearchParams(window.location.search);
-
-    return params.get("longId");
-};
+import { getLongId } from "../utils";
 
 const Summary = () => {
     const attributes = getAttributes();
