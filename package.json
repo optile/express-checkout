@@ -31,7 +31,7 @@
     "cross-env": "^7.0.1",
     "i18n": "^0.8.5",
     "i18next": "^19.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "paypal-checkout": "^4.0.311",
     "query-string": "^5.1.1",
     "react-i18next": "^11.3.1",
