@@ -20,12 +20,10 @@ export const getExpressPreset = async (setStatus) => {
         },
     };
     const { response, data } = await fetchData(baseURL, options);
-	if (response?.ok) {
-		if (data?.links?.charge) {
-			const { data: { status } } = await charge(data?.links?.charge);
-			if (status?.code === "charged") {
-				setStatus("CHARGED");
-			} else setStatus("CHARGE_FAILED");
-		} else setStatus("EXPIRED");
-	} else setStatus("ERROR");
+	if (response?.ok && data?.links?.charge) {
+		const chargeResponse = await charge(data.links.charge);
+		if (chargeResponse?.data?.status?.code === "charged") {
+            setStatus("CHARGED");
+        } else setStatus("ERROR");
+    } else setStatus("ERROR");
 };
