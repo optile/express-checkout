@@ -8,7 +8,7 @@ const getPresetLink = (longId) => {
     return `${baseURL?.replace("pci/v1/express", "api/presets")}/${longId}`;
 };
 
-export const getExpressPreset = async (setStatus) => {
+export const getExpressPreset = async (callback, onlyGetExpressPreset) => {
     const longId = getLongId();
 	const baseURL = getPresetLink(longId);
 	const Authorization = getAuthorization();
@@ -20,10 +20,17 @@ export const getExpressPreset = async (setStatus) => {
         },
     };
     const { response, data } = await fetchData(baseURL, options);
+    if (onlyGetExpressPreset) {
+        callback({
+            address: data?.customerCollectedDetails?.addresses?.shipping,
+            network: data?.network,
+        });
+        return;
+    }
 	if (response?.ok && data?.links?.charge) {
 		const chargeResponse = await charge(data.links.charge);
 		if (chargeResponse?.data?.status?.code === "charged") {
-            setStatus("CHARGED");
-        } else setStatus("ERROR");
-    } else setStatus("ERROR");
+            callback("CHARGED");
+        } else callback("ERROR");
+    } else callback("ERROR");
 };
