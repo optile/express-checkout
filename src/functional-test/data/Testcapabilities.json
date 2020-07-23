@@ -2,9 +2,9 @@
     "build": [
         {
             "os": "OS X",
-            "os_version": "Sierra",
+            "os_version": "Catalina",
             "browser": "chrome",
-            "browser_version":"80",
+            "browser_version":"83",
             "fixed":true
         }
     ],
