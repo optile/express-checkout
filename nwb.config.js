@@ -9,10 +9,4 @@ module.exports = {
             },
         },
     },
-    webpack: {
-        define: {
-            MERCHANT_ENV: JSON.stringify("555"),
-            TOKEN_ENV: JSON.stringify("b348k9ho52e57lmksjl3um438k1e50cde1tbmlekrd"),
-        },
-    },
 };

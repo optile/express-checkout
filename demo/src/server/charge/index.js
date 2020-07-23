@@ -1,7 +1,7 @@
 import { sendData } from "../network";
 import { getAuthorization } from "../../utils";
 
-export const charge = async (url) => {
+export const charge = async (url, callback) => {
     const response = await sendData({
         url,
         method: "POST",
@@ -10,5 +10,7 @@ export const charge = async (url) => {
             Authorization: getAuthorization(),
         },
     });
-    return response;
+    if (response?.data?.status?.code === "charged") {
+        callback("CHARGED");
+    } else callback("ERROR");
 };
