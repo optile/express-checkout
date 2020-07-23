@@ -23,8 +23,8 @@ const Thankyou = () => {
     }, []);
     useEffect(() => {
         if (!link) return;
-        if (link === "EXPIRED") {
-            setStatus("EXPIRED");
+        if (link === "EXPIRED" || link === "ERROR") {
+            setStatus(link);
         } else {
             charge(link, setStatus);
         }
