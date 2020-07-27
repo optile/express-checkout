@@ -1,8 +1,5 @@
 const { Builder, By } = require("selenium-webdriver");
 const { getElement, waitForElement } = require("../services/locatingStrategy");
-import "babel-polyfill";
-import { until } from "selenium-webdriver";
-import { composeInitialProps } from "react-i18next";
 const BASE_URL = "http://localhost:3000";
 
 const checkWindowCount = async number => {
@@ -65,7 +62,7 @@ const paypalTests = () => {
         await DRIVER.manage()
             .window()
             .maximize();
-        await waitForElement("#confirmButtonTop");    
+        await waitForElement("#confirmButtonTop");
         (await getElement("#confirmButtonTop")).click();
         await DRIVER.wait(() => checkWindowCount(1));
         await DRIVER.getAllWindowHandles().then(allhandles => DRIVER.switchTo().window(allhandles.pop()));
