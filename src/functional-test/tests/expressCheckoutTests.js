@@ -1,9 +1,6 @@
 const { Builder, By } = require("selenium-webdriver");
 const { getElement, waitForElement } = require("../services/locatingStrategy");
-import "babel-polyfill";
-import { until } from "selenium-webdriver";
-import { composeInitialProps } from "react-i18next";
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:3000/demo/dist/";
 
 const expressCheckoutTests = () => {
     beforeAll(async () => {
