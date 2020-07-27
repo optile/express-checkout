@@ -793,3 +793,30 @@ Open <http://localhost:3000/>
 ## Steps to run test cases
 
 `npm test`
+
+## Steps to run functional test cases locally
+
+To run locally you'll need browser drivers. 
+
+For chrome - https://chromedriver.chromium.org/
+
+For Firefox - https://github.com/mozilla/geckodriver/releases
+
+For Safari - Go to Safari →develop → Allow Remote Automation
+
+*Set PATH for drivers in bash_profile.
+
+Set Up System Environment as below
+
+`export BROWSERSTACK_USER=“ ”`
+`export BROWSERSTACK_KEY=“ ”`
+`export MERCHANT_USERNAME=“ ”`
+`export MERCHANT_PASSWORD=“ "`
+
+#### Running Tests
+
+For Chrome - `npm run functional-test-local-chrome`
+
+For Safari - `npm run functional-test-local-safari`
+
+For Firefox - `npm run functional-test-local-firefox`
