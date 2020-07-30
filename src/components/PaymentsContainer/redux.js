@@ -19,11 +19,4 @@ const list = createReducer(initialArrayState, {
     [storeList]: (state, action) => action.payload,
 });
 
-export {
-    setListLoading,
-    listLoading,
-    setListError,
-    listError,
-    storeList,
-    list,
-}
+export { setListLoading, listLoading, setListError, listError, storeList, list };

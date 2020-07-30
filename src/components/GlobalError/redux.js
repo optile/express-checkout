@@ -11,7 +11,7 @@ const storeDisplayGlobalError = createAction("STOREDISPLAYGLOBALERROR");
 const displayGlobalError = createReducer(initialBooleanState, {
     [storeDisplayGlobalError]: (state, action) => action.payload,
 });
-const removeGlobalError = dispatch => {
+const removeGlobalError = (dispatch) => {
     dispatch(storeDisplayGlobalError(false));
     dispatch(storeGlobalError(""));
 };

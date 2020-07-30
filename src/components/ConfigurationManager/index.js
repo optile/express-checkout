@@ -20,14 +20,14 @@ import "../../i18next";
  * @param {String} props.suffix
  * @return {JSX.Element}
  */
-const ConfigurationManager = props => {
+const ConfigurationManager = (props) => {
     const dispatch = useDispatch();
-    const mode = useSelector(state => state.mode);
-    const globalError = useSelector(state => state.globalError);
-    const displayGlobalError = useSelector(state => state.displayGlobalError);
+    const mode = useSelector((state) => state.mode);
+    const globalError = useSelector((state) => state.globalError);
+    const displayGlobalError = useSelector((state) => state.displayGlobalError);
 
     const { i18n } = useTranslation();
-    const get2LettersLanguage = lg => (lg.length > 2 ? lg.substring(0, 2) : "en");
+    const get2LettersLanguage = (lg) => (lg.length > 2 ? lg.substring(0, 2) : "en");
 
     useEffect(() => {
         dispatch(storeConfiguration({ ...props.configuration, loaded: true }));
@@ -37,7 +37,7 @@ const ConfigurationManager = props => {
 
     useEffect(() => {
         if (Array.isArray(props.configuration.translation)) {
-            props.configuration.translation.forEach(tr => {
+            props.configuration.translation.forEach((tr) => {
                 i18n.addResourceBundle(tr.language, "global", tr.resource);
             });
         }

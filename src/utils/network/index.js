@@ -1,8 +1,8 @@
 import queryString from "query-string";
 /**
  * Fetch Data using fetch and format the response
- * @param {String} url 
- * @param {Object} options 
+ * @param {String} url
+ * @param {Object} options
  * @returns {Promise}
  */
 const fetchData = async (url, options) => {
@@ -30,11 +30,11 @@ const fetchData = async (url, options) => {
 };
 /**
  * Handle JSON Response
- * @param {Object} response 
+ * @param {Object} response
  * @returns {Promise.reject} includes message as json
  */
 function handleJSONResponse(response) {
-    return response.json().then(json => {
+    return response.json().then((json) => {
         if (response.ok) {
             return json;
         }
@@ -47,11 +47,11 @@ function handleJSONResponse(response) {
 }
 /**
  * Handle Text Response
- * @param {Object} response 
+ * @param {Object} response
  * @returns {Promise.reject} includes message as text
  */
 function handleTextResponse(response) {
-    return response.text().then(text => {
+    return response.text().then((text) => {
         if (response.ok) {
             return text;
         }
@@ -64,7 +64,7 @@ function handleTextResponse(response) {
 }
 /**
  * Handle Response
- * @param {Object} response 
+ * @param {Object} response
  * @returns {Promise.reject} includes message by type OR {Error}
  */
 function handleResponse(response) {
@@ -84,9 +84,9 @@ function handleResponse(response) {
  * @param {String} params.url
  * @param {String} params.method
  * @param {Object} params.body
- * @returns {Promise} 
+ * @returns {Promise}
  */
-export const sendData = ({url, method, body}) =>
+export const sendData = ({ url, method, body }) =>
     fetchData(url, {
         method,
         mode: "cors",
@@ -103,10 +103,10 @@ export const sendData = ({url, method, body}) =>
  * pass querystring to url for fetch
  * @param {Object} params
  * @param {String} params.baseURL
- * @param {String} params.method    
+ * @param {String} params.method
  * @param {Object} params.params
  * @param {Object} params.body
- * @returns {Promise} 
+ * @returns {Promise}
  */
 export const sendDataWithParams = ({ baseURL, method, params, body }) => {
     const { url, query } = queryString.parseUrl(baseURL);

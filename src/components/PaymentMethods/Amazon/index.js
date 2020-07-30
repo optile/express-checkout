@@ -1,7 +1,7 @@
 import React from "react";
 import { getIdentificationProps } from "../../../utils";
 
-const Amazon = props => {
+const Amazon = (props) => {
     const idProps = getIdentificationProps({ className: "amazon-button-container" });
 
     return (

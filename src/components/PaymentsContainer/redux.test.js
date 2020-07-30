@@ -1,11 +1,4 @@
-import {
-    setListLoading,
-    listLoading,
-    setListError,
-    listError,
-    storeList,
-    list,
-} from "./redux";
+import { setListLoading, listLoading, setListError, listError, storeList, list } from "./redux";
 
 const initialBooleanState = false;
 const initialObjectState = {};
@@ -46,7 +39,6 @@ describe("actions", () => {
         expect(action).toEqual(expectedAction);
     });
 });
-
 
 /* -------------------------------------------------------------------------- */
 /*                                  Reducers                                  */

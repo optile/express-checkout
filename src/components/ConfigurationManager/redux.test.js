@@ -1,11 +1,4 @@
-import {
-    storeConfiguration,
-    configuration,
-    mode,
-    storeMode,
-    longId,
-    storeLongId,
-} from "./redux";
+import { storeConfiguration, configuration, mode, storeMode, longId, storeLongId } from "./redux";
 
 /* -------------------------------------------------------------------------- */
 /*                               Action creators                              */
@@ -47,7 +40,7 @@ const initialConfigurationState = {
     country: "",
     paymentMethodsConfiguration: [],
     language: "",
-    loaded: false
+    loaded: false,
 };
 
 describe("reducers", () => {

@@ -5,7 +5,7 @@ import get from "lodash/get";
  * @param {Object} data
  * @returns {Object} data
  */
-const objectToParams = data => Object.entries(data).map(([name, value]) => ({ name, value }));
+const objectToParams = (data) => Object.entries(data).map(([name, value]) => ({ name, value }));
 
 export const toRequestData = (providerCode, data) => ({ providerCode, parameters: objectToParams(data) });
 /**
@@ -106,7 +106,7 @@ export const handleError = ({ err, step, network, dispatch, updateState, customF
  * @param {String} params.suffix
  * @return {String} new class name by adding "-suffix" to the end of the class if needed
  */
-export const getClass = props => {
+export const getClass = (props) => {
     if (!props) {
         return "";
     }
@@ -125,7 +125,7 @@ export const getClass = props => {
  * @param {String} params.suffix
  * @return {Object} contains test-id and className
  */
-export const getIdentificationProps = props => {
+export const getIdentificationProps = (props) => {
     const emptyResult = { className: "", "test-id": "" };
     if (!props) {
         return emptyResult;

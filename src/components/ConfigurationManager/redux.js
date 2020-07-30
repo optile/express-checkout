@@ -9,7 +9,7 @@ const initialConfigurationState = {
     country: "",
     paymentMethodsConfiguration: [],
     language: "",
-    loaded: false
+    loaded: false,
 };
 
 const storeMode = createAction("STOREMODE");
@@ -27,11 +27,4 @@ const configuration = createReducer(initialConfigurationState, {
     [storeConfiguration]: (state, action) => action.payload,
 });
 
-export {
-    mode,
-    storeMode,
-    longId,
-    storeLongId,
-    storeConfiguration,
-    configuration,
-};
+export { mode, storeMode, longId, storeLongId, storeConfiguration, configuration };

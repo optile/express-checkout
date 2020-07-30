@@ -23,8 +23,8 @@ const prepareButtonProps = ({ initialConfigurationStyle, initialConfigurationLan
         env: PAGE_ENVIRONMENT,
         payment: () =>
             props.paymentAction({ customFunctions: props.customFunctions, createTransactionDetails: props.createTransactionDetails }),
-        onAuthorize: data => props.authorizeAction({ customFunctions: props.customFunctions, data }),
-        onCancel: data => props.cancelAction({ customFunctions: props.customFunctions, data }),
+        onAuthorize: (data) => props.authorizeAction({ customFunctions: props.customFunctions, data }),
+        onCancel: (data) => props.cancelAction({ customFunctions: props.customFunctions, data }),
     };
 };
 /**
@@ -32,13 +32,13 @@ const prepareButtonProps = ({ initialConfigurationStyle, initialConfigurationLan
  * @param {Object} props
  * @return {JSX.Element}
  */
-const Paypal = props => {
-    const initialConfiguration = useSelector(state =>
-        find(state.configuration.paymentMethodsConfiguration, item => item.code === "PAYPAL")
+const Paypal = (props) => {
+    const initialConfiguration = useSelector((state) =>
+        find(state.configuration.paymentMethodsConfiguration, (item) => item.code === "PAYPAL")
     );
     const initialConfigurationStyle = initialConfiguration.style;
-    const initialConfigurationLanguage = useSelector(state => state.configuration.language);
-    const listConfiguration = useSelector(state => find(state.list.data, item => item.code === "PAYPAL"));
+    const initialConfigurationLanguage = useSelector((state) => state.configuration.language);
+    const listConfiguration = useSelector((state) => find(state.list.data, (item) => item.code === "PAYPAL"));
     const idProps = getIdentificationProps({ suffix: props.suffix, className: "paypal-button-container" });
     const buttonProps = prepareButtonProps({ initialConfigurationStyle, initialConfigurationLanguage, listConfiguration, props });
 

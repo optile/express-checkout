@@ -5,12 +5,12 @@ import { until } from "selenium-webdriver";
 import { composeInitialProps } from "react-i18next";
 const BASE_URL = "http://localhost:3000";
 
-const checkWindowCount = async number => {
+const checkWindowCount = async (number) => {
     let windowCount = await DRIVER.getAllWindowHandles();
     return windowCount.length === number;
 };
 
-const checkUrlTitle = async title => {
+const checkUrlTitle = async (title) => {
     let urltitle = await DRIVER.getCurrentUrl();
     return urltitle.includes(title);
 };
@@ -29,11 +29,11 @@ const paypalTests = () => {
         await waitForElement(".paypal-button-container.paypal-button-container-1");
         (await getElement(".paypal-button-container.paypal-button-container-1")).click();
         await DRIVER.wait(() => checkWindowCount(2));
-        await DRIVER.getAllWindowHandles().then(allhandles => DRIVER.switchTo().window(allhandles.pop()));
+        await DRIVER.getAllWindowHandles().then((allhandles) => DRIVER.switchTo().window(allhandles.pop()));
         await waitForElement("#email");
         await DRIVER.close();
         await DRIVER.wait(() => checkWindowCount(1));
-        await DRIVER.getAllWindowHandles().then(allhandles => DRIVER.switchTo().window(allhandles.pop()));
+        await DRIVER.getAllWindowHandles().then((allhandles) => DRIVER.switchTo().window(allhandles.pop()));
         await DRIVER.wait(() => checkUrlTitle("mode=Cancel"));
     });
 
@@ -44,7 +44,7 @@ const paypalTests = () => {
         await waitForElement(".paypal-button-container.paypal-button-container-1");
         (await getElement(".paypal-button")).click();
         await DRIVER.wait(checkWindowCount(2));
-        await DRIVER.getAllWindowHandles().then(allhandles => DRIVER.switchTo().window(allhandles.pop()));
+        await DRIVER.getAllWindowHandles().then((allhandles) => DRIVER.switchTo().window(allhandles.pop()));
         await waitForElement("#email");
         (await getElement("#email")).sendKeys("paypal_test_account@optile.net");
         await waitForElement("#btnNext");
@@ -62,13 +62,11 @@ const paypalTests = () => {
         if (await getElement("#acceptAllButton").isDisplayed()) {
             (await getElement("#acceptAllButton")).click();
         }
-        await DRIVER.manage()
-            .window()
-            .maximize();
-        await waitForElement("#confirmButtonTop");    
+        await DRIVER.manage().window().maximize();
+        await waitForElement("#confirmButtonTop");
         (await getElement("#confirmButtonTop")).click();
         await DRIVER.wait(() => checkWindowCount(1));
-        await DRIVER.getAllWindowHandles().then(allhandles => DRIVER.switchTo().window(allhandles.pop()));
+        await DRIVER.getAllWindowHandles().then((allhandles) => DRIVER.switchTo().window(allhandles.pop()));
         await DRIVER.wait(() => checkUrlTitle("interactionCode=PROCEED"));
         await waitForElement("[test-id=payments-summary-confirm-button]");
         (await getElement("[test-id=payments-summary-confirm-button]")).click();

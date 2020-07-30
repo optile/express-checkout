@@ -52,7 +52,7 @@ const updateExpressPresetInternal = ({ url, transaction, network, longId }) => s
  * @param {String} params.network payment code, for example: "PAYPAL"
  * @param {String} params.longId identification for the session
  */
-const cancelExpressPresetInternal = ({ url, transaction, network, longId }) => sendData({ url, method: "POST", body: {longId} });
+const cancelExpressPresetInternal = ({ url, transaction, network, longId }) => sendData({ url, method: "POST", body: { longId } });
 
 /**
  * Internal implementation for getExpressPresetAccount function
@@ -317,7 +317,8 @@ export const onAbort = ({ params, customFunctions }) => getCorrectFunction({ par
  * @param {Object} params.params the parameters passed to onTryOtherAccount from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onTryOtherAccount = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onTryOtherAccount", customFunctions });
+export const onTryOtherAccount = ({ params, customFunctions }) =>
+    getCorrectFunction({ params, functionName: "onTryOtherAccount", customFunctions });
 
 /**
  * On Try Other Network
@@ -325,7 +326,8 @@ export const onTryOtherAccount = ({ params, customFunctions }) => getCorrectFunc
  * @param {Object} params.params the parameters passed to onTryOtherNetwork from custom Functions or initial functions
  * @param {Object} params.customFunctions
  */
-export const onTryOtherNetwork = ({ params, customFunctions }) => getCorrectFunction({ params, functionName: "onTryOtherNetwork", customFunctions });
+export const onTryOtherNetwork = ({ params, customFunctions }) =>
+    getCorrectFunction({ params, functionName: "onTryOtherNetwork", customFunctions });
 
 /**
  * On Reload

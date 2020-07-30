@@ -3,7 +3,7 @@ import { sendDataWithParams } from "../../utils/network";
 
 describe("fetchData", () => {
     let actions = [];
-    const dispatch = action => actions.push(action);
+    const dispatch = (action) => actions.push(action);
     const functionAttrs = { dispatch, customFunctions: {}, baseURL: "http://baseUrl.com/", clientId: 1, country: "DE" };
     const dummyDataApplicable = [
         {
@@ -52,7 +52,7 @@ describe("fetchData with custom functions without baseURL and clientId", () => {
                 const baseURL = "http://baseUrl.com";
                 const params = { clientId: 1, country };
                 return sendDataWithParams({ baseURL, method: "GET", params });
-            }
+            },
         },
         country: "DE",
     };
@@ -94,11 +94,10 @@ describe("fetchData with custom functions without baseURL and clientId", () => {
 });
 
 describe("onError", () => {
-    
     let actions = [];
-    const err = {message: "Error here"}
-    const dispatch = action => actions.push(action);
-    const functionAttrs = { err, dispatch, customFunctions: {}};
+    const err = { message: "Error here" };
+    const dispatch = (action) => actions.push(action);
+    const functionAttrs = { err, dispatch, customFunctions: {} };
     onError(functionAttrs);
 
     it("put error", () => {
@@ -109,5 +108,4 @@ describe("onError", () => {
         expect(actions[1].type).toBe("LISTLOADING");
         expect(actions[1].payload).toBeFalsy();
     });
-    
 });

@@ -12,7 +12,7 @@ import { getIdentificationProps } from "../../utils";
  * @param {Object} props
  * @return {JSX.Element}
  */
-const PaymentsSummaryContainer = props => {
+const PaymentsSummaryContainer = (props) => {
     const { t } = useTranslation();
     const divIdProps = getIdentificationProps({ suffix: props.suffix, className: "payments-summary-container" });
     const buttonIdProps = getIdentificationProps({ suffix: props.suffix, className: "payments-summary-confirm-button" });

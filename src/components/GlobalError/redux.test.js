@@ -1,6 +1,4 @@
-import {
-    globalError, storeGlobalError, displayGlobalError, storeDisplayGlobalError
-} from "./redux";
+import { globalError, storeGlobalError, displayGlobalError, storeDisplayGlobalError } from "./redux";
 
 /* -------------------------------------------------------------------------- */
 /*                               Action creators                              */
@@ -31,7 +29,6 @@ describe("actions", () => {
  */
 const initialStringState = "";
 const initialBooleanState = false;
-
 
 describe("reducers", () => {
     describe("Global Error", () => {
