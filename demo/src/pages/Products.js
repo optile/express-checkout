@@ -5,6 +5,7 @@ import createTransactionDetails1 from "../configuration/product1";
 import createTransactionDetails2 from "../configuration/product2";
 import ExpressCheckout from "../../../src";
 import { useNumberInput, useStringInput } from "./useInput";
+import "./Product.css";
 
 const getMode = () => {
     let params = new URLSearchParams(window.location.search);
@@ -16,8 +17,8 @@ const Products = () => {
     const attributes = getAttributes();
     const mode = getMode();
     const { value: clientId, inputProps: clientIdProps } = useStringInput(attributes.configuration.clientId);
-    const { value: product1, inputProps: product1Props } = useNumberInput(2);
-    const { value: product2, inputProps: product2Props } = useNumberInput(10);
+    const { value: price1, inputProps: price1Props } = useNumberInput(2);
+    const { value: price2, inputProps: price2Props } = useNumberInput(10);
 
     return (
         <div>
@@ -33,13 +34,13 @@ const Products = () => {
                     <tr>
                         <td>USB C cable:</td>
                         <td>
-                            <input value={product1} {...product1Props} />
+                            <input value={price1} {...price1Props} />
                         </td>
                         <td>Euros</td>
                         <td>
                             <ExpressCheckout
                                 configuration={{ ...attributes.configuration, clientId }}
-                                createTransactionDetails={(data) => createTransactionDetails1(data, product1)}
+                                createTransactionDetails={(data) => createTransactionDetails1(data, price1)}
                                 suffix="1"
                             />
                         </td>
@@ -47,13 +48,13 @@ const Products = () => {
                     <tr>
                         <td>USB C cable fast:</td>
                         <td>
-                            <input value={product2} {...product2Props} />
+                            <input value={price2} {...price2Props} />
                         </td>
                         <td>Euros</td>
                         <td>
                             <ExpressCheckout
                                 configuration={{ ...attributes.configuration, clientId }}
-                                createTransactionDetails={(data) => createTransactionDetails2(data, product2)}
+                                createTransactionDetails={(data) => createTransactionDetails2(data, price2)}
                                 suffix="2"
                             />
                         </td>
