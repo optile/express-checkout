@@ -4,6 +4,8 @@ import getAttributes from "../configuration";
 import createTransactionDetails1 from "../configuration/product1";
 import createTransactionDetails2 from "../configuration/product2";
 import ExpressCheckout from "../../../src";
+import { useNumberInput, useStringInput } from "./useInput";
+import "./Product.css";
 
 const getMode = () => {
     let params = new URLSearchParams(window.location.search);
@@ -14,21 +16,47 @@ const getMode = () => {
 const Products = () => {
     const attributes = getAttributes();
     const mode = getMode();
+    const { value: clientId, inputProps: clientIdProps } = useStringInput(attributes.configuration.clientId);
+    const { value: price1, inputProps: price1Props } = useNumberInput(2);
+    const { value: price2, inputProps: price2Props } = useNumberInput(10);
+
     return (
         <div>
-            {mode === "Cancel" && <div style={{color: "red"}}>An Error happened, you can retry</div>}
+            {mode === "Cancel" && <div style={{ color: "red" }}>An Error happened, you can retry</div>}
             <table>
                 <tbody>
                     <tr>
-                        <td>USB C cable: 2Euro</td>
-                        <td>
-                            <ExpressCheckout {...attributes} createTransactionDetails={createTransactionDetails1} suffix="1"/>
+                        <td>Enter the client id:</td>
+                        <td colSpan="3">
+                            <input value={clientId} {...clientIdProps} />
                         </td>
                     </tr>
                     <tr>
-                        <td>USB C cable fast: 10Euro</td>
+                        <td>USB C cable:</td>
                         <td>
-                            <ExpressCheckout {...attributes} createTransactionDetails={createTransactionDetails2} suffix="2"/>
+                            <input value={price1} {...price1Props} />
+                        </td>
+                        <td>Euros</td>
+                        <td>
+                            <ExpressCheckout
+                                configuration={{ ...attributes.configuration, clientId }}
+                                createTransactionDetails={(data) => createTransactionDetails1(data, price1)}
+                                suffix="1"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>USB C cable fast:</td>
+                        <td>
+                            <input value={price2} {...price2Props} />
+                        </td>
+                        <td>Euros</td>
+                        <td>
+                            <ExpressCheckout
+                                configuration={{ ...attributes.configuration, clientId }}
+                                createTransactionDetails={(data) => createTransactionDetails2(data, price2)}
+                                suffix="2"
+                            />
                         </td>
                     </tr>
                 </tbody>

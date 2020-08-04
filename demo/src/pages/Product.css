@@ -1,0 +1,7 @@
+table { 
+    border-spacing: 5px 10px;
+}
+
+input:focus {
+	outline-color: #003087;
+}

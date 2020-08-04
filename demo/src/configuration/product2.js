@@ -1,10 +1,10 @@
-export default requestData => {
+export default (requestData, amount = 10) => {
     return {
         transactionId: "tr-" + new Date().getTime(),
         country: "DE",
         providerRequest: requestData,
         payment: {
-            amount: 10,
+            amount,
             currency: "EUR",
             reference: "Payment #1",
             longReference: {
@@ -14,7 +14,7 @@ export default requestData => {
         products: [
             {
                 name: "USB C cable fast",
-                amount: 10,
+                amount,
             },
         ],
     };
