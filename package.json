@@ -1,6 +1,6 @@
 {
   "name": "express-checkout",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "express-checkout React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -21,17 +21,19 @@
     "test": "jest src",
     "test_dev": "jest --watch src",
     "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
-    "functional-test-local": "cross-env RUNENV=local concurrently \"npm run start\" \"node src/functional-test/index.js \""
+    "serve": "http-server -p 3000 ./",
+    "functional-test-local-chrome": "cross-env LOCALENV=chrome concurrently --kill-others \"npm run serve\" \"node src/functional-test/index.js \"",
+    "functional-test-local-firefox": "cross-env LOCALENV=firefox concurrently --kill-others \"npm run serve\" \"node src/functional-test/index.js \"",
+    "functional-test-local-safari": "cross-env LOCALENV=safari concurrently --kill-others \"npm run serve\" \"node src/functional-test/index.js \""
   },
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
     "@reduxjs/toolkit": "^1.1.0",
-    "chromedriver": "^79.0.0",
     "concurrently": "^5.1.0",
     "cross-env": "^7.0.1",
     "i18n": "^0.8.5",
     "i18next": "^19.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "paypal-checkout": "^4.0.311",
     "query-string": "^5.1.1",
     "react-i18next": "^11.3.1",
@@ -52,6 +54,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-object-assign": "^7.0.0",
     "@babel/plugin-transform-react-jsx": "^7.1.6",
+    "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "@babel/preset-react": "^7.7.0",

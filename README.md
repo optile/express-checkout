@@ -315,6 +315,39 @@ It is the main component to render express checkout widget
    * @param {String} longId required in `mode === "Summary"`. Is returned from a successful `updateExpressPreset` call.
 
 
+### `server` folder in `demo`
+
+The `server` folder in `demo` folder is named so, because all the service calls and constants defined in that folder are to be called or available in the server side of the merchant. That's why even the merchant user name and token are set in the `constants`. This just means that these values are available in the server side. Just for demo purpose we have showcased the server side calls here. Otherwise these have to be called in the server side of merchant, not in the client side.
+
+### How to display shipping address and payment methods in `Summary` page
+
+* When you load summary page call `getExpressPreset` to fetch shipping address and payment details
+
+* It is a server side API so it has to be called from backend. It only needs `longId` which you already have
+
+* The response would have `customerCollectedDetails.addresses.shipping`, an object which contains the shipping address details
+
+* The response would have `network` which is the payment network used
+
+* The response would have `products` which is the purchased products details
+
+* You could use these details to display summary details in the summary page
+
+
+### How to charge payment and check for the payment status in `Thankyou` page
+
+* When you load thank you page call `getExpressPreset` to fetch `charge` URL
+
+* It is a server side API so it has to be called from backend. It only needs `longId` which you already have
+
+* From `getExpressPreset` API you would get response which has `links.charge`. This could be used to call the `charge` request which will intiate the payment
+
+* On the success of charge request, in response you could check for `status.code`. If this value is "charged" your payment is successfull
+
+* You could use these details to decide what to be displayed on Thank you page. If its error case you could display some error message. If its success you could display the thank you message
+
+
+
 <br/>
 <br/>
 
@@ -760,3 +793,30 @@ Open <http://localhost:3000/>
 ## Steps to run test cases
 
 `npm test`
+
+## Steps to run functional test cases locally
+
+To run locally you'll need browser drivers. 
+
+For chrome - https://chromedriver.chromium.org/
+
+For Firefox - https://github.com/mozilla/geckodriver/releases
+
+For Safari - Go to Safari →develop → Allow Remote Automation
+
+*Set PATH for drivers in bash_profile.
+
+Set Up System Environment as below
+
+`export BROWSERSTACK_USER=“ ”`
+`export BROWSERSTACK_KEY=“ ”`
+`export MERCHANT_USERNAME=“ ”`
+`export MERCHANT_PASSWORD=“ "`
+
+#### Running Tests
+
+For Chrome - `npm run functional-test-local-chrome`
+
+For Safari - `npm run functional-test-local-safari`
+
+For Firefox - `npm run functional-test-local-firefox`

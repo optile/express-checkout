@@ -13,6 +13,7 @@ module.exports = {
     ],
     "plugins": [
         "syntax-dynamic-import",
-        "@babel/plugin-proposal-object-rest-spread"
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-transform-runtime"       
     ]
 };
