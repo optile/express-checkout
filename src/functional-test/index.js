@@ -1,10 +1,11 @@
-const Testcapabilities = require("./data/Testcapabilities");
+const Testcapabilities = require('./data/Testcapabilities');
 const server = require("./server");
 const shell = require("shelljs");
 const command = "jest -c src/functional-test/config/jest.config.js --outputFile=e2e-result.json --json";
 const stage = process.env.GO_STAGE_NAME === "release" ? "release" : "build";
 
 (async () => {
+    
     try {
         const allBrowserStackCapabilities = await server.capabilities();
         const executeTests = capabilities => {

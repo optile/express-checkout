@@ -9,15 +9,15 @@ module.exports = () => {
 
     var capabilities = {
         ...JSON.parse(CAPABILITY),
-        "browserstack.networkLogs": true,
-        "browserstack.debug": true,
-        "browserstack.local": true,
-        "browserstack.user": BROWSERSTACK_USER,
-        "browserstack.key": BROWSERSTACK_KEY,
+        'browserstack.networkLogs': true,
+        'browserstack.debug': true,
+        'browserstack.local': true,
+        'browserstack.user': BROWSERSTACK_USER,
+        'browserstack.key': BROWSERSTACK_KEY,
     };
 
     return new webdriver.Builder()
-        .usingServer("http://hub-cloud.browserstack.com/wd/hub")
+        .usingServer('http://hub-cloud.browserstack.com/wd/hub')
         .withCapabilities(capabilities)
         .build();
 };
