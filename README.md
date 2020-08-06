@@ -768,6 +768,25 @@ Actions related to paypal:
 
 Open <http://localhost:3000/>
 
+There is a possibility to use Docker compose for development, 
+and this will make sure that you are running to a 
+similar environment as the server
+
+First to build, listen to changes and run the container on port 3000
+
+`docker-compose up`
+
+To find the id of the freshly running container
+
+`docker ps`
+
+To run an interactive bash on this container
+replace IdOfContainer with the id of freshly running container
+then you have the possibility to run test or npm start to watch for changes as well
+Note: "exit" to get out of bash
+
+`docker exec -it IdOfContainer sh`
+
 <br/>
 <br/>
 
@@ -820,3 +839,4 @@ For Chrome - `npm run functional-test-local-chrome`
 For Safari - `npm run functional-test-local-safari`
 
 For Firefox - `npm run functional-test-local-firefox`
+
