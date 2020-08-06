@@ -30,7 +30,7 @@ export const useNumberInput = (initialValue) => {
             min: 1,
             placeholder: "Enter the price",
             value,
-            onChange: (event) => setValue(event.target.value <= 0 ? 0.1 : event.target.value),
+            onChange: (event) => setValue(event.target.value <= 0 && event.target.value !== "" ? 0.1 : event.target.value),
         },
     };
 };

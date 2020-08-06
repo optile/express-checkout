@@ -21,7 +21,7 @@
     "test": "jest src",
     "test_dev": "jest --watch src",
     "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
-    "serve": "http-server -p 3000 ./",
+    "serve": "http-server -p 3000 demo/dist",
     "functional-test-local-chrome": "cross-env LOCALENV=chrome concurrently --kill-others \"npm run serve\" \"node src/functional-test/index.js \"",
     "functional-test-local-firefox": "cross-env LOCALENV=firefox concurrently --kill-others \"npm run serve\" \"node src/functional-test/index.js \"",
     "functional-test-local-safari": "cross-env LOCALENV=safari concurrently --kill-others \"npm run serve\" \"node src/functional-test/index.js \""
@@ -65,6 +65,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "gh-pages": "^2.2.0",
+    "http-server": "^0.12.3",
     "inferno": "^7.4.2",
     "jest": "^26.0.1",
     "jest-fetch-mock": "^3.0.3",

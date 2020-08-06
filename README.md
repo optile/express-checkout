@@ -794,11 +794,19 @@ Note: "exit" to get out of bash
 <br/>
 <br/>
 
-## Steps to build the component
+## How to run Express Checkout build locally
 
-`npm install`
+- `npm install`
 
-`npm run onlybuild`
+- `npm run onlybuild` - this creates the build in `build` and in `demo/dist` folders. Note that if you run `npm run build` that will trigger to publish in gh-pages
+
+- `npm run serve` - runs the build locally in the given port number in the serve script
+
+- open in browser http://localhost:3333
+
+## How to publish Express Checkout in gh-pages
+
+- `npm run build`
 
 
 <br/>
