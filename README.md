@@ -796,6 +796,8 @@ Note: "exit" to get out of bash
 
 ## How to run Express Checkout build locally
 
+- `npm install`
+
 - `npm run onlybuild` - this creates the build in `build` and in `demo/dist` folders. Note that if you run `npm run build` that will trigger to publish in gh-pages
 
 - `npm run serve` - runs the build locally in the given port number in the serve script
