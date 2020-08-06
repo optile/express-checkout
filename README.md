@@ -778,16 +778,14 @@ First to build, listen to changes and run the container on port 3000
 
 To find the id of the freshly running container
 
-`docker-compose ps`
+`docker ps`
 
 To run an interactive bash on this container
 replace IdOfContainer with the id of freshly running container
 then you have the possibility to run test or npm start to watch for changes as well
 Note: "exit" to get out of bash
 
-```bash
-$ docker exec -it IdOfContainer sh
-```
+`docker exec -it IdOfContainer sh`
 
 <br/>
 <br/>
