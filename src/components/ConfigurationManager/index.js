@@ -33,7 +33,7 @@ const ConfigurationManager = props => {
         dispatch(storeConfiguration({ ...props.configuration, loaded: true }));
         dispatch(storeMode(props.mode));
         dispatch(storeLongId(props.longId));
-    }, [props.longId, props.mode]);
+    }, [props.longId, props.mode, props.configuration?.clientId]);
 
     useEffect(() => {
         if (Array.isArray(props.configuration.translation)) {
