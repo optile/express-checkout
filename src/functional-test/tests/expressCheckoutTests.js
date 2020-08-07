@@ -1,15 +1,10 @@
 const { Builder, By } = require("selenium-webdriver");
 const { waitForVisibleElement, expectVisibleElement } = require("../services/elementUtils");
-const BASE_URL = "http://localhost:3000/";
+const { loadNewPage } = require("../services/pageUtils");
 
 const expressCheckoutTests = () => {
     beforeAll(async () => {
-        await DRIVER.get(BASE_URL);
-        await waitForVisibleElement("[test-id=payments-container-1]");
-    });
-
-    beforeEach(async () => {
-        await DRIVER.sleep(2000);
+        await loadNewPage();
     });
 
     it("Check if Payments Container is Displayed", async () => {     
