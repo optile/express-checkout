@@ -1,7 +1,6 @@
 const { Builder, By } = require("selenium-webdriver");
 const { clickEnabledElement, sendKeysToVisibleElement, waitForVisibleElement, expectVisibleElement } = require("../services/elementUtils");
 const { waitForWindowCount, loadNewPage, maximizeWindow, waitForUrlTitle, switchToNextWindow } = require("../services/pageUtils");
-const { itoff } = require("../services/testUtils");
 
 const paypalTests = () => {
     beforeEach(async () => {
