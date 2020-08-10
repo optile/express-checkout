@@ -1,5 +1,5 @@
 const { Builder, By } = require("selenium-webdriver");
-const { waitForVisibleElement, expectVisibleElement } = require("../services/elementUtils");
+const { expectVisibleElement } = require("../services/elementUtils");
 const { loadNewPage } = require("../services/pageUtils");
 
 const expressCheckoutTests = () => {
