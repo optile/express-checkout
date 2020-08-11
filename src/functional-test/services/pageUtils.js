@@ -18,6 +18,7 @@ async function loadNewPage() {
     try {
         let url = "http://localhost:3000/";
         return DRIVER.get(url);
+        
     } catch (error) {
         console.log(error);
 
