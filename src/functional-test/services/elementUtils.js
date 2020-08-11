@@ -1,4 +1,4 @@
-const { Builder, By, until } = require('selenium-webdriver');
+const { Builder, By, until } = require("selenium-webdriver");
 
 function getElement(cssId) {
     return DRIVER.wait(until.elementLocated(By.css(cssId)), TIME);
@@ -47,17 +47,11 @@ async function expectVisibleElement(cssId) {
 
 module.exports = {
     getElement,
-   
     waitForVisibleElement,
-
     getVisibleElement,
     getVisibleXPathElement,
     getEnabledElement,
- 
     expectVisibleElement,
-   
     clickEnabledElement,
-    
     sendKeysToVisibleElement,
-    
 };

@@ -9,7 +9,7 @@ const paypalTests = () => {
 
     it("Makes Payment with PayPal", async () => {
         await waitForVisibleElement(".paypal-button-container.paypal-button-container-1");
-        await clickEnabledElement('.paypal-button');
+        await clickEnabledElement(".paypal-button");
 
         await waitForWindowCount(2);
         await switchToNextWindow();

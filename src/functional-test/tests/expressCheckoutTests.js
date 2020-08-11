@@ -7,16 +7,16 @@ const expressCheckoutTests = () => {
         await loadNewPage();
     });
 
-    it("Check if Payments Container is Displayed", async () => {     
-        await expectVisibleElement("[test-id=payments-container-1]")
+    it("Check if Payments Container is Displayed", async () => {
+        await expectVisibleElement("[test-id=payments-container-1]");
     });
 
-    it("Check if PayPal Container is Displayed", async () => {     
-        await expectVisibleElement("[test-id=paypal-button-container-1]")
+    it("Check if PayPal Container is Displayed", async () => {
+        await expectVisibleElement("[test-id=paypal-button-container-1]");
     });
 
     it("Check if PayPal Button is Displayed", async () => {
-        await expectVisibleElement(".paypal-button-container.paypal-button-container-1")
+        await expectVisibleElement(".paypal-button-container.paypal-button-container-1");
     });
 };
 module.exports = expressCheckoutTests;

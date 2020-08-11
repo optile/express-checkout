@@ -1,4 +1,4 @@
-const { Builder, By, until } = require('selenium-webdriver');
+const { Builder, By, until } = require("selenium-webdriver");
 
 const checkUrlTitle = async title => {
     let currentUrl = await DRIVER.getCurrentUrl();
@@ -51,5 +51,5 @@ module.exports = {
     loadNewPage,
     maximizeWindow,
     waitForUrlTitle,
-    switchToNextWindow
+    switchToNextWindow,
 };
