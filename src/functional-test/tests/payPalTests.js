@@ -1,6 +1,13 @@
 const { Builder, By } = require("selenium-webdriver");
 const { clickEnabledElement, sendKeysToVisibleElement, waitForVisibleElement, expectVisibleElement } = require("../services/elementUtils");
-const { waitForWindowCount, loadNewPage, maximizeWindow, waitForUrlTitle, switchToNextWindow } = require("../services/pageUtils");
+const {
+    waitForWindowCount,
+    loadNewPage,
+    maximizeWindow,
+    waitForUrlTitle,
+    switchToNextWindow,
+    switchToFrame,
+} = require("../services/pageUtils");
 
 const paypalTests = () => {
     beforeEach(async () => {
@@ -9,7 +16,9 @@ const paypalTests = () => {
 
     it("Makes Payment with PayPal", async () => {
         await waitForVisibleElement(".paypal-button-container.paypal-button-container-1");
-        await clickEnabledElement("[test-id=paypal-button-container-1] [id^=zoid-paypal-button]");
+        await switchToFrame(1);
+        await waitForVisibleElement(".paypal-button-text");
+        await clickEnabledElement(".paypal-button");
 
         await waitForWindowCount(2);
         await switchToNextWindow();

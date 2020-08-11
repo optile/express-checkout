@@ -14,11 +14,14 @@ const checkWindowCount = async count => {
     return handles.length === count;
 };
 
+function switchToFrame(index) {
+    return DRIVER.wait(until.ableToSwitchToFrame(index), TIME);
+};
+
 async function loadNewPage() {
     try {
         let url = "http://localhost:3000/";
         return DRIVER.get(url);
-        
     } catch (error) {
         console.log(error);
 
@@ -53,4 +56,5 @@ module.exports = {
     maximizeWindow,
     waitForUrlTitle,
     switchToNextWindow,
+    switchToFrame,
 };
