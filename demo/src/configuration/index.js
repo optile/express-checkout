@@ -78,9 +78,19 @@ const attributes = {
     },
 };
 
+function getEnv(queryStringEnv) {
+    if (queryStringEnv) {
+        return queryStringEnv;
+    }
+    if (window.location.hostname === "localhost") {
+        return "local";
+    }
+    return "integration";
+}
+
 export default function getAttributes() {
-    var urlParams = new URLSearchParams(location.search);
-    var env = urlParams.get("env") || "local";
+    var urlParams = new URLSearchParams(window.location.search);
+    var env = getEnv(urlParams.get("env"));
 
     return attributes[env] || null;
 }
