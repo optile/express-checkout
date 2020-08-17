@@ -41,6 +41,7 @@ const Products = () => {
                             <ExpressCheckout
                                 configuration={{ ...attributes.configuration, clientId }}
                                 createTransactionDetails={(data) => createTransactionDetails1(data, price1)}
+                                customFunctions={attributes.customFunctions}
                                 suffix="1"
                             />
                         </td>
