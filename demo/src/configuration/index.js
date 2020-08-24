@@ -8,6 +8,14 @@ export const getRedirectUrl = (url, parameters) => {
     );
     return `${url}${url.includes("?") ? "&" : "?"}${queryString.slice(0, -1)}`;
 };
+
+/**
+ * consists of result codes of the magic numbers of paypal
+ * these are required to handle these cases separately
+ * we add these result code, interaction reason and interaction
+ * code in the query params, so that QA could test the magic numbers
+ */ 
+const magicResultCodes = ["45000.PAYPAL.13122", "45014.PAYPAL.10009", "12015.PAYPAL.10101", "10520.PAYPAL.10014", "30004.PAYPAL.10411", "12015.PAYPAL.10103", "30000.PAYPAL.10004"];
 const attributes = {
     local: {
         configuration: {
@@ -47,8 +55,9 @@ const attributes = {
                 const promise = sendDataWithParams({ baseURL: url, method: "POST", params: { clientId }, body: transaction });
                 promise.then(result => {
                     const { data, response } = result;
-                    if (response?.ok && data?.interaction?.code !== "PROCEED") {
-                        const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(data?.redirect?.parameters || []);
+                    const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(data?.redirect?.parameters || []);
+                    
+                    if (response?.ok && magicResultCodes.includes(resultCode)) {
                         const queryParams = `?interactionReason=${interactionReason}&resultCode=${resultCode}&interactionCode=${interactionCode}`;
                         window.history.pushState({ path: queryParams }, '', queryParams);
                     }
@@ -59,8 +68,9 @@ const attributes = {
                 const promise = sendData({ url, method: "POST", body: {} });
                 promise.then(result => {
                     const { data, response } = result;
-                    if (response?.ok && data?.interaction?.code !== "PROCEED") {
-                        const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(data?.redirect?.parameters || []);
+                    const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(data?.redirect?.parameters || []);
+
+                    if (response?.ok && magicResultCodes.includes(resultCode)) {
                         const queryParams = `?interactionReason=${interactionReason}&resultCode=${resultCode}&interactionCode=${interactionCode}`;
                         window.history.pushState({ path: queryParams }, '', queryParams);
                     }
