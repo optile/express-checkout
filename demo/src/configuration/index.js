@@ -1,3 +1,7 @@
+import { sendDataWithParams, sendData } from "../../../src/utils/network";
+import { getValuesFromParameters } from "./utils";
+import { magicInteractionCodes } from "./constants";
+
 export const getRedirectUrl = (url, parameters) => {
     const queryString = parameters.reduce(
         (acc, current) => `${acc}${encodeURIComponent(current.name)}=${encodeURIComponent(current.value)}&`,
@@ -5,6 +9,7 @@ export const getRedirectUrl = (url, parameters) => {
     );
     return `${url}${url.includes("?") ? "&" : "?"}${queryString.slice(0, -1)}`;
 };
+
 const attributes = {
     local: {
         configuration: {
@@ -39,7 +44,36 @@ const attributes = {
             ],
         },
         // createTransactionDetails, is set in product1.js and product2.js
-        customFunctions: {},
+        customFunctions: {
+            createExpressPreset: ({ url, transaction, network, clientId }) => {
+                const promise = sendDataWithParams({ baseURL: url, method: "POST", params: { clientId }, body: transaction });
+                promise.then(result => {
+                    const { data, response } = result;
+                    const code = data?.interaction?.code;
+                    
+                    if (response?.ok && magicInteractionCodes.includes(code)) {
+                        const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(data?.redirect?.parameters || []);
+                        const queryParams = `?interactionReason=${interactionReason}&resultCode=${resultCode}&interactionCode=${interactionCode}`;
+                        window.history.pushState({ path: queryParams }, '', queryParams);
+                    }
+                });
+                return promise;
+            },
+            confirmExpressPreset: ({ url, network, longId }) => {
+                const promise = sendData({ url, method: "POST", body: {} });
+                promise.then(result => {
+                    const { data, response } = result;
+                    const code = data?.interaction?.code;
+
+                    if (response?.ok && magicInteractionCodes.includes(code)) {
+                        const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(data?.redirect?.parameters || []);
+                        const queryParams = `?interactionReason=${interactionReason}&resultCode=${resultCode}&interactionCode=${interactionCode}`;
+                        window.history.pushState({ path: queryParams }, '', queryParams);
+                    }
+                });
+                return promise;
+            },
+        },
     },
     integration: {
         configuration: {
