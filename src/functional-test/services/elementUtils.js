@@ -38,6 +38,13 @@ async function sendKeysToVisibleElement(cssId, text) {
     return element.sendKeys(text);
 }
 
+// returns promise of the sendKeys call
+async function clearAndSendKeysToVisibleElement(cssId, text) {
+    let element = await getVisibleElement(cssId);
+    await element.clear();
+    return element.sendKeys(text);
+}
+
 // this is a blocking call
 async function expectVisibleElement(cssId) {
     let element = await getVisibleElement(cssId);
@@ -54,4 +61,5 @@ module.exports = {
     expectVisibleElement,
     clickEnabledElement,
     sendKeysToVisibleElement,
+    clearAndSendKeysToVisibleElement
 };

@@ -14,7 +14,7 @@ const attributes = {
     local: {
         configuration: {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
-            clientId: "v1.opt-div-app.82785031e74645ada48b966a5ecdd0db",
+            clientId: "v1.opt-div-app.04f3543b0ac14ba1be55df39aaf08a65",
             country: "DE",
             language: "de_DE",
             translation: [

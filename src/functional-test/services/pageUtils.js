@@ -49,6 +49,20 @@ async function waitForUrlTitle(title) {
     return DRIVER.wait(() => checkUrlTitle(title));
 }
 
+function switchToDefaultContent() {
+    return DRIVER.switchTo().defaultContent();
+}
+
+const checkUrlContainsValue = async (value1, value2) => {
+    let currentUrl = await DRIVER.getCurrentUrl();
+    return currentUrl.includes(value1, value2);
+};
+
+async function waitForUrlContainsValues(value1, value2) {
+    return DRIVER.wait(() => checkUrlContainsValue(value1, value2), TIME);
+}
+
+
 module.exports = {
     checkUrlTitle,
     waitForWindowCount,
@@ -57,4 +71,6 @@ module.exports = {
     waitForUrlTitle,
     switchToNextWindow,
     switchToFrame,
+    switchToDefaultContent,
+    waitForUrlContainsValues
 };
