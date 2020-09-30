@@ -53,13 +53,13 @@ function switchToDefaultContent() {
     return DRIVER.switchTo().defaultContent();
 }
 
-const checkUrlContainsValue = async (value1, value2) => {
+const checkUrlContainsValue = async (queryParams = []) => {
     let currentUrl = await DRIVER.getCurrentUrl();
-    return currentUrl.includes(value1, value2);
+    return queryParams.some(param => currentUrl.includes(param))
 };
 
-async function waitForUrlContainsValues(value1, value2) {
-    return DRIVER.wait(() => checkUrlContainsValue(value1, value2), TIME);
+async function waitForUrlContainsValues(queryParams = []) {
+    return DRIVER.wait(() => checkUrlContainsValue(queryParams), TIME);
 }
 
 
