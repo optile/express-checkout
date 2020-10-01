@@ -24,10 +24,9 @@
     "serve": "http-server -p 3000 demo/dist",
     "functional-test-local-build-chrome": "npm run onlybuild && npm run functional-test-local-chrome",
     "functional-test-local-build-firefox": "npm run onlybuild && npm run functional-test-local-firefox",
-    "functional-test-local-build-safari": "npm run onlybuild && npm run functional-test-local-safari",
     "functional-test-local-chrome": "cross-env LOCALENV=chrome concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \"",
-    "functional-test-local-firefox": "cross-env LOCALENV=firefox concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \"",
-    "functional-test-local-safari": "cross-env LOCALENV=safari concurrently --kill-others --success first  \"npm run serve\" \"node src/functional-test/index.js \""
+    "functional-test-local-firefox": "cross-env LOCALENV=firefox concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \""
+   
   },
   "dependencies": {
     "@babel/polyfill": "^7.7.0",

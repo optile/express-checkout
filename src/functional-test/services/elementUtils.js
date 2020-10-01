@@ -61,5 +61,5 @@ module.exports = {
     expectVisibleElement,
     clickEnabledElement,
     sendKeysToVisibleElement,
-    clearAndSendKeysToVisibleElement
+    clearAndSendKeysToVisibleElement,
 };

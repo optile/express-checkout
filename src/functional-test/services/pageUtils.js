@@ -1,8 +1,8 @@
 const { Builder, By, until } = require("selenium-webdriver");
 
 const isDocStateComplete = async () => {
-    let readyState = await DRIVER.executeScript('return document.readyState');
-    return readyState.toString() === 'complete';
+    let readyState = await DRIVER.executeScript("return document.readyState");
+    return readyState.toString() === "complete";
 };
 
 const checkUrlContainsValues = async (queryParams = []) => {
@@ -17,10 +17,10 @@ const checkWindowCount = async count => {
 
 function switchToFrame(index) {
     return DRIVER.wait(until.ableToSwitchToFrame(index), TIME);
-};
+}
 
 async function waitForDocStateComplete() {
-    return DRIVER.wait(() => isDocStateComplete());    
+    return DRIVER.wait(() => isDocStateComplete());
 }
 
 async function loadNewPage() {
@@ -79,5 +79,5 @@ module.exports = {
     switchToDefaultContent,
     waitForUrlContainsValue,
     waitForUrlContainsValues,
-    waitForDocStateComplete
+    waitForDocStateComplete,
 };

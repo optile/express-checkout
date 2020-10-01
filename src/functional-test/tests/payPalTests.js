@@ -8,12 +8,13 @@ const {
     switchToCurrentWindow,
     switchToDefaultContent,
     switchToFrame,
-    waitForDocStateComplete
+    waitForDocStateComplete,
 } = require("../services/pageUtils");
 
 const paypalTests = () => {
     beforeEach(async () => {
         await loadNewPage();
+        await waitForDocStateComplete();
     });
 
     it("Makes Payment with PayPal", async () => {
@@ -21,10 +22,10 @@ const paypalTests = () => {
         await switchToFrame(1);
         await waitForVisibleElement(".paypal-button-text");
         await clickEnabledElement(".paypal-button");
-        
+
         await waitForWindowCount(2);
         await switchToCurrentWindow();
-        
+
         await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
         await clickEnabledElement("#btnNext");
 
