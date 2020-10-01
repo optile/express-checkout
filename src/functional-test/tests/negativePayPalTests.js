@@ -23,10 +23,10 @@ const negativePayPalTests = () => {
         await waitForUrlContainsValues(['interactionCode=TRY_OTHER_ACCOUNT', 'interactionReason=INVALID_ACCOUNT']);
     });
 
-    itoff('Checks magic number 101.03, TRY_OTHER_ACCOUNT, NETWORK_FAILURE', async () => {
+    it('Checks magic number 101.03, TRY_OTHER_NETWORK, NETWORK_FAILURE', async () => {
         await clearAndSendKeysToVisibleElement('[test-id=price1]', '101.03');
         await clickOnPayPalButton(1);
-        await waitForUrlContainsValues(['interactionCode=TRY_OTHER_ACCOUNT', 'interactionReason=NETWORK_FAILURE']);
+        await waitForUrlContainsValues(['interactionCode=TRY_OTHER_NETWORK', 'interactionReason=NETWORK_FAILURE']);
     });
 
     it('Checks magic number 104.11, TRY_OTHER_ACCOUNT, INVALID_ACCOUNT', async () => {
