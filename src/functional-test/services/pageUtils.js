@@ -1,12 +1,13 @@
 const { Builder, By, until } = require("selenium-webdriver");
 
-const checkUrlTitle = async title => {
-    let currentUrl = await DRIVER.getCurrentUrl();
-    return currentUrl.includes(title);
+const isDocStateComplete = async () => {
+    let readyState = await DRIVER.executeScript('return document.readyState');
+    return readyState.toString() === 'complete';
 };
 
-const switchToWindow = async handle => {
-    await DRIVER.switchTo().window(handle);
+const checkUrlContainsValues = async (queryParams = []) => {
+    let currentUrl = await DRIVER.getCurrentUrl();
+    return queryParams.every(param => currentUrl.includes(param));
 };
 
 const checkWindowCount = async count => {
@@ -17,6 +18,10 @@ const checkWindowCount = async count => {
 function switchToFrame(index) {
     return DRIVER.wait(until.ableToSwitchToFrame(index), TIME);
 };
+
+async function waitForDocStateComplete() {
+    return DRIVER.wait(() => isDocStateComplete());    
+}
 
 async function loadNewPage() {
     try {
@@ -37,8 +42,12 @@ async function maximizeWindow() {
     return window.maximize();
 }
 
-async function switchToNextWindow() {
-    return DRIVER.getAllWindowHandles().then(handles => switchToWindow(handles.pop()));
+async function switchToCurrentWindow() {
+    let windowHandles = await DRIVER.getAllWindowHandles();
+    if (windowHandles.length > 0) {
+        let handle = windowHandles[windowHandles.length - 1];
+        return DRIVER.switchTo().window(handle);
+    }
 }
 
 async function waitForWindowCount(count) {
@@ -53,24 +62,22 @@ function switchToDefaultContent() {
     return DRIVER.switchTo().defaultContent();
 }
 
-const checkUrlContainsValue = async (queryParams = []) => {
-    let currentUrl = await DRIVER.getCurrentUrl();
-    return queryParams.some(param => currentUrl.includes(param))
-};
-
-async function waitForUrlContainsValues(queryParams = []) {
-    return DRIVER.wait(() => checkUrlContainsValue(queryParams), TIME);
+async function waitForUrlContainsValue(value) {
+    return waitForUrlContainsValues([value]);
 }
 
+async function waitForUrlContainsValues(queryParams = []) {
+    return DRIVER.wait(() => checkUrlContainsValues(queryParams), TIME);
+}
 
 module.exports = {
-    checkUrlTitle,
     waitForWindowCount,
     loadNewPage,
     maximizeWindow,
-    waitForUrlTitle,
-    switchToNextWindow,
+    switchToCurrentWindow,
     switchToFrame,
     switchToDefaultContent,
-    waitForUrlContainsValues
+    waitForUrlContainsValue,
+    waitForUrlContainsValues,
+    waitForDocStateComplete
 };
