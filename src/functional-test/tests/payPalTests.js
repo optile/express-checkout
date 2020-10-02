@@ -4,14 +4,17 @@ const {
     waitForWindowCount,
     loadNewPage,
     maximizeWindow,
-    waitForUrlTitle,
-    switchToNextWindow,
+    waitForUrlContainsValue,
+    switchToCurrentWindow,
+    switchToDefaultContent,
     switchToFrame,
+    waitForDocStateComplete,
 } = require("../services/pageUtils");
 
 const paypalTests = () => {
     beforeEach(async () => {
         await loadNewPage();
+        await waitForDocStateComplete();
     });
 
     it("Makes Payment with PayPal", async () => {
@@ -21,7 +24,7 @@ const paypalTests = () => {
         await clickEnabledElement(".paypal-button");
 
         await waitForWindowCount(2);
-        await switchToNextWindow();
+        await switchToCurrentWindow();
 
         await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
         await clickEnabledElement("#btnNext");
@@ -36,13 +39,17 @@ const paypalTests = () => {
 
         await maximizeWindow();
         await clickEnabledElement("#payment-submit-btn");
-
         await waitForWindowCount(1);
-        await switchToNextWindow();
+        await switchToCurrentWindow();
 
-        await waitForUrlTitle("interactionCode=PROCEED");
+        // We switch back to default content because previously we
+        // opened the frame in the express checkout window
+        await switchToDefaultContent();
+
+        await waitForUrlContainsValue("interactionCode=PROCEED");
+        await waitForDocStateComplete();
         await clickEnabledElement("[test-id=payments-summary-confirm-button]");
-        await waitForUrlTitle("mode=Successful");
+        await waitForUrlContainsValue("mode=Successful");
     });
 };
 module.exports = paypalTests;

@@ -1,5 +1,6 @@
 const paypalTests = require("../tests/payPalTests");
 const expressCheckoutTests = require("../tests/expressCheckoutTests");
+const negativePayPalTests = require("../tests/negativePayPalTests");
 const LoadDriver = require("../services/loadDriver");
 
 jest.setTimeout(50000);
@@ -15,5 +16,6 @@ describe("Test Suite", () => {
     });
 
     describe("Express Checkout Tests", expressCheckoutTests);
+    describe("PayPal Negative Tests", negativePayPalTests);
     describe("PayPal Tests", paypalTests);
 });

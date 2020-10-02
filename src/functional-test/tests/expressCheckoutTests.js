@@ -1,10 +1,11 @@
 const { Builder, By } = require("selenium-webdriver");
 const { expectVisibleElement } = require("../services/elementUtils");
-const { loadNewPage } = require("../services/pageUtils");
+const { loadNewPage, waitForDocStateComplete } = require("../services/pageUtils");
 
 const expressCheckoutTests = () => {
     beforeAll(async () => {
         await loadNewPage();
+        await waitForDocStateComplete();
     });
 
     it("Check if Payments Container is Displayed", async () => {
