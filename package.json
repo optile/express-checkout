@@ -26,7 +26,7 @@
     "functional-test-browserstack":"concurrently --kill-others --success first \"npm run serve\" \"BrowserStackLocal --key $BROWSERSTACK_KEY\" \"node src/functional-test/index.js\"",
     "functional-test-local-build-chrome": "npm run onlybuild && npm run functional-test-local-chrome",
     "functional-test-local-build-firefox": "npm run onlybuild && npm run functional-test-local-firefox",
-    "functional-test-local-chrome": "cross-env LOCALENV=chrome concurrently --kill-others --success first \"npm run serve  -- -s\" \"node src/functional-test/index.js \"",
+    "functional-test-local-chrome": "cross-env LOCALENV=chrome concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \"",
     "functional-test-local-firefox": "cross-env LOCALENV=firefox concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \""
   },
   "dependencies": {
