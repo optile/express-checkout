@@ -19,6 +19,11 @@ const negativePayPalTests = () => {
     beforeEach(async () => {
         await loadNewPage();
         await waitForDocStateComplete();
+        await switchToDefaultContent();
+    });
+
+    afterEach(async () => {
+        await switchToDefaultContent();
     });
 
     it("Check magic number 100.04, TRY_OTHER_ACCOUNT, INVALID_ACCOUNT", async () => {
