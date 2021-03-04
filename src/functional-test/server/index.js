@@ -9,9 +9,7 @@ async function capabilities() {
         headers: {
             Authorization: auth,
         },
-    })
-        .then(response => response.json())
-        .catch(error => console.log(error));
+    }).then(response => response.json());
 }
 
 module.exports = { capabilities };

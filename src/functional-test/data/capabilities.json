@@ -1,0 +1,20 @@
+{
+    "build": [
+        {
+            "os": "OS X",
+            "os_version": "Catalina",
+            "browser": "firefox",
+            "browser_version":"81",
+            "fixed":true
+        }
+    ],
+    "release": [
+        {
+            "os": "OS X",
+            "os_version": "Catalina",
+            "browser": "firefox",
+            "browser_version": "81",
+            "fixed": true
+        }
+    ]
+}

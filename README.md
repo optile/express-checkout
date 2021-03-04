@@ -768,6 +768,25 @@ Actions related to paypal:
 
 Open <http://localhost:3000/>
 
+There is a possibility to use Docker compose for development, 
+and this will make sure that you are running to a 
+similar environment as the server
+
+First to build, listen to changes and run the container on port 3000
+
+`docker-compose up`
+
+To find the id of the freshly running container
+
+`docker ps`
+
+To run an interactive bash on this container
+replace IdOfContainer with the id of freshly running container
+then you have the possibility to run test or npm start to watch for changes as well
+Note: "exit" to get out of bash
+
+`docker exec -it IdOfContainer sh`
+
 <br/>
 <br/>
 
@@ -775,11 +794,19 @@ Open <http://localhost:3000/>
 <br/>
 <br/>
 
-## Steps to build the component
+## How to run Express Checkout build locally
 
-`npm install`
+- `npm install`
 
-`npm run onlybuild`
+- `npm run onlybuild` - this creates the build in `build` and in `demo/dist` folders. Note that if you run `npm run build` that will trigger to publish in gh-pages
+
+- `npm run serve` - runs the build locally in the given port number in the serve script
+
+- open in browser http://localhost:3333
+
+## How to publish Express Checkout in gh-pages
+
+- `npm run build`
 
 
 <br/>
@@ -820,3 +847,4 @@ For Chrome - `npm run functional-test-local-chrome`
 For Safari - `npm run functional-test-local-safari`
 
 For Firefox - `npm run functional-test-local-firefox`
+

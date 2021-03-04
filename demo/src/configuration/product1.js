@@ -1,4 +1,5 @@
-export default (requestData, amount = 2) => {
+export default (requestData, price) => {
+    const amount = price || 2;
     return {
         transactionId: "tr-" + new Date().getTime(),
         country: "DE",
