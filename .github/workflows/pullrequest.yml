@@ -1,0 +1,19 @@
+name: Pull Request
+on:
+  pull_request:
+    types: [opened, reopened, labeled, synchronize]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Test Script
+        env:
+          CI: true
+          BRANCH_STRATEGY: release
+        run: |
+          env
+          .ci/test.sh
