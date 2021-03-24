@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { getClass, getIdentificationProps, getLongIdFromParameters } from "./index";
 import set from "lodash/set";
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { createExpressPreset, updateExpressPreset, onCustomerAbort, onProceed, cancelExpressPreset } from "../../../utils/customFunctions";
 import get from "lodash/get";
 import find from "lodash/find";

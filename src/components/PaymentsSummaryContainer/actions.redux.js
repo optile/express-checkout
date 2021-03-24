@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { onProceed } from "../../utils/customFunctions";
 import get from "lodash/get";
 import { interactionCodeHandler, handleError, getLongIdFromParameters } from "../../utils";

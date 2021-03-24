@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 const paypalTests = require("../tests/payPalTests");
 const expressCheckoutTests = require("../tests/expressCheckoutTests");
 const negativePayPalTests = require("../tests/negativePayPalTests");

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 const capabilities = require('./data/capabilities');
 const server = require("./server");
 const shell = require("shelljs");
