@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 const fetch = require("node-fetch");
 
 async function capabilities() {

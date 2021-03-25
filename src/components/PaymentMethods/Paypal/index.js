@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import React from "react";
 import { useSelector, connect } from "react-redux";
 import find from "lodash/find";

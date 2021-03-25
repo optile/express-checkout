@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 const { Builder, By } = require("selenium-webdriver");
 const { clickEnabledElement, sendKeysToVisibleElement, waitForVisibleElement, expectVisibleElement } = require("../services/elementUtils");
 const {

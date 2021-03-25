@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 
 import { applyMiddleware, compose, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
