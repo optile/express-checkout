@@ -34,7 +34,7 @@
         "@reduxjs/toolkit": "^1.1.0",
         "concurrently": "^5.1.0",
         "cross-env": "^7.0.1",
-        "i18n": "^0.8.5",
+        "i18n": "^0.13.2",
         "i18next": "^19.1.0",
         "lodash": "^4.17.19",
         "paypal-checkout": "^4.0.311",
