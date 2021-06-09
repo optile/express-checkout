@@ -15,6 +15,13 @@ const {
     waitForDocStateComplete,
 } = require("../services/pageUtils");
 
+const clickOnPayPalButton = async (index) => {
+    await waitForVisibleElement(".paypal-button-container.paypal-button-container-1");
+    await switchToFrame(index);
+    await waitForVisibleElement(".paypal-button-text");
+    await clickEnabledElement(".paypal-button");
+};
+
 const paypalTests = () => {
     beforeEach(async () => {
         await loadNewPage();
@@ -22,10 +29,11 @@ const paypalTests = () => {
     });
 
     it("Makes Payment with PayPal", async () => {
-        await waitForVisibleElement(".paypal-button-container.paypal-button-container-1");
-        await switchToFrame(1);
-        await waitForVisibleElement(".paypal-button-text");
-        await clickEnabledElement(".paypal-button");
+        // await waitForVisibleElement(".paypal-button-container.paypal-button-container-1");
+        await clickOnPayPalButton(1);
+        // await switchToFrame(1);
+        // await waitForVisibleElement(".paypal-button-text");
+        // await clickEnabledElement(".paypal-button");
 
         await waitForWindowCount(2);
         await switchToCurrentWindow();
@@ -38,8 +46,8 @@ const paypalTests = () => {
         await clickEnabledElement("#btnLogin");
         await expectVisibleElement("[data-testid=change-shipping]");
 
-        await waitForVisibleElement("#acceptAllButton");
-        await clickEnabledElement("#acceptAllButton");
+        // await waitForVisibleElement("#acceptAllButton");
+        // await clickEnabledElement("#acceptAllButton");
 
         await maximizeWindow();
         await clickEnabledElement("#payment-submit-btn");
