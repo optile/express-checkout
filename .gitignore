@@ -12,3 +12,4 @@ e2e-result.json
 browserstack.err
 .env
 /.idea
+.npmrc
