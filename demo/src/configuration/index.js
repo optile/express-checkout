@@ -14,7 +14,7 @@ const attributes = {
     local: {
         configuration: {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
-            clientId: "v1.opt-div-app.82785031e74645ada48b966a5ecdd0db",
+            clientId: "v1.opt-div-app.7b5ea9e7b440414393bf13152ed00b97",
             country: "DE",
             language: "de_DE",
             translation: [
@@ -47,28 +47,32 @@ const attributes = {
         customFunctions: {
             createExpressPreset: ({ url, transaction, network, clientId }) => {
                 const promise = sendDataWithParams({ baseURL: url, method: "POST", params: { clientId }, body: transaction });
-                promise.then(result => {
+                promise.then((result) => {
                     const { data, response } = result;
                     const code = data?.interaction?.code;
-                    
+
                     if (response?.ok && magicInteractionCodes.includes(code)) {
-                        const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(data?.redirect?.parameters || []);
+                        const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(
+                            data?.redirect?.parameters || []
+                        );
                         const queryParams = `?interactionReason=${interactionReason}&resultCode=${resultCode}&interactionCode=${interactionCode}`;
-                        window.history.pushState({ path: queryParams }, '', queryParams);
+                        window.history.pushState({ path: queryParams }, "", queryParams);
                     }
                 });
                 return promise;
             },
             confirmExpressPreset: ({ url, network, longId }) => {
                 const promise = sendData({ url, method: "POST", body: {} });
-                promise.then(result => {
+                promise.then((result) => {
                     const { data, response } = result;
                     const code = data?.interaction?.code;
 
                     if (response?.ok && magicInteractionCodes.includes(code)) {
-                        const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(data?.redirect?.parameters || []);
+                        const { interactionReason, resultCode, interactionCode } = getValuesFromParameters(
+                            data?.redirect?.parameters || []
+                        );
                         const queryParams = `?interactionReason=${interactionReason}&resultCode=${resultCode}&interactionCode=${interactionCode}`;
-                        window.history.pushState({ path: queryParams }, '', queryParams);
+                        window.history.pushState({ path: queryParams }, "", queryParams);
                     }
                 });
                 return promise;
@@ -78,7 +82,7 @@ const attributes = {
     integration: {
         configuration: {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
-            clientId: "v1.opt-div-app.22458cbbc50f4cc6a09932ea8491a2eb",
+            clientId: "v1.opt-div-app.6dd2ac0398a64c33a9986b6f51b97dde",
             country: "DE",
             language: "en_US",
             translation: [

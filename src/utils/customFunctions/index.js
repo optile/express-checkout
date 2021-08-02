@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import get from "lodash/get";
 import { sendData, sendDataWithParams } from "../network";
 import { getRedirectUrl } from "../index";

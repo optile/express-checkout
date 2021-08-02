@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { createReducer, createAction } from "@reduxjs/toolkit";
 const initialStringState = "";
 const initialBooleanState = false;

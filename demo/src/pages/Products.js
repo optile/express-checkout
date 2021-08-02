@@ -28,13 +28,13 @@ const Products = () => {
                     <tr>
                         <td>Enter the client id:</td>
                         <td colSpan="3">
-                            <input value={clientId} {...clientIdProps} />
+                            <input value={clientId} {...clientIdProps} test-id='clientId' />
                         </td>
                     </tr>
                     <tr>
                         <td>USB C cable:</td>
                         <td>
-                            <input value={price1} {...price1Props} />
+                            <input value={price1} {...price1Props} test-id='price1'/>
                         </td>
                         <td>Euros</td>
                         <td>
@@ -49,7 +49,7 @@ const Products = () => {
                     <tr>
                         <td>USB C cable fast:</td>
                         <td>
-                            <input value={price2} {...price2Props} />
+                            <input value={price2} {...price2Props} test-id='price2'/>
                         </td>
                         <td>Euros</td>
                         <td>

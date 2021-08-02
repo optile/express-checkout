@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import React from "react";
 import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";

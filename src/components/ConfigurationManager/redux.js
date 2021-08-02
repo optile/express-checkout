@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { createReducer, createAction } from "@reduxjs/toolkit";
 /**
  * initial empty string

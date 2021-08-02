@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import React from "react";
 import { useSelector } from "react-redux";
 import map from "lodash/map";

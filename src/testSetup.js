@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import fetchMock from "jest-fetch-mock";
