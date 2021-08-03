@@ -83,7 +83,8 @@
     "jest": {
         "setupFilesAfterEnv": [
             "<rootDir>src/testSetup.js"
-        ]
+        ],
+        "testEnvironment": "jsdom"
     },
     "repository": "",
     "keywords": [
