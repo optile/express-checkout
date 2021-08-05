@@ -12,5 +12,7 @@ export const charge = async (url, callback) => {
     });
     if (response?.data?.status?.code === "charged") {
         callback("CHARGED");
+    } else if (response?.data?.status?.code === "pending") {
+        callback("PENDING");
     } else callback("ERROR");
 };
