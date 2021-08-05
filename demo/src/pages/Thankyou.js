@@ -6,6 +6,8 @@ const getTemplate = (status) => {
     switch (status) {
         case "CHARGED":
             return <div>Thank you for your order</div>;
+        case "PENDING":
+            return <div>Your order is pending</div>;
         case "EXPIRED":
             return <div>The session is expired</div>;
         case "ERROR":
