@@ -5,30 +5,33 @@
 import React from "react";
 import { useSelector, connect } from "react-redux";
 import find from "lodash/find";
-import PaypalButton from "./PaypalButton";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { paymentAction, authorizeAction, cancelAction } from "./actions.redux";
 import { getIdentificationProps } from "../../../utils";
 /**
  * Prepare Paypal button needed props
  * @param {Object} params
- * @param {Object} params.initialConfigurationStyle
- * @param {String} params.initialConfigurationLanguage passed under configuration initially
+ * @param {Object} params.initialPaymentConfiguration
+ * @param {String} params.initialConfiguration
  * @param {Object} params.listConfiguration
  * @param {Object} params.props
  */
-const prepareButtonProps = ({ initialConfigurationStyle, initialConfigurationLanguage, listConfiguration, props }) => {
+const prepareButtonProps = ({ initialPaymentConfiguration, initialConfiguration, listConfiguration, props }) => {
     const {
         contractData: { PAGE_ENVIRONMENT, PAGE_BUTTON_LOCALE },
     } = listConfiguration;
     return {
-        style: initialConfigurationStyle,
-        locale: initialConfigurationLanguage || PAGE_BUTTON_LOCALE,
+        style: initialPaymentConfiguration.style,
+        locale: initialConfiguration.language || PAGE_BUTTON_LOCALE,
         commit: false,
         env: PAGE_ENVIRONMENT,
-        payment: () =>
+        clientId: initialPaymentConfiguration.clientId || "sb",
+        currency: initialConfiguration.currency || "USD",
+        intent: initialPaymentConfiguration.deferral === "DEFERRED" ? "authorize" : "capture",
+        createOrder: () =>
             props.paymentAction({ customFunctions: props.customFunctions, createTransactionDetails: props.createTransactionDetails }),
-        onAuthorize: data => props.authorizeAction({ customFunctions: props.customFunctions, data }),
-        onCancel: data => props.cancelAction({ customFunctions: props.customFunctions, data }),
+        onApprove: (data) => props.authorizeAction({ customFunctions: props.customFunctions, data }),
+        onCancel: (data) => props.cancelAction({ customFunctions: props.customFunctions, data }),
     };
 };
 /**
@@ -36,19 +39,20 @@ const prepareButtonProps = ({ initialConfigurationStyle, initialConfigurationLan
  * @param {Object} props
  * @return {JSX.Element}
  */
-const Paypal = props => {
-    const initialConfiguration = useSelector(state =>
-        find(state.configuration.paymentMethodsConfiguration, item => item.code === "PAYPAL")
+const Paypal = (props) => {
+    const initialPaymentConfiguration = useSelector((state) =>
+        find(state.configuration.paymentMethodsConfiguration, (item) => item.code === "PAYPAL")
     );
-    const initialConfigurationStyle = initialConfiguration.style;
-    const initialConfigurationLanguage = useSelector(state => state.configuration.language);
-    const listConfiguration = useSelector(state => find(state.list.data, item => item.code === "PAYPAL"));
+    const initialConfiguration = useSelector((state) => state.configuration);
+    const listConfiguration = useSelector((state) => find(state.list.data, (item) => item.code === "PAYPAL"));
     const idProps = getIdentificationProps({ suffix: props.suffix, className: "paypal-button-container" });
-    const buttonProps = prepareButtonProps({ initialConfigurationStyle, initialConfigurationLanguage, listConfiguration, props });
-
+    const buttonProps = prepareButtonProps({ initialPaymentConfiguration, initialConfiguration, listConfiguration, props });
+    console.log({ buttonProps });
     return (
         <div {...idProps}>
-            <PaypalButton {...buttonProps} />
+            <PayPalScriptProvider>
+                <PayPalButtons {...buttonProps} />
+            </PayPalScriptProvider>
         </div>
     );
 };

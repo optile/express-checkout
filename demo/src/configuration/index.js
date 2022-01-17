@@ -15,6 +15,7 @@ const attributes = {
         configuration: {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
             clientId: "v1.opt-div-app.7b5ea9e7b440414393bf13152ed00b97",
+            currency: "EUR",
             country: "DE",
             language: "de_DE",
             translation: [
@@ -34,6 +35,7 @@ const attributes = {
             paymentMethodsConfiguration: [
                 {
                     code: "PAYPAL",
+                    clientId: "sb",
                     style: {
                         size: "small",
                         color: "gold",
