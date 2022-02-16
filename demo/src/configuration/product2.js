@@ -2,11 +2,11 @@ export default (requestData, price) => {
     const amount = price || 10;
     return {
         transactionId: "tr-" + new Date().getTime(),
-        country: "DE",
+        country: "GB",
         providerRequest: requestData,
         payment: {
             amount,
-            currency: "EUR",
+            currency: "GBP",
             reference: "Payment #1",
             longReference: {
                 essential: "Thank you for your purchase!",

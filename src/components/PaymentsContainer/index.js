@@ -16,11 +16,14 @@ import { getIdentificationProps } from "../../utils";
  * @param {Number} index
  */
 const loadPaymentMethodByCode = (code, bindingProps, index) => {
+    console.log(code)
     switch (code) {
         case "PAYPAL":
-            return <Paypal {...bindingProps} key={"PAYPAL_" + index}/>;
+            return <Paypal {...bindingProps} key={"PAYPAL_" + index} networkCode={code} />;
+        case "PAYPAL_PAY_LATER":
+            return <Paypal {...bindingProps} key={"PAYPAL_PAY_LATER_" + index} networkCode={code} />;
         case "AMAZONPAY":
-            return <Amazon {...bindingProps} key={"AMAZONPAY_" + index} />;
+            return <Amazon {...bindingProps} key={"AMAZONPAY_" + index} networkCode={code} />;
         default:
             return null;
     }

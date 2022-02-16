@@ -3,6 +3,7 @@ import { getExpressPreset } from "../server/getExpressPreset";
 import { charge } from "../server/charge";
 
 const getTemplate = (status) => {
+    console.log("0000000000000000my status is: ", status)
     switch (status) {
         case "CHARGED":
             return <div>Thank you for your order</div>;
@@ -26,8 +27,10 @@ const Thankyou = () => {
     useEffect(() => {
         if (!link) return;
         if (link === "EXPIRED" || link === "ERROR") {
+            console.log("0000000000000000we got error")
             setStatus(link);
         } else {
+            console.log("0000000000000000we will execute charge", link)
             charge(link, setStatus);
         }
     }, [link]);
