@@ -33,6 +33,7 @@ const prepareButtonProps = ({ initialPaymentConfiguration, props }) => {
  * @param {Object} params.initialPaymentConfiguration
  * @param {String} params.initialConfiguration
  * @param {Object} params.listConfiguration
+ * @param {Object} params.props
  */
 const prepareScriptOptions = ({ initialPaymentConfiguration, initialConfiguration, listConfiguration, props }) => {
     const {
