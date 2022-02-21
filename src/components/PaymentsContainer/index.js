@@ -16,7 +16,6 @@ import { getIdentificationProps } from "../../utils";
  * @param {Number} index
  */
 const loadPaymentMethodByCode = (code, bindingProps, index) => {
-    console.log(code)
     switch (code) {
         case "PAYPAL":
             return <Paypal {...bindingProps} key={"PAYPAL_" + index} networkCode={code} />;
@@ -35,14 +34,13 @@ const loadPaymentMethodByCode = (code, bindingProps, index) => {
  * @param {Object} props
  * @return {JSX.Element}
  */
-const PaymentsContainer = props => {
-    const listOfPaymentMethods = useSelector(state => state.list.data);
+const PaymentsContainer = (props) => {
+    const listOfPaymentMethods = useSelector((state) => state.list.data);
     const idProps = getIdentificationProps({ suffix: props.suffix, className: "payments-container" });
     useList(props.customFunctions);
     return (
         <div {...idProps}>
-            {listOfPaymentMethods &&
-                map(listOfPaymentMethods, (method, i) => loadPaymentMethodByCode(method.code, props, i))}
+            {listOfPaymentMethods && map(listOfPaymentMethods, (method, i) => loadPaymentMethodByCode(method.code, props, i))}
         </div>
     );
 };

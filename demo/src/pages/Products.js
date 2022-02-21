@@ -46,25 +46,6 @@ const Products = () => {
                             />
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            content <br />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>USB C cable fast:</td>
-                        <td>
-                            <input value={price2} {...price2Props} test-id="price2" />
-                        </td>
-                        <td>GBP</td>
-                        <td>
-                            <ExpressCheckout
-                                configuration={{ ...attributes.configuration, clientId }}
-                                createTransactionDetails={(data) => createTransactionDetails2(data, price2)}
-                                suffix="2"
-                            />
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>

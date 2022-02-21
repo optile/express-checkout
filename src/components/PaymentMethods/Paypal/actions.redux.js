@@ -104,7 +104,6 @@ const paymentAction =
                 params: { url: operationURL, transaction: createTransactionDetails(null), network: "PAYPAL", clientId },
                 customFunctions,
             });
-            console.log(result);
             if (result.response.ok) {
                 return paymentActionOk({ result, dispatch, customFunctions });
             }

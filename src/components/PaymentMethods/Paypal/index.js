@@ -18,7 +18,7 @@ function getFundingSource(networkCode) {
  * @param {Object} params.props
  */
 const prepareButtonProps = ({ initialPaymentConfiguration, props }) => {
-    var tore = {
+    return {
         style: initialPaymentConfiguration.style,
         fundingSource: getFundingSource(props.networkCode),
         createOrder: () =>
@@ -26,8 +26,6 @@ const prepareButtonProps = ({ initialPaymentConfiguration, props }) => {
         onApprove: (data) => props.authorizeAction({ customFunctions: props.customFunctions, data }),
         onCancel: (data) => props.cancelAction({ customFunctions: props.customFunctions, data }),
     };
-    console.log("00000000", tore)
-    return tore
 };
 /**
  * Prepare Paypal Script provider options
@@ -48,7 +46,7 @@ const prepareScriptOptions = ({ initialPaymentConfiguration, initialConfiguratio
         currency: initialConfiguration.currency || "USD",
         intent: "order",
         "buyer-country": PAGE_ENVIRONMENT === "sandbox" ? PAGE_SANDBOX_BUYER_COUNTRY : undefined,
-        "enable-funding": "paylater"
+        "enable-funding": "paylater",
     };
 };
 /**
@@ -57,7 +55,6 @@ const prepareScriptOptions = ({ initialPaymentConfiguration, initialConfiguratio
  * @return {JSX.Element}
  */
 const Paypal = (props) => {
-    console.log("11111111111111111111111", props.networkCode);
     const initialPaymentConfiguration = useSelector((state) =>
         find(state.configuration.paymentMethodsConfiguration, (item) => item.code === props.networkCode)
     );
