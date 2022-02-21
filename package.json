@@ -41,7 +41,6 @@
         "paypal-checkout": "^4.0.311",
         "query-string": "^7.0.1",
         "react-i18next": "^11.11.4",
-        "react-paypal-button-v2": "^2.6.3",
         "react-redux": "^7.2.4",
         "redux": "^4.1.0",
         "redux-devtools-extension": "^2.13.9",
