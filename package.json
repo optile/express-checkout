@@ -38,7 +38,6 @@
         "i18n": "^0.13.3",
         "i18next": "^20.3.5",
         "lodash": "^4.17.21",
-        "paypal-checkout": "^4.0.311",
         "query-string": "^7.0.1",
         "react-i18next": "^11.11.4",
         "react-redux": "^7.2.4",
