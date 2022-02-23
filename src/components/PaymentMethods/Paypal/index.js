@@ -5,30 +5,49 @@
 import React from "react";
 import { useSelector, connect } from "react-redux";
 import find from "lodash/find";
-import PaypalButton from "./PaypalButton";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { paymentAction, authorizeAction, cancelAction } from "./actions.redux";
 import { getIdentificationProps } from "../../../utils";
+function getFundingSource(networkCode) {
+    return networkCode === "PAYPAL" ? "paypal" : "paylater";
+}
 /**
  * Prepare Paypal button needed props
  * @param {Object} params
- * @param {Object} params.initialConfigurationStyle
- * @param {String} params.initialConfigurationLanguage passed under configuration initially
+ * @param {Object} params.initialPaymentConfiguration
+ * @param {Object} params.props
+ */
+const prepareButtonProps = ({ initialPaymentConfiguration, props }) => {
+    return {
+        style: initialPaymentConfiguration.style,
+        fundingSource: getFundingSource(props.networkCode),
+        createOrder: () =>
+            props.paymentAction({ customFunctions: props.customFunctions, createTransactionDetails: props.createTransactionDetails }),
+        onApprove: (data) => props.authorizeAction({ customFunctions: props.customFunctions, data }),
+        onCancel: (data) => props.cancelAction({ customFunctions: props.customFunctions, data }),
+    };
+};
+/**
+ * Prepare Paypal Script provider options
+ * @param {Object} params
+ * @param {Object} params.initialPaymentConfiguration
+ * @param {String} params.initialConfiguration
  * @param {Object} params.listConfiguration
  * @param {Object} params.props
  */
-const prepareButtonProps = ({ initialConfigurationStyle, initialConfigurationLanguage, listConfiguration, props }) => {
+const prepareScriptOptions = ({ initialPaymentConfiguration, initialConfiguration, listConfiguration, props }) => {
     const {
-        contractData: { PAGE_ENVIRONMENT, PAGE_BUTTON_LOCALE },
+        contractData: { PAGE_ENVIRONMENT, PAGE_BUTTON_LOCALE, PAGE_SANDBOX_BUYER_COUNTRY },
     } = listConfiguration;
     return {
-        style: initialConfigurationStyle,
-        locale: initialConfigurationLanguage || PAGE_BUTTON_LOCALE,
+        locale: initialConfiguration.language || PAGE_BUTTON_LOCALE,
         commit: false,
-        env: PAGE_ENVIRONMENT,
-        payment: () =>
-            props.paymentAction({ customFunctions: props.customFunctions, createTransactionDetails: props.createTransactionDetails }),
-        onAuthorize: data => props.authorizeAction({ customFunctions: props.customFunctions, data }),
-        onCancel: data => props.cancelAction({ customFunctions: props.customFunctions, data }),
+        debug: PAGE_ENVIRONMENT === "sandbox",
+        "client-id": initialPaymentConfiguration.clientId || "sb",
+        currency: initialConfiguration.currency || "USD",
+        intent: "order",
+        "buyer-country": PAGE_ENVIRONMENT === "sandbox" ? PAGE_SANDBOX_BUYER_COUNTRY : undefined,
+        "enable-funding": "paylater",
     };
 };
 /**
@@ -36,19 +55,21 @@ const prepareButtonProps = ({ initialConfigurationStyle, initialConfigurationLan
  * @param {Object} props
  * @return {JSX.Element}
  */
-const Paypal = props => {
-    const initialConfiguration = useSelector(state =>
-        find(state.configuration.paymentMethodsConfiguration, item => item.code === "PAYPAL")
+const Paypal = (props) => {
+    const initialPaymentConfiguration = useSelector((state) =>
+        find(state.configuration.paymentMethodsConfiguration, (item) => item.code === props.networkCode)
     );
-    const initialConfigurationStyle = initialConfiguration.style;
-    const initialConfigurationLanguage = useSelector(state => state.configuration.language);
-    const listConfiguration = useSelector(state => find(state.list.data, item => item.code === "PAYPAL"));
-    const idProps = getIdentificationProps({ suffix: props.suffix, className: "paypal-button-container" });
-    const buttonProps = prepareButtonProps({ initialConfigurationStyle, initialConfigurationLanguage, listConfiguration, props });
+    const initialConfiguration = useSelector((state) => state.configuration);
+    const listConfiguration = useSelector((state) => find(state.list.data, (item) => item.code === props.networkCode));
+    const idProps = getIdentificationProps({ suffix: props.suffix, className: props.networkCode + "-button-container" });
+    const buttonProps = prepareButtonProps({ initialPaymentConfiguration, props });
+    const scriptsProps = prepareScriptOptions({ initialPaymentConfiguration, initialConfiguration, listConfiguration, props });
 
     return (
         <div {...idProps}>
-            <PaypalButton {...buttonProps} />
+            <PayPalScriptProvider options={scriptsProps}>
+                <PayPalButtons {...buttonProps} />
+            </PayPalScriptProvider>
         </div>
     );
 };

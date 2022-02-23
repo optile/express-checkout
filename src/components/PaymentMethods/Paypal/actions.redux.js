@@ -93,23 +93,25 @@ const paymentActionOk = ({ result, dispatch, customFunctions }) => {
     }
     throw new Error("Server response does not contain proper data");
 };
-const paymentAction = ({ customFunctions, createTransactionDetails }) => async (dispatch, getState) => {
-    dispatch(storePaypalStatus("Payment Session Pending"));
-    try {
-        const operationURL = getOperationLink(getState);
-        const clientId = get(getState(), "configuration.clientId", null);
-        const result = await createExpressPreset({
-            params: { url: operationURL, transaction: createTransactionDetails(null), network: "PAYPAL", clientId },
-            customFunctions,
-        });
-        if (result.response.ok) {
-            return paymentActionOk({ result, dispatch, customFunctions });
+const paymentAction =
+    ({ customFunctions, createTransactionDetails }) =>
+    async (dispatch, getState) => {
+        dispatch(storePaypalStatus("Payment Session Pending"));
+        try {
+            const operationURL = getOperationLink(getState);
+            const clientId = get(getState(), "configuration.clientId", null);
+            const result = await createExpressPreset({
+                params: { url: operationURL, transaction: createTransactionDetails(null), network: "PAYPAL", clientId },
+                customFunctions,
+            });
+            if (result.response.ok) {
+                return paymentActionOk({ result, dispatch, customFunctions });
+            }
+            return handleNotOkResponse({ result, dispatch, step: "create", customFunctions });
+        } catch (err) {
+            return handleCatch({ err, dispatch, step: "create", customFunctions });
         }
-        return handleNotOkResponse({ result, dispatch, step: "create", customFunctions });
-    } catch (err) {
-        return handleCatch({ err, dispatch, step: "create", customFunctions });
-    }
-};
+    };
 const authorizeActionOk = ({ result, dispatch, customFunctions }) => {
     const { data } = result;
     const { code, reason } = data.interaction;
@@ -127,29 +129,31 @@ const authorizeActionOk = ({ result, dispatch, customFunctions }) => {
     }
 };
 
-const authorizeAction = ({ customFunctions, data }) => async (dispatch, getState) => {
-    dispatch(storePaypalStatus("Authorization Pending"));
-    try {
-        const updateURL = getUpdateLink(getState);
-        const providerRequest = toRequestData("PAYPAL", data);
-        if (updateURL) {
-            const longId = getLongIdFromParameters(getState, true) || getLongIdFromRedirectUrl(updateURL);
-            const result = await updateExpressPreset({
-                params: { url: updateURL, transaction: { providerRequest }, network: "PAYPAL", longId },
-                customFunctions,
-            });
-            if (result.response.ok) {
-                return authorizeActionOk({ result, dispatch, customFunctions });
+const authorizeAction =
+    ({ customFunctions, data }) =>
+    async (dispatch, getState) => {
+        dispatch(storePaypalStatus("Authorization Pending"));
+        try {
+            const updateURL = getUpdateLink(getState);
+            const providerRequest = toRequestData("PAYPAL", data);
+            if (updateURL) {
+                const longId = getLongIdFromParameters(getState, true) || getLongIdFromRedirectUrl(updateURL);
+                const result = await updateExpressPreset({
+                    params: { url: updateURL, transaction: { providerRequest }, network: "PAYPAL", longId },
+                    customFunctions,
+                });
+                if (result.response.ok) {
+                    return authorizeActionOk({ result, dispatch, customFunctions });
+                } else {
+                    return handleNotOkResponse({ result, dispatch, step: "update", customFunctions });
+                }
             } else {
-                return handleNotOkResponse({ result, dispatch, step: "update", customFunctions });
+                throw new Error("Update link is not found");
             }
-        } else {
-            throw new Error("Update link is not found");
+        } catch (err) {
+            return handleCatch({ err, dispatch, step: "update", customFunctions });
         }
-    } catch (err) {
-        return handleCatch({ err, dispatch, step: "update", customFunctions });
-    }
-};
+    };
 const cancelActionOk = ({ result, dispatch, customFunctions }) => {
     const { data } = result;
     const { code } = data.interaction;
@@ -161,27 +165,29 @@ const cancelActionOk = ({ result, dispatch, customFunctions }) => {
     dispatch(storePaypalStatus("Payment Session Cancelled"));
     return onCustomerAbort({ params: { preset: data, dispatch }, customFunctions });
 };
-const cancelAction = ({ customFunctions, data }) => async (dispatch, getState) => {
-    dispatch(storePaypalStatus("Payment Session Cancel Pending"));
-    try {
-        const cancelUrl = data.cancelUrl;
-        const providerRequest = toRequestData("PAYPAL", data);
-        if (cancelUrl) {
-            const longId = getLongIdFromParameters(getState);
-            const result = await cancelExpressPreset({
-                params: { url: cancelUrl, transaction: { providerRequest }, network: "PAYPAL", longId },
-                customFunctions,
-            });
-            if (result.response.ok) {
-                return cancelActionOk({ result, dispatch, customFunctions });
+const cancelAction =
+    ({ customFunctions, data }) =>
+    async (dispatch, getState) => {
+        dispatch(storePaypalStatus("Payment Session Cancel Pending"));
+        try {
+            const cancelUrl = data.cancelUrl;
+            const providerRequest = toRequestData("PAYPAL", data);
+            if (cancelUrl) {
+                const longId = getLongIdFromParameters(getState);
+                const result = await cancelExpressPreset({
+                    params: { url: cancelUrl, transaction: { providerRequest }, network: "PAYPAL", longId },
+                    customFunctions,
+                });
+                if (result.response.ok) {
+                    return cancelActionOk({ result, dispatch, customFunctions });
+                } else {
+                    return handleNotOkResponse({ result, dispatch, step: "cancel", customFunctions });
+                }
             } else {
-                return handleNotOkResponse({ result, dispatch, step: "cancel", customFunctions });
+                throw new Error("Cancel link is not found");
             }
-        } else {
-            throw new Error("Cancel link is not found");
+        } catch (err) {
+            return handleCatch({ err, dispatch, step: "cancel", customFunctions });
         }
-    } catch (err) {
-        return handleCatch({ err, dispatch, step: "cancel", customFunctions });
-    }
-};
+    };
 export { paymentAction, cancelAction, authorizeAction };

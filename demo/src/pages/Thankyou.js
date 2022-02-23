@@ -31,11 +31,7 @@ const Thankyou = () => {
             charge(link, setStatus);
         }
     }, [link]);
-    return (
-        <div>
-            {getTemplate(status)}
-        </div>
-    );
+    return <div>{getTemplate(status)}</div>;
 };
 
 export default Thankyou;
