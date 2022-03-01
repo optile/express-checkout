@@ -20,7 +20,7 @@ function getFundingSource(networkCode) {
 const prepareButtonProps = ({ initialPaymentConfiguration, props }) => {
     return {
         style: initialPaymentConfiguration.style,
-        fundingSource: getFundingSource(props.networkCode),
+        fundingSource: getFundingSource(initialPaymentConfiguration.code),
         createOrder: () =>
             props.paymentAction({ customFunctions: props.customFunctions, createTransactionDetails: props.createTransactionDetails }),
         onApprove: (data) => props.authorizeAction({ customFunctions: props.customFunctions, data }),
@@ -37,7 +37,7 @@ const prepareButtonProps = ({ initialPaymentConfiguration, props }) => {
  */
 const prepareScriptOptions = ({ initialPaymentConfiguration, initialConfiguration, listConfiguration, props }) => {
     const {
-        contractData: { PAGE_ENVIRONMENT, PAGE_BUTTON_LOCALE, PAGE_SANDBOX_BUYER_COUNTRY },
+        contractData: { PAGE_ENVIRONMENT, PAGE_BUTTON_LOCALE, PAGE_SANDBOX_BUYER_COUNTRY, ENABLE_PAY_LATER },
     } = listConfiguration;
     return {
         locale: initialConfiguration.language || PAGE_BUTTON_LOCALE,
@@ -47,9 +47,29 @@ const prepareScriptOptions = ({ initialPaymentConfiguration, initialConfiguratio
         currency: initialConfiguration.currency || "USD",
         intent: "order",
         "buyer-country": PAGE_ENVIRONMENT === "sandbox" ? PAGE_SANDBOX_BUYER_COUNTRY : undefined,
-        "enable-funding": "paylater",
+        "enable-funding": ENABLE_PAY_LATER ? "paylater" : undefined,
     };
 };
+
+const ButtonsList = (props) => {
+    return (
+        props.networks &&
+        _.map(props.networks, (network, i) => {
+            const initialPaymentConfiguration = useSelector((state) =>
+                find(state.configuration.paymentMethodsConfiguration, (item) => item.code === network.code)
+            );
+            const buttonProps = prepareButtonProps({ initialPaymentConfiguration, props });
+            const idProps = getIdentificationProps({ suffix: props.suffix, className: network.code + "-button-container" });
+
+            return (
+                <div {...idProps}>
+                    <PayPalButtons {...buttonProps} key={network.code + "-" + i} />
+                </div>
+            );
+        })
+    );
+};
+
 /**
  * Paypal main component
  * @param {Object} props
@@ -57,18 +77,23 @@ const prepareScriptOptions = ({ initialPaymentConfiguration, initialConfiguratio
  */
 const Paypal = (props) => {
     const initialPaymentConfiguration = useSelector((state) =>
-        find(state.configuration.paymentMethodsConfiguration, (item) => item.code === props.networkCode)
+        find(state.configuration.paymentMethodsConfiguration, (item) => item.code === props.networks[0].code)
     );
     const initialConfiguration = useSelector((state) => state.configuration);
-    const listConfiguration = useSelector((state) => find(state.list.data, (item) => item.code === props.networkCode));
-    const idProps = getIdentificationProps({ suffix: props.suffix, className: props.networkCode + "-button-container" });
-    const buttonProps = prepareButtonProps({ initialPaymentConfiguration, props });
-    const scriptsProps = prepareScriptOptions({ initialPaymentConfiguration, initialConfiguration, listConfiguration, props });
+    const listConfiguration = useSelector((state) => find(state.list.data, (item) => item.code === props.networks[0].code));
+    const idProps = getIdentificationProps({ suffix: props.suffix, className: "paypal-group-button-container" });
+    // const buttonProps = prepareButtonProps({ initialPaymentConfiguration, props });
+    const scriptsProps = prepareScriptOptions({
+        initialPaymentConfiguration,
+        initialConfiguration,
+        listConfiguration,
+        props,
+    });
 
     return (
         <div {...idProps}>
             <PayPalScriptProvider options={scriptsProps}>
-                <PayPalButtons {...buttonProps} />
+                <ButtonsList {...props} />
             </PayPalScriptProvider>
         </div>
     );

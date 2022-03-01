@@ -18,7 +18,6 @@ const Products = () => {
     const mode = getMode();
     const { value: clientId, inputProps: clientIdProps } = useStringInput(attributes.configuration.clientId);
     const { value: price1, inputProps: price1Props } = useNumberInput(47);
-    const { value: price2, inputProps: price2Props } = useNumberInput(10);
 
     return (
         <div>
