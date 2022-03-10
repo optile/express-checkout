@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 
 import getAttributes from "../configuration";
 import createTransactionDetails1 from "../configuration/product1";
-import createTransactionDetails2 from "../configuration/product2";
 import ExpressCheckout from "../../../src";
 import { useNumberInput, useStringInput } from "./useInput";
 import "./Product.css";
@@ -18,9 +17,9 @@ const Products = () => {
     const mode = getMode();
     const { value: clientId, inputProps: clientIdProps } = useStringInput(attributes.configuration.clientId);
     const { value: price1, inputProps: price1Props } = useNumberInput(47);
-    const { value: price2, inputProps: price2Props } = useNumberInput(10);
     const getPrice1 = useCallback(() => {
-        const el = document.getElementById('price1');
+        const el = document.getElementById("price1");
+
         return Number(el?.value);
     }, [price1]);
 
