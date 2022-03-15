@@ -21,5 +21,5 @@ describe("Test Suite", () => {
 
     describe("Express Checkout Tests", expressCheckoutTests);
     describe("PayPal Tests", paypalTests);
-    describe("PayPal Negative Tests", negativePayPalTests);
+    //     describe("PayPal Negative Tests", negativePayPalTests); TODO: enable in PCX-2832
 });

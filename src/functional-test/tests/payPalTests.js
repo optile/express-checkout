@@ -22,13 +22,14 @@ const paypalTests = () => {
     });
 
     it("Makes Payment with PayPal", async () => {
-        await waitForVisibleElement(".paypal-button-container.paypal-button-container-1");
-        await switchToFrame(1);
+        await waitForVisibleElement(".PAYPAL-button-container-1");
+        await switchToFrame(0);
         await waitForVisibleElement(".paypal-button-text");
-        await clickEnabledElement(".paypal-button");
+        await clickEnabledElement(".paypal-button-number-0");
 
         await waitForWindowCount(2);
         await switchToCurrentWindow();
+        await maximizeWindow();
 
         await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
         await clickEnabledElement("#btnNext");
@@ -43,10 +44,10 @@ const paypalTests = () => {
          * To avoid clicking on Accept Cookies button we are maximizing the Paypal popup
          * so that Submit button is visible
          *  */
+
         // await waitForVisibleElement("#acceptAllButton");
         // await clickEnabledElement("#acceptAllButton");
 
-        await maximizeWindow();
         await clickEnabledElement("#payment-submit-btn");
         await waitForWindowCount(1);
         await switchToCurrentWindow();
