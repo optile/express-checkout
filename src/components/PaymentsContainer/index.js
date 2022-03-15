@@ -4,7 +4,8 @@
 
 import React from "react";
 import { useSelector } from "react-redux";
-import _ from "lodash";
+import groupBy from "lodash/groupBy";
+import map from "lodash/map";
 import { useList } from "./hook";
 import Paypal from "../PaymentMethods/Paypal";
 import Amazon from "../PaymentMethods/Amazon";
@@ -36,13 +37,16 @@ const PaymentsContainer = (props) => {
     const listOfPaymentMethods = useSelector((state) => state.list.data);
     const idProps = getIdentificationProps({ suffix: props.suffix, className: "payments-container" });
     useList(props.customFunctions);
-    const groupedPaymentsMethods = _.chain(listOfPaymentMethods)
-        .groupBy((e) => e.code.split("_")[0])
-        .map((val, key) => ({ name: key, networks: val }))
-        .value();
+
+    let groupedPaymentsMethods = groupBy(listOfPaymentMethods, (e) => e.code.split("_")[0]);
+    groupedPaymentsMethods = map(groupedPaymentsMethods, (val, key) => ({
+        name: key,
+        networks: val,
+    }));
+
     return (
         <div {...idProps}>
-            {groupedPaymentsMethods && _.map(groupedPaymentsMethods, (group, i) => loadPaymentMethodsGroup(group, props, i))}
+            {groupedPaymentsMethods && map(groupedPaymentsMethods, (group, i) => loadPaymentMethodsGroup(group, props, i))}
         </div>
     );
 };

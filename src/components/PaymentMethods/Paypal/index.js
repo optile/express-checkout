@@ -5,6 +5,7 @@
 import React from "react";
 import { useSelector, connect } from "react-redux";
 import find from "lodash/find";
+import map from "lodash/map";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { paymentAction, authorizeAction, cancelAction } from "./actions.redux";
 import { getIdentificationProps } from "../../../utils";
@@ -54,7 +55,7 @@ const prepareScriptOptions = ({ initialPaymentConfiguration, initialConfiguratio
 const ButtonsList = (props) => {
     return (
         props.networks &&
-        _.map(props.networks, (network, i) => {
+        map(props.networks, (network, i) => {
             const initialPaymentConfiguration = useSelector((state) =>
                 find(state.configuration.paymentMethodsConfiguration, (item) => item.code === network.code)
             );
@@ -62,7 +63,7 @@ const ButtonsList = (props) => {
             const idProps = getIdentificationProps({ suffix: props.suffix, className: network.code + "-button-container" });
 
             return (
-                <div {...idProps}>
+                <div {...idProps} key={network.code + "-" + i}>
                     <PayPalButtons {...buttonProps} key={network.code + "-" + i} />
                 </div>
             );
@@ -70,19 +71,32 @@ const ButtonsList = (props) => {
     );
 };
 
+function hasANetworkCode(props) {
+    return !!(
+        props.networks &&
+        props.networks instanceof Array &&
+        props.networks.length &&
+        typeof props.networks[0] === "object" &&
+        props.networks[0].code
+    );
+}
+
 /**
  * Paypal main component
  * @param {Object} props
  * @return {JSX.Element}
  */
 const Paypal = (props) => {
+    if (!hasANetworkCode(props)) {
+        return;
+    }
+
     const initialPaymentConfiguration = useSelector((state) =>
         find(state.configuration.paymentMethodsConfiguration, (item) => item.code === props.networks[0].code)
     );
     const initialConfiguration = useSelector((state) => state.configuration);
     const listConfiguration = useSelector((state) => find(state.list.data, (item) => item.code === props.networks[0].code));
     const idProps = getIdentificationProps({ suffix: props.suffix, className: "paypal-group-button-container" });
-    // const buttonProps = prepareButtonProps({ initialPaymentConfiguration, props });
     const scriptsProps = prepareScriptOptions({
         initialPaymentConfiguration,
         initialConfiguration,
