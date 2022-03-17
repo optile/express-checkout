@@ -12,6 +12,7 @@ const {
     switchToCurrentWindow,
     switchToDefaultContent,
     waitForDocStateComplete,
+    scrollToBottom,
 } = require("../services/pageUtils");
 
 const { clickOnPayPalButton } = require("../services/paypal");
@@ -45,7 +46,7 @@ const paypalCheckoutTests = () => {
 
         // await waitForVisibleElement("#acceptAllButton");
         // await clickEnabledElement("#acceptAllButton");
-
+        await scrollToBottom();
         await clickEnabledElement("#payment-submit-btn");
         await waitForWindowCount(1);
         await switchToCurrentWindow();
