@@ -12,6 +12,7 @@ const isDocStateComplete = async () => {
 const scrollToBottom = async () => {
     await DRIVER.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 };
+
 const checkUrlContainsValues = async (queryParams = []) => {
     let currentUrl = await DRIVER.getCurrentUrl();
     return queryParams.every((param) => currentUrl.includes(param));
