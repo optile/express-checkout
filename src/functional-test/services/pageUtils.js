@@ -9,12 +9,16 @@ const isDocStateComplete = async () => {
     return readyState.toString() === "complete";
 };
 
-const checkUrlContainsValues = async (queryParams = []) => {
-    let currentUrl = await DRIVER.getCurrentUrl();
-    return queryParams.every(param => currentUrl.includes(param));
+const scrollToBottom = async () => {
+    await DRIVER.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 };
 
-const checkWindowCount = async count => {
+const checkUrlContainsValues = async (queryParams = []) => {
+    let currentUrl = await DRIVER.getCurrentUrl();
+    return queryParams.every((param) => currentUrl.includes(param));
+};
+
+const checkWindowCount = async (count) => {
     let handles = await DRIVER.getAllWindowHandles();
     return handles.length === count;
 };
@@ -84,4 +88,5 @@ module.exports = {
     waitForUrlContainsValue,
     waitForUrlContainsValues,
     waitForDocStateComplete,
+    scrollToBottom,
 };
