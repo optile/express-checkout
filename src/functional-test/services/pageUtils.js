@@ -49,6 +49,10 @@ async function maximizeWindow() {
     let window = DRIVER.manage().window();
     return window.maximize();
 }
+async function minimizeWindow() {
+    let window = DRIVER.manage().window();
+    return window.minimize();
+}
 
 async function switchToCurrentWindow() {
     let windowHandles = await DRIVER.getAllWindowHandles();
@@ -89,4 +93,5 @@ module.exports = {
     waitForUrlContainsValues,
     waitForDocStateComplete,
     scrollToBottom,
+    minimizeWindow,
 };

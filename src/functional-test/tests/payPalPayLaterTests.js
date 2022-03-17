@@ -14,11 +14,13 @@ const {
     waitForWindowCount,
     loadNewPage,
     maximizeWindow,
+    minimizeWindow,
     waitForUrlContainsValue,
     switchToCurrentWindow,
     switchToDefaultContent,
     switchToFrame,
     waitForDocStateComplete,
+    scrollToBottom,
 } = require("../services/pageUtils");
 
 const { clickOnPayPalButton } = require("../services/paypal");
@@ -55,20 +57,21 @@ const paypalPayLaterTests = () => {
 
         await clickEnabledElement("label[for='credit-offer-1']");
         await clickEnabledElement(".PayIn1_termsContainer_11rUC label");
-
+        await scrollToBottom();
         await clickEnabledElement("#payment-submit-btn"); // confirm using credits and the terms and conditions
 
         // an extra small pop up will be opened in the window for more details like phone number
         await switchToFrame(2);
 
         await clearAndSendKeysToVisibleElement("#phoneNumber", "+4915153550998");
-        await clickEnabledElement("#submitButton"); // submit phone nummber
 
-        await waitForWindowCount(1);
+        await clickEnabledElement("#submitButton"); // submit phone number
+
+        await waitForWindowCount(2);
         await switchToCurrentWindow();
 
-        await clearAndSendKeysToVisibleElement("#iban", "DE89370400440532013000");
-        await clickEnabledElement("#submitButton"); // submit iban
+        // await clearAndSendKeysToVisibleElement("#iban", "DE89370400440532013000");
+        // await clickEnabledElement("#submitButton"); // submit iban
 
         await clickEnabledElement("#payment-submit-btn"); // click on pay in 30 days button
 
