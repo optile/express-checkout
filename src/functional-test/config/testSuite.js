@@ -1,8 +1,10 @@
 /*
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
+
 const { paypalCheckoutTests } = require("../tests/payPalTests");
-const { paypalPayLaterTests } = require("../tests/payPalPayLaterTests")>>>>>>> Stashed changes
+const { paypalPayLaterTests } = require("../tests/payPalPayLaterTests");
+
 const expressCheckoutTests = require("../tests/expressCheckoutTests");
 const { negativePaypalCheckoutTests, negativePaypalPayLaterTests } = require("../tests/negativePayPalTests");
 const LoadDriver = require("../services/loadDriver");

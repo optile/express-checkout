@@ -11,7 +11,6 @@ const {
     waitForUrlContainsValue,
     switchToCurrentWindow,
     switchToDefaultContent,
-    switchToFrame,
     waitForDocStateComplete,
 } = require("../services/pageUtils");
 
@@ -28,6 +27,7 @@ const paypalCheckoutTests = () => {
 
         await waitForWindowCount(2);
         await switchToCurrentWindow();
+        await maximizeWindow();
 
         await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
         await clickEnabledElement("#btnNext");
@@ -42,10 +42,10 @@ const paypalCheckoutTests = () => {
          * To avoid clicking on Accept Cookies button we are maximizing the Paypal popup
          * so that Submit button is visible
          *  */
+
         // await waitForVisibleElement("#acceptAllButton");
         // await clickEnabledElement("#acceptAllButton");
 
-        await maximizeWindow();
         await clickEnabledElement("#payment-submit-btn");
         await waitForWindowCount(1);
         await switchToCurrentWindow();
