@@ -21,9 +21,9 @@ describe("Test Suite", () => {
         await DRIVER.quit();
     });
 
-    // describe("Express Checkout Tests", expressCheckoutTests);
-    // describe("PayPal Checkout Tests", paypalCheckoutTests);
+    describe("Express Checkout Tests", expressCheckoutTests);
+    describe("PayPal Checkout Tests", paypalCheckoutTests);
     describe("PayPal Pay Later Tests", paypalPayLaterTests);
-    // describe("PayPal Checkout Negative Tests", negativePaypalCheckoutTests);
-    // describe("PayPal Pay Later Negative Tests", negativePaypalPayLaterTests);
+    describe("PayPal Checkout Negative Tests", negativePaypalCheckoutTests);
+    describe("PayPal Pay Later Negative Tests", negativePaypalPayLaterTests);
 });

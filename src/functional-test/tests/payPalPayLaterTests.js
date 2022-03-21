@@ -2,6 +2,7 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
+const { until } = require("selenium-webdriver");
 const {
     clickEnabledElement,
     sendKeysToVisibleElement,
@@ -32,7 +33,7 @@ const paypalPayLaterTests = () => {
         await waitForDocStateComplete();
     });
 
-    it("Makes Payment with PayPal", async () => {
+    it("Makes Payment with PayPal Pay Later", async () => {
         await clickOnPayPalButton(4);
 
         await waitForWindowCount(2);
@@ -73,7 +74,7 @@ const paypalPayLaterTests = () => {
         await switchToFrame(frame);
 
         let phoneNumField = await getVisibleElement("#phoneNumber");
-        forceClearInput(phoneNumField);
+        await forceClearInput(phoneNumField);
         phoneNumField.sendKeys("491515355099");
 
         await clickEnabledElement("#submitButton"); // submit phone number
