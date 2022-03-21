@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
-const { Builder, By, until } = require("selenium-webdriver");
+const { until } = require("selenium-webdriver");
 
 const isDocStateComplete = async () => {
     let readyState = await DRIVER.executeScript("return document.readyState");
@@ -15,7 +15,9 @@ const scrollToBottom = async () => {
 
 const checkUrlContainsValues = async (queryParams = []) => {
     let currentUrl = await DRIVER.getCurrentUrl();
-    return queryParams.every((param) => currentUrl.includes(param));
+    if (currentUrl.length > 0) {
+        return queryParams.every((param) => currentUrl.includes(param));
+    }
 };
 
 const checkWindowCount = async (count) => {
@@ -62,6 +64,11 @@ async function switchToCurrentWindow() {
     }
 }
 
+async function switchToParentWindow() {
+    let windowHandles = await DRIVER.getAllWindowHandles();
+    return await DRIVER.switchTo().window(windowHandles[0]);
+}
+
 async function waitForWindowCount(count) {
     return DRIVER.wait(() => checkWindowCount(count));
 }
@@ -87,6 +94,7 @@ module.exports = {
     loadNewPage,
     maximizeWindow,
     switchToCurrentWindow,
+    switchToParentWindow,
     switchToFrame,
     switchToDefaultContent,
     waitForUrlContainsValue,

@@ -2,25 +2,26 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
-const { Builder, By } = require("selenium-webdriver");
 const {
     clickEnabledElement,
     sendKeysToVisibleElement,
     waitForVisibleElement,
     expectVisibleElement,
-    clearAndSendKeysToVisibleElement,
+    getElement,
+    getVisibleElement,
+    forceClearInput,
 } = require("../services/elementUtils");
 const {
     waitForWindowCount,
     loadNewPage,
     maximizeWindow,
-    minimizeWindow,
     waitForUrlContainsValue,
     switchToCurrentWindow,
     switchToDefaultContent,
     switchToFrame,
     waitForDocStateComplete,
     scrollToBottom,
+    switchToParentWindow,
 } = require("../services/pageUtils");
 
 const { clickOnPayPalButton } = require("../services/paypal");
@@ -55,15 +56,25 @@ const paypalPayLaterTests = () => {
         // await waitForVisibleElement("#acceptAllButton");
         // await clickEnabledElement("#acceptAllButton");
 
-        await clickEnabledElement("label[for='credit-offer-1']");
-        await clickEnabledElement(".PayIn1_termsContainer_11rUC label");
+        await waitForVisibleElement("#gdpr-container");
+        await waitForVisibleElement("#acceptAllButton");
         await scrollToBottom();
-        await clickEnabledElement("#payment-submit-btn"); // confirm using credits and the terms and conditions
+
+        await clickEnabledElement("label[for='credit-offer-1']");
+        await clickEnabledElement(".PayIn1_termsContainer_11rUC label > span.ppvx_checkbox__check-icon-container___3-6-13-beta-0");
+        await scrollToBottom();
+
+        await waitForVisibleElement("#payment-submit-btn");
+        await clickEnabledElement("#payment-submit-btn");
 
         // an extra small pop up will be opened in the window for more details like phone number
-        await switchToFrame(2);
+        await switchToDefaultContent();
+        let frame = getElement('div[data-testid="credit-apply-portable-wrapper"] iframe');
+        await switchToFrame(frame);
 
-        await clearAndSendKeysToVisibleElement("#phoneNumber", "+4915153550998");
+        let phoneNumField = await getVisibleElement("#phoneNumber");
+        forceClearInput(phoneNumField);
+        phoneNumField.sendKeys("491515355099");
 
         await clickEnabledElement("#submitButton"); // submit phone number
 
@@ -73,16 +84,26 @@ const paypalPayLaterTests = () => {
         // await clearAndSendKeysToVisibleElement("#iban", "DE89370400440532013000");
         // await clickEnabledElement("#submitButton"); // submit iban
 
+        // Need to focus first to scroll
+        await switchToDefaultContent();
+        await getVisibleElement("#cart > button");
+        await scrollToBottom();
+
+        // TODO: replace this implicit wait with a suitable function that keeps track of PayPal loader
+        await DRIVER.sleep(5000);
         await clickEnabledElement("#payment-submit-btn"); // click on pay in 30 days button
 
         // We switch back to default content because previously we
         // opened the frame in the express checkout window
-        await switchToDefaultContent();
+        await switchToParentWindow();
 
         await waitForUrlContainsValue("interactionCode=PROCEED");
+
         await waitForDocStateComplete();
-        await clickEnabledElement("[test-id=payments-summary-confirm-button]");
-        await waitForUrlContainsValue("mode=Successful");
+        await DRIVER.navigate().refresh();
+        await clickEnabledElement("[test-id='payments-summary-confirm-button']");
+        await waitForUrlContainsValue("mode=Summary");
     });
 };
+
 module.exports = { paypalPayLaterTests };
