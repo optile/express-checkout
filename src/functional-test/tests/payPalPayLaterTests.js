@@ -33,6 +33,11 @@ const paypalPayLaterTests = () => {
         await waitForDocStateComplete();
     });
 
+    afterEach(async () => {
+        await switchToParentWindow();
+        await switchToDefaultContent();
+    });
+
     it("Makes Payment with PayPal Pay Later", async () => {
         await clickOnPayPalButton(4);
 
@@ -75,7 +80,7 @@ const paypalPayLaterTests = () => {
 
         let phoneNumField = await getVisibleElement("#phoneNumber");
         await forceClearInput(phoneNumField);
-        phoneNumField.sendKeys("491515355099");
+        phoneNumField.sendKeys("49151535509");
 
         await clickEnabledElement("#submitButton"); // submit phone number
 
@@ -91,17 +96,19 @@ const paypalPayLaterTests = () => {
         await scrollToBottom();
 
         // TODO: replace this implicit wait with a suitable function that keeps track of PayPal loader
-        await DRIVER.sleep(5000);
+        await DRIVER.sleep(8000);
+        await waitForVisibleElement("#payment-submit-btn");
         await clickEnabledElement("#payment-submit-btn"); // click on pay in 30 days button
 
         // We switch back to default content because previously we
         // opened the frame in the express checkout window
+        await waitForWindowCount(1);
         await switchToParentWindow();
 
         await waitForUrlContainsValue("interactionCode=PROCEED");
 
         await waitForDocStateComplete();
-        await DRIVER.navigate().refresh();
+        // await DRIVER.navigate().refresh();
         await clickEnabledElement("[test-id='payments-summary-confirm-button']");
         await waitForUrlContainsValue("mode=Summary");
     });

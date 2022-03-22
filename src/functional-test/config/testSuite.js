@@ -22,8 +22,8 @@ describe("Test Suite", () => {
     });
 
     describe("Express Checkout Tests", expressCheckoutTests);
-    describe("PayPal Checkout Tests", paypalCheckoutTests);
     describe("PayPal Pay Later Tests", paypalPayLaterTests);
+    describe("PayPal Checkout Tests", paypalCheckoutTests);
     describe("PayPal Checkout Negative Tests", negativePaypalCheckoutTests);
     describe("PayPal Pay Later Negative Tests", negativePaypalPayLaterTests);
 });

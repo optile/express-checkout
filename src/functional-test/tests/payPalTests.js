@@ -14,6 +14,7 @@ const {
     switchToDefaultContent,
     waitForDocStateComplete,
     scrollToBottom,
+    switchToParentWindow,
 } = require("../services/pageUtils");
 
 const { clickOnPayPalButton } = require("../services/paypal");
@@ -24,6 +25,11 @@ const paypalCheckoutTests = () => {
         await waitForDocStateComplete();
     });
 
+    afterEach(async () => {
+        await switchToParentWindow();
+        await switchToDefaultContent();
+    });
+
     it("Makes Payment with PayPal", async () => {
         await clickOnPayPalButton(0);
 
@@ -31,13 +37,11 @@ const paypalCheckoutTests = () => {
         await switchToCurrentWindow();
         await maximizeWindow();
 
-        await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
-        await clickEnabledElement("#btnNext");
+        // await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
+        // await clickEnabledElement("#btnNext");
 
-        await sendKeysToVisibleElement("#password", "123456789");
-
-        await clickEnabledElement("#btnLogin");
-        await expectVisibleElement("#root");
+        // await sendKeysToVisibleElement("#password", "123456789");
+        // await clickEnabledElement("#btnLogin");
 
         /**
          * Because of Accept Cookies popup the Submit button is hidden
@@ -47,24 +51,27 @@ const paypalCheckoutTests = () => {
 
         // await waitForVisibleElement("#acceptAllButton");
         // await clickEnabledElement("#acceptAllButton");
+
+        await switchToDefaultContent();
+        await waitForVisibleElement("#root");
         await scrollToBottom();
 
         await DRIVER.sleep(5000);
         await waitForVisibleElement("#payment-submit-btn");
         await clickEnabledElement("#payment-submit-btn");
-        // await waitForWindowCount(1);
-        // await switchToCurrentWindow();
+        await waitForWindowCount(1);
+        await switchToCurrentWindow();
 
-        // // We switch back to default content because previously we
-        // // opened the frame in the express checkout window
-        // await switchToDefaultContent();
+        // We switch back to default content because previously we
+        // opened the frame in the express checkout window
+        await switchToDefaultContent();
 
-        // await waitForUrlContainsValue("interactionCode=PROCEED");
-        // await waitForDocStateComplete();
+        await waitForUrlContainsValue("interactionCode=PROCEED");
+        await waitForDocStateComplete();
 
-        // // await DRIVER.navigate().refresh();
-        // await clickEnabledElement("[test-id=payments-summary-confirm-button]");
-        // await waitForUrlContainsValue("mode=Summary");
+        // await DRIVER.navigate().refresh();
+        await clickEnabledElement("[test-id=payments-summary-confirm-button]");
+        await waitForUrlContainsValue("mode=Summary");
     });
 };
 module.exports = { paypalCheckoutTests };
