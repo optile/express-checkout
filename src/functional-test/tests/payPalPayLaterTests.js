@@ -87,6 +87,10 @@ const paypalPayLaterTests = () => {
         await waitForWindowCount(2);
         await switchToCurrentWindow();
 
+        /**
+         * PayPal is not consistent with this screen. PayPal asks to add bank account details approx. in 1 test out of 50
+         * So in case if PayPal brings this screen then the test will fail.
+         */
         // await clearAndSendKeysToVisibleElement("#iban", "DE89370400440532013000");
         // await clickEnabledElement("#submitButton"); // submit iban
 
@@ -108,7 +112,6 @@ const paypalPayLaterTests = () => {
         await waitForUrlContainsValue("interactionCode=PROCEED");
 
         await waitForDocStateComplete();
-        // await DRIVER.navigate().refresh();
         await clickEnabledElement("[test-id='payments-summary-confirm-button']");
         await waitForUrlContainsValue("mode=Summary");
     });

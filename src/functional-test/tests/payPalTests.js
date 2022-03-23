@@ -56,6 +56,7 @@ const paypalCheckoutTests = () => {
         await waitForVisibleElement("#root");
         await scrollToBottom();
 
+        // TODO: replace this implicit wait with a suitable function that keeps track of PayPal loader
         await DRIVER.sleep(5000);
         await waitForVisibleElement("#payment-submit-btn");
         await clickEnabledElement("#payment-submit-btn");
@@ -69,7 +70,6 @@ const paypalCheckoutTests = () => {
         await waitForUrlContainsValue("interactionCode=PROCEED");
         await waitForDocStateComplete();
 
-        // await DRIVER.navigate().refresh();
         await clickEnabledElement("[test-id=payments-summary-confirm-button]");
         await waitForUrlContainsValue("mode=Summary");
     });
