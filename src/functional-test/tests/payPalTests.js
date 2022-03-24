@@ -37,20 +37,11 @@ const paypalCheckoutTests = () => {
         await switchToCurrentWindow();
         await maximizeWindow();
 
+        /**
+         * User is already logged in from previous test so no need to login again.
+         */
         // await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
         // await clickEnabledElement("#btnNext");
-
-        // await sendKeysToVisibleElement("#password", "123456789");
-        // await clickEnabledElement("#btnLogin");
-
-        /**
-         * Because of Accept Cookies popup the Submit button is hidden
-         * To avoid clicking on Accept Cookies button we are maximizing the Paypal popup
-         * so that Submit button is visible
-         *  */
-
-        // await waitForVisibleElement("#acceptAllButton");
-        // await clickEnabledElement("#acceptAllButton");
 
         await switchToDefaultContent();
         await waitForVisibleElement("#root");

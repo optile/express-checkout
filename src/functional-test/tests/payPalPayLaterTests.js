@@ -53,15 +53,6 @@ const paypalPayLaterTests = () => {
         await clickEnabledElement("#btnLogin");
         await expectVisibleElement("[data-testid=change-shipping]");
 
-        /**
-         * Because of Accept Cookies popup the Submit button is hidden
-         * To avoid clicking on Accept Cookies button we are maximizing the Paypal popup
-         * so that Submit button is visible
-         *  */
-
-        // await waitForVisibleElement("#acceptAllButton");
-        // await clickEnabledElement("#acceptAllButton");
-
         await waitForVisibleElement("#gdpr-container");
         await waitForVisibleElement("#acceptAllButton");
         await scrollToBottom();
