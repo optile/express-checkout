@@ -38,18 +38,12 @@ const paypalTests = () => {
         await sendKeysToVisibleElement("#password", "123456789");
 
         await clickEnabledElement("#btnLogin");
-        await expectVisibleElement("[data-testid=change-shipping]");
+        await DRIVER.sleep(8000);
+        await waitForVisibleElement('[track-submit="choose_FI_interstitial"]');
+        await clickEnabledElement('[track-submit="choose_FI_interstitial"]');
 
-        /**
-         * Because of Accept Cookies popup the Submit button is hidden
-         * To avoid clicking on Accept Cookies button we are maximizing the Paypal popup
-         * so that Submit button is visible
-         *  */
-
-        // await waitForVisibleElement("#acceptAllButton");
-        // await clickEnabledElement("#acceptAllButton");
-        await scrollToBottom();
-        await clickEnabledElement("#payment-submit-btn");
+        await waitForVisibleElement("#confirmButtonTop");
+        await clickEnabledElement("#confirmButtonTop");
         await waitForWindowCount(1);
         await switchToCurrentWindow();
 
