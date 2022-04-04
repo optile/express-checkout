@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { fetchPresetAccount, onError } from "./hook";
 
 describe("Fetch Preset Account", () => {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import bg from "./languages/bg.json";

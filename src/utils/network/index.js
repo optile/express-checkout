@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import queryString from "query-string";
 /**
  * Fetch Data using fetch and format the response

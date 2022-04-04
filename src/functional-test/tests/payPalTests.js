@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 const { Builder, By } = require("selenium-webdriver");
 const { clickEnabledElement, sendKeysToVisibleElement, waitForVisibleElement, expectVisibleElement } = require("../services/elementUtils");
 const {
@@ -9,6 +13,7 @@ const {
     switchToDefaultContent,
     switchToFrame,
     waitForDocStateComplete,
+    scrollToBottom,
 } = require("../services/pageUtils");
 
 const paypalTests = () => {
@@ -18,13 +23,14 @@ const paypalTests = () => {
     });
 
     it("Makes Payment with PayPal", async () => {
-        await waitForVisibleElement(".paypal-button-container.paypal-button-container-1");
-        await switchToFrame(1);
+        await waitForVisibleElement(".PAYPAL-button-container-1");
+        await switchToFrame(0);
         await waitForVisibleElement(".paypal-button-text");
-        await clickEnabledElement(".paypal-button");
+        await clickEnabledElement(".paypal-button-number-0");
 
         await waitForWindowCount(2);
         await switchToCurrentWindow();
+        await maximizeWindow();
 
         await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
         await clickEnabledElement("#btnNext");
@@ -32,13 +38,12 @@ const paypalTests = () => {
         await sendKeysToVisibleElement("#password", "123456789");
 
         await clickEnabledElement("#btnLogin");
-        await expectVisibleElement("[data-testid=change-shipping]");
+        await DRIVER.sleep(8000);
+        await waitForVisibleElement('[track-submit="choose_FI_interstitial"]');
+        await clickEnabledElement('[track-submit="choose_FI_interstitial"]');
 
-        await waitForVisibleElement("#acceptAllButton");
-        await clickEnabledElement("#acceptAllButton");
-
-        await maximizeWindow();
-        await clickEnabledElement("#payment-submit-btn");
+        await waitForVisibleElement("#confirmButtonTop");
+        await clickEnabledElement("#confirmButtonTop");
         await waitForWindowCount(1);
         await switchToCurrentWindow();
 

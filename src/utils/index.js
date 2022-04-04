@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { onAbort, onReload, onRetry, onClientException, onTryOtherAccount, onTryOtherNetwork } from "./customFunctions";
 import get from "lodash/get";
 /**

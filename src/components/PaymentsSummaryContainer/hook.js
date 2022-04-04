@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getExpressPresetAccount, onClientException } from "../../utils/customFunctions";

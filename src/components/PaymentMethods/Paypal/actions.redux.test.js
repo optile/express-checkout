@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import { getLongIdFromRedirectUrl } from "./actions.redux";
 
 describe("test util function getLongIdFromRedirectUrl", () => {

@@ -4,8 +4,8 @@
             "os": "OS X",
             "os_version": "Catalina",
             "browser": "firefox",
-            "browser_version":"81",
-            "fixed":true
+            "browser_version": "96.0",
+            "fixed": true
         }
     ],
     "release": [
@@ -13,7 +13,7 @@
             "os": "OS X",
             "os_version": "Catalina",
             "browser": "firefox",
-            "browser_version": "81",
+            "browser_version": "96.0",
             "fixed": true
         }
     ]

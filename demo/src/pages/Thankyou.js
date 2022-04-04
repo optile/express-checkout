@@ -6,6 +6,8 @@ const getTemplate = (status) => {
     switch (status) {
         case "CHARGED":
             return <div>Thank you for your order</div>;
+        case "PENDING":
+            return <div>Your order is pending</div>;
         case "EXPIRED":
             return <div>The session is expired</div>;
         case "ERROR":
@@ -29,11 +31,7 @@ const Thankyou = () => {
             charge(link, setStatus);
         }
     }, [link]);
-    return (
-        <div>
-            {getTemplate(status)}
-        </div>
-    );
+    return <div>{getTemplate(status)}</div>;
 };
 
 export default Thankyou;

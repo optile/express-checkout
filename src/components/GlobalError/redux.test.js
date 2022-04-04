@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
+ */
+
 import {
     globalError, storeGlobalError, displayGlobalError, storeDisplayGlobalError
 } from "./redux";
