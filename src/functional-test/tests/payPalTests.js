@@ -37,20 +37,30 @@ const paypalCheckoutTests = () => {
         await switchToCurrentWindow();
         await maximizeWindow();
 
-        /**
-         * User is already logged in from previous test so no need to login again.
-         */
-        // await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
-        // await clickEnabledElement("#btnNext");
+        await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
+        await clickEnabledElement("#btnNext");
 
-        await switchToDefaultContent();
-        await waitForVisibleElement("#root");
-        await scrollToBottom();
+        await sendKeysToVisibleElement("#password", "123456789");
 
-        // TODO: replace this implicit wait with a suitable function that keeps track of PayPal loader
-        await DRIVER.sleep(5000);
-        await waitForVisibleElement("#payment-submit-btn");
-        await clickEnabledElement("#payment-submit-btn");
+        await clickEnabledElement("#btnLogin");
+        // await expectVisibleElement("[data-testid=change-shipping]");
+
+        await DRIVER.sleep(8000);
+        await waitForVisibleElement('[track-submit="choose_FI_interstitial"]');
+        await clickEnabledElement('[track-submit="choose_FI_interstitial"]');
+
+
+        await waitForVisibleElement("#confirmButtonTop");
+        await clickEnabledElement("#confirmButtonTop");
+
+    //     await waitForVisibleElement("#root");
+    //     await scrollToBottom();
+
+    //     // TODO: replace this implicit wait with a suitable function that keeps track of PayPal loader
+    //     await DRIVER.sleep(5000);
+    //     await waitForVisibleElement("#payment-submit-btn");
+    //     await clickEnabledElement("#payment-submit-btn");
+
         await waitForWindowCount(1);
         await switchToCurrentWindow();
 

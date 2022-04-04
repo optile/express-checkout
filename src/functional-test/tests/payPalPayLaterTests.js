@@ -45,10 +45,10 @@ const paypalPayLaterTests = () => {
         await switchToCurrentWindow();
         await maximizeWindow();
 
-        await sendKeysToVisibleElement("#email", "paypal_test_account@optile.net");
+        await sendKeysToVisibleElement("#email", "pritam-paypal-test-buyer@personal.example.com");
         await clickEnabledElement("#btnNext");
 
-        await sendKeysToVisibleElement("#password", "123456789");
+        await sendKeysToVisibleElement("#password", "1234567890");
 
         await clickEnabledElement("#btnLogin");
         await expectVisibleElement("[data-testid=change-shipping]");
