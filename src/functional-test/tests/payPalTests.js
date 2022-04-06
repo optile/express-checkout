@@ -43,12 +43,17 @@ const paypalCheckoutTests = () => {
         await sendKeysToVisibleElement("#password", "123456789");
 
         await clickEnabledElement("#btnLogin");
-        await DRIVER.sleep(8000);
-        await waitForVisibleElement('[track-submit="choose_FI_interstitial"]');
-        await clickEnabledElement('[track-submit="choose_FI_interstitial"]');
+        await expectVisibleElement("[data-testid=change-shipping]");
 
-        await waitForVisibleElement("#confirmButtonTop");
-        await clickEnabledElement("#confirmButtonTop");
+        await waitForVisibleElement("#root");
+        await scrollToBottom();
+
+        await DRIVER.sleep(8000);
+        // await waitForVisibleElement('[track-submit="choose_FI_interstitial"]');
+        // await clickEnabledElement('[track-submit="choose_FI_interstitial"]');
+
+        await waitForVisibleElement("#payment-submit-btn");
+        await clickEnabledElement("#payment-submit-btn");
         await waitForWindowCount(1);
         await switchToCurrentWindow();
 
@@ -63,4 +68,5 @@ const paypalCheckoutTests = () => {
         await waitForUrlContainsValue("mode=Summary");
     });
 };
+
 module.exports = { paypalCheckoutTests };
