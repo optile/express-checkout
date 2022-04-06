@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import getAttributes from "../configuration";
 import createTransactionDetails1 from "../configuration/product1";
-import createTransactionDetails2 from "../configuration/product2";
 import ExpressCheckout from "../../../src";
 import { useNumberInput, useStringInput } from "./useInput";
 import "./Product.css";
@@ -18,6 +17,11 @@ const Products = () => {
     const mode = getMode();
     const { value: clientId, inputProps: clientIdProps } = useStringInput(attributes.configuration.clientId);
     const { value: price1, inputProps: price1Props } = useNumberInput(47);
+    const getPrice1 = useCallback(() => {
+        const el = document.getElementById("price1");
+
+        return Number(el?.value);
+    }, [price1]);
 
     return (
         <div>
@@ -33,13 +37,13 @@ const Products = () => {
                     <tr>
                         <td>USB C cable:</td>
                         <td>
-                            <input value={price1} {...price1Props} test-id="price1" />
+                            <input id="price1" value={price1} {...price1Props} test-id="price1" />
                         </td>
                         <td>GBP</td>
                         <td>
                             <ExpressCheckout
                                 configuration={{ ...attributes.configuration, clientId }}
-                                createTransactionDetails={(data) => createTransactionDetails1(data, price1)}
+                                createTransactionDetails={(data) => createTransactionDetails1(data, getPrice1())}
                                 customFunctions={attributes.customFunctions}
                                 suffix="1"
                             />

@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
-const { Builder, By, until } = require("selenium-webdriver");
+const { By, until, Key } = require("selenium-webdriver");
 
 function getElement(cssId) {
     return DRIVER.wait(until.elementLocated(By.css(cssId)), TIME);
@@ -56,6 +56,11 @@ async function expectVisibleElement(cssId) {
     expect(displayed).toBeTruthy();
 }
 
+async function forceClearInput(el) {
+    await DRIVER.executeScript((elt) => elt.select(), el);
+    await el.sendKeys(Key.BACK_SPACE);
+}
+
 module.exports = {
     getElement,
     waitForVisibleElement,
@@ -66,4 +71,5 @@ module.exports = {
     clickEnabledElement,
     sendKeysToVisibleElement,
     clearAndSendKeysToVisibleElement,
+    forceClearInput,
 };

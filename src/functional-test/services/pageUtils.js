@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
-const { Builder, By, until } = require("selenium-webdriver");
+const { until } = require("selenium-webdriver");
 
 const isDocStateComplete = async () => {
     let readyState = await DRIVER.executeScript("return document.readyState");
@@ -15,7 +15,9 @@ const scrollToBottom = async () => {
 
 const checkUrlContainsValues = async (queryParams = []) => {
     let currentUrl = await DRIVER.getCurrentUrl();
-    return queryParams.every((param) => currentUrl.includes(param));
+    if (currentUrl.length > 0) {
+        return queryParams.every((param) => currentUrl.includes(param));
+    }
 };
 
 const checkWindowCount = async (count) => {
@@ -49,6 +51,10 @@ async function maximizeWindow() {
     let window = DRIVER.manage().window();
     return window.maximize();
 }
+async function minimizeWindow() {
+    let window = DRIVER.manage().window();
+    return window.minimize();
+}
 
 async function switchToCurrentWindow() {
     let windowHandles = await DRIVER.getAllWindowHandles();
@@ -56,6 +62,11 @@ async function switchToCurrentWindow() {
         let handle = windowHandles[windowHandles.length - 1];
         return DRIVER.switchTo().window(handle);
     }
+}
+
+async function switchToParentWindow() {
+    let windowHandles = await DRIVER.getAllWindowHandles();
+    return await DRIVER.switchTo().window(windowHandles[0]);
 }
 
 async function waitForWindowCount(count) {
@@ -83,10 +94,12 @@ module.exports = {
     loadNewPage,
     maximizeWindow,
     switchToCurrentWindow,
+    switchToParentWindow,
     switchToFrame,
     switchToDefaultContent,
     waitForUrlContainsValue,
     waitForUrlContainsValues,
     waitForDocStateComplete,
     scrollToBottom,
+    minimizeWindow,
 };
