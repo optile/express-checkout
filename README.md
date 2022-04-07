@@ -70,8 +70,9 @@ const attributes = {
     configuration: {
         baseURL: "....",
         clientId: "....",
-        country: "DE",
-        language: "en_US",
+        currency: "GBP",
+        country: "GB",
+        language: "en_GB",
         translation: [
             {
                 language: "en",
@@ -112,11 +113,11 @@ const attributes = {
     createTransactionDetails: function (requestData) {
         return {
             transactionId: "tr-" + new Date().getTime(),
-            country: "DE",
+            country: "GB",
             providerRequest: requestData,
             payment: {
                 amount: 2,
-                currency: "EUR",
+                currency: "GBP",
                 reference: "Payment #1",
                 longReference: {
                     essential: "Thank you for your purchase!",
@@ -188,8 +189,9 @@ render(<Demo />, document.querySelector("#demo"));
                 configuration: {
                     baseURL: "....",
                     clientId: "....",
-                    country: "DE",
-                    language: "en_US",
+                    currency: "GBP",
+                    country: "GB",
+                    language: "en_GB",
                     translation: [
                         {
                             language: "en",
@@ -230,11 +232,11 @@ render(<Demo />, document.querySelector("#demo"));
                 createTransactionDetails: function (requestData) {
                     return {
                         transactionId: "tr-" + new Date().getTime(),
-                        country: "DE",
+                        country: "GB",
                         providerRequest: requestData,
                         payment: {
                             amount: 2,
-                            currency: "EUR",
+                            currency: "GBP",
                             reference: "Payment #1",
                             longReference: {
                                 essential: "Thank you for your purchase!",
