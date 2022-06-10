@@ -3,6 +3,7 @@
  */
 
 const { Builder, By } = require("selenium-webdriver");
+const { Driver } = require("selenium-webdriver/chrome");
 const { clickEnabledElement, sendKeysToVisibleElement, waitForVisibleElement, expectVisibleElement } = require("../services/elementUtils");
 const {
     waitForWindowCount,
@@ -11,22 +12,26 @@ const {
     waitForUrlContainsValue,
     switchToCurrentWindow,
     switchToDefaultContent,
-    switchToFrame,
     waitForDocStateComplete,
     scrollToBottom,
+    switchToParentWindow,
 } = require("../services/pageUtils");
 
-const paypalTests = () => {
+const { clickOnPayPalButton } = require("../services/paypal");
+
+const paypalCheckoutTests = () => {
     beforeEach(async () => {
         await loadNewPage();
         await waitForDocStateComplete();
     });
 
+    afterEach(async () => {
+        await switchToParentWindow();
+        await switchToDefaultContent();
+    });
+
     it("Makes Payment with PayPal", async () => {
-        await waitForVisibleElement(".PAYPAL-button-container-1");
-        await switchToFrame(0);
-        await waitForVisibleElement(".paypal-button-text");
-        await clickEnabledElement(".paypal-button-number-0");
+        await clickOnPayPalButton(0);
 
         await waitForWindowCount(2);
         await switchToCurrentWindow();
@@ -38,12 +43,17 @@ const paypalTests = () => {
         await sendKeysToVisibleElement("#password", "123456789");
 
         await clickEnabledElement("#btnLogin");
-        await DRIVER.sleep(8000);
-        await waitForVisibleElement('[track-submit="choose_FI_interstitial"]');
-        await clickEnabledElement('[track-submit="choose_FI_interstitial"]');
+        await expectVisibleElement("[data-testid=change-shipping]");
 
-        await waitForVisibleElement("#confirmButtonTop");
-        await clickEnabledElement("#confirmButtonTop");
+        await waitForVisibleElement("#root");
+        await scrollToBottom();
+
+        await DRIVER.sleep(8000);
+        // await waitForVisibleElement('[track-submit="choose_FI_interstitial"]');
+        // await clickEnabledElement('[track-submit="choose_FI_interstitial"]');
+
+        await waitForVisibleElement("#payment-submit-btn");
+        await clickEnabledElement("#payment-submit-btn");
         await waitForWindowCount(1);
         await switchToCurrentWindow();
 
@@ -53,8 +63,10 @@ const paypalTests = () => {
 
         await waitForUrlContainsValue("interactionCode=PROCEED");
         await waitForDocStateComplete();
+
         await clickEnabledElement("[test-id=payments-summary-confirm-button]");
-        await waitForUrlContainsValue("mode=Successful");
+        await waitForUrlContainsValue("mode=Summary");
     });
 };
-module.exports = paypalTests;
+
+module.exports = { paypalCheckoutTests };
