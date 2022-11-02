@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
-import { getClass, getIdentificationProps, getLongIdFromParameters, errorPreset } from "./index";
+import { objectToParams, getRedirectUrl, getClass, getIdentificationProps, getLongIdFromParameters, errorPreset } from "./index";
 import set from "lodash/set";
 
 describe("get Class", () => {
@@ -122,5 +122,27 @@ describe("test util function errorPreset", () => {
         };
         const result = errorPreset(err, network);
         expect(expectedResult).toEqual(result);
+    });
+});
+
+describe("test util function objectToParams", () => {
+    it("should return a map of key and value of an object", () => {
+        const object = { key: "value", longId: "123456789", name: "parameters" };
+        const list = objectToParams(object);
+        expect(list.length).toEqual(3);
+        expect(list[0].name).toEqual("key");
+    });
+    it("should return a map of key and value of an object", () => {
+        const object = {};
+        const list = objectToParams(object);
+        expect(list.length).toEqual(0);
+    });
+});
+
+describe("test util function getRedirectUrl", () => {
+    it("should return URL with query parameters", () => {
+        const url = "https://www.random.in";
+        const parameters = [{ name: "key", value: "value" }, { name: "longId", value: "123456789" }, { name: "name", value: "parameters" }];
+        expect(getRedirectUrl(url, parameters)).toEqual("https://www.random.in?key=value&longId=123456789&name=parameters");
     });
 });

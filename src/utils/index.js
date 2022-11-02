@@ -9,7 +9,7 @@ import get from "lodash/get";
  * @param {Object} data
  * @returns {Object} data
  */
-const objectToParams = (data) => Object.entries(data).map(([name, value]) => ({ name, value }));
+export const objectToParams = (data) => Object.entries(data).map(([name, value]) => ({ name, value }));
 
 export const toRequestData = (providerCode, data) => ({ providerCode, parameters: objectToParams(data) });
 /**
