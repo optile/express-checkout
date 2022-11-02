@@ -18,7 +18,7 @@
         "clean": "nwb clean-module && nwb clean-demo",
         "prepublishOnly": "npm run build",
         "start": "nwb serve-react-demo",
-        "test": "jest src --watchAll=false",
+        "test": "jest src",
         "test_dev": "jest --watch src",
         "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
         "serve": "http-server -p 3000 demo/dist",

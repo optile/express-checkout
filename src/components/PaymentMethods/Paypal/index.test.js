@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
-import { hasANetworkCode } from "./index";
+import { hasANetworkCode, getFundingSource } from "./index";
 
 describe("Test hasANetworkCode", () => {
     it("return false when props is {}", () => {
@@ -39,6 +39,21 @@ describe("Test hasANetworkCode", () => {
         const attrs = { networks: [{ id: 1, code: "Paypal" }] };
         const expectedResult = true;
         const result = hasANetworkCode(attrs);
+        expect(expectedResult).toEqual(result);
+    });
+});
+
+describe("Test getFundingSource", () => {
+    it("return paypal when attr is PAYPAL", () => {
+        const attr = "PAYPAL";
+        const expectedResult = "paypal";
+        const result = getFundingSource(attr);
+        expect(expectedResult).toEqual(result);
+    });
+    it("return paylater when attr is not PAYPAL", () => {
+        const attr = "PAYLATER";
+        const expectedResult = "paylater";
+        const result = getFundingSource(attr);
         expect(expectedResult).toEqual(result);
     });
 });
