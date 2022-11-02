@@ -26,7 +26,7 @@ export function getOperationLink(getState) {
 
     return get(paypalList, "links.operation", "");
 }
-function getUpdateLink(getState) {
+export function getUpdateLink(getState) {
     return get(getState(), "paypal.preset.links.self", "");
 }
 /**

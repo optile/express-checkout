@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
-import { getLongIdFromRedirectUrl, getNetworkList, getPaypalList, getOperationLink } from "./actions.redux";
+import { getLongIdFromRedirectUrl, getNetworkList, getPaypalList, getOperationLink, getUpdateLink } from "./actions.redux";
 
 describe("test util function getLongIdFromRedirectUrl", () => {
 	it("should return the longId from the url", () => {
@@ -71,5 +71,34 @@ describe("test util function getOperationLink", () => {
 		})
 		const operation = getOperationLink(getState);
 		expect(operation).toBe('');
+	});
+});
+
+describe("test util function getUpdateLink", () => {
+	it("should return the element from the state", () => {
+		const selfLink = "https://www.resources.oscato.com/links/self";
+		const getState = () => ({
+			list: {
+				data: [{
+					code: 'PAYPAL',
+				}]
+			},
+			paypal: {
+				preset: {
+					links: { self: selfLink }
+				}
+			}
+		})
+		const self = getUpdateLink(getState);
+		expect(self).toBe(selfLink);
+	});
+	it("should return null from the state", () => {
+		const getState = () => ({
+			list: {
+				data: [{code: 'GOOGLEPAY'}]
+			}
+		})
+		const self = getUpdateLink(getState);
+		expect(self).toBe('');
 	});
 });
