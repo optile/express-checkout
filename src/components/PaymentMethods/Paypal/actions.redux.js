@@ -8,17 +8,17 @@ import find from "lodash/find";
 import { toRequestData, interactionCodeHandler, handleError, getLongIdFromParameters } from "../../../utils";
 import { storePaypalStatus, storePaypalPaymentID, storePaypalPreset, storePaypalCancelData, storePaypalError } from "./redux";
 
-function getNetworkList(getState) {
+export function getNetworkList(getState) {
     var state = getState();
     return get(state, "list.data", null);
 }
-function getPaypalList(getState) {
+export function getPaypalList(getState) {
     const list = getNetworkList(getState);
     return find(list, function (element) {
         return element.code === "PAYPAL";
     });
 }
-function getOperationLink(getState) {
+export function getOperationLink(getState) {
     var paypalList = getPaypalList(getState);
     if (!paypalList) {
         return "";
@@ -26,7 +26,7 @@ function getOperationLink(getState) {
 
     return get(paypalList, "links.operation", "");
 }
-function getUpdateLink(getState) {
+export function getUpdateLink(getState) {
     return get(getState(), "paypal.preset.links.self", "");
 }
 /**

@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Payoneer Germany GmbH. All rights reserved.
  */
 
-import { getClass, getIdentificationProps, getLongIdFromParameters } from "./index";
+import { objectToParams, getRedirectUrl, getClass, getIdentificationProps, getLongIdFromParameters, errorPreset } from "./index";
 import set from "lodash/set";
 
 describe("get Class", () => {
@@ -13,19 +13,19 @@ describe("get Class", () => {
         expect(expectedResult).toEqual(result);
     });
     it("return empty string if only className is missing", () => {
-        const attrs = {suffix: "1"};
+        const attrs = { suffix: "1" };
         const expectedResult = "";
         const result = getClass(attrs);
         expect(expectedResult).toEqual(result);
     });
     it("return same value if only className is passed", () => {
-        const attrs = {className: "button-container"};
+        const attrs = { className: "button-container" };
         const expectedResult = attrs.className;
         const result = getClass(attrs);
         expect(expectedResult).toEqual(result);
     });
     it("return correct value when className and suffix are passed", () => {
-        const attrs = {className: "button-container", suffix: "5"};
+        const attrs = { className: "button-container", suffix: "5" };
         const expectedResult = "button-container-5";
         const result = getClass(attrs);
         expect(expectedResult).toEqual(result);
@@ -41,19 +41,19 @@ describe("Get Identification Props", () => {
         expect(expectedResult).toEqual(result);
     });
     it("return empty values for className and test-id if only className is missing", () => {
-        const attrs = {suffix: "1"};
+        const attrs = { suffix: "1" };
         const expectedResult = emptyResult;
         const result = getIdentificationProps(attrs);
         expect(expectedResult).toEqual(result);
     });
     it("return same value when  className is passed", () => {
-        const attrs = {className: "button-container"};
+        const attrs = { className: "button-container" };
         const expectedResult = { className: "button-container", "test-id": "button-container" };
         const result = getIdentificationProps(attrs);
         expect(expectedResult).toEqual(result);
     });
     it("return correct value when className and suffix are passed", () => {
-        const attrs = {className: "button-container", suffix: "5"};
+        const attrs = { className: "button-container", suffix: "5" };
         const expectedResult = { className: "button-container button-container-5", "test-id": "button-container-5" };
         const result = getIdentificationProps(attrs);
         expect(expectedResult).toEqual(result);
@@ -70,5 +70,79 @@ describe("test util function getLongIdFromParameters", () => {
         const parameters = [{ name: "longId", value: "123456789" }];
         const getState = () => set({}, "presetAccount.data.redirect.parameters", parameters);
         expect(getLongIdFromParameters(getState)).toEqual("123456789");
+    });
+});
+
+describe("test util function errorPreset", () => {
+    it("errorPreset returns null when err is a string", () => {
+        const err = "";
+        const network = "";
+        const expectedResult = null;
+        const result = errorPreset(err, network);
+        expect(expectedResult).toEqual(result);
+    });
+    it("errorPreset returns null when err is an empty object", () => {
+        const err = {};
+        const network = "";
+        const expectedResult = {
+            resultInfo: "Payment canceled",
+            interaction: {
+                reason: "CLIENTSIDE_EXCEPTION",
+            },
+            error: err,
+            network: network,
+        };
+        const result = errorPreset(err, network);
+        expect(expectedResult).toEqual(result);
+    });
+    it("errorPreset returns null when err is an object but without message", () => {
+        const err = { something: "" };
+        const network = "";
+        const expectedResult = {
+            resultInfo: "Payment canceled",
+            interaction: {
+                reason: "CLIENTSIDE_EXCEPTION",
+            },
+            error: err,
+            network: network,
+        };
+        const result = errorPreset(err, network);
+        expect(expectedResult).toEqual(result);
+    });
+    it("errorPreset returns null when err is an object but with message", () => {
+        const err = { message: "Something went wrong" };
+        const network = "";
+        const expectedResult = {
+            resultInfo: "Something went wrong",
+            interaction: {
+                reason: "CLIENTSIDE_EXCEPTION",
+            },
+            error: err,
+            network: network,
+        };
+        const result = errorPreset(err, network);
+        expect(expectedResult).toEqual(result);
+    });
+});
+
+describe("test util function objectToParams", () => {
+    it("should return a map of key and value of an object", () => {
+        const object = { key: "value", longId: "123456789", name: "parameters" };
+        const list = objectToParams(object);
+        expect(list.length).toEqual(3);
+        expect(list[0].name).toEqual("key");
+    });
+    it("should return a map of key and value of an object", () => {
+        const object = {};
+        const list = objectToParams(object);
+        expect(list.length).toEqual(0);
+    });
+});
+
+describe("test util function getRedirectUrl", () => {
+    it("should return URL with query parameters", () => {
+        const url = "https://www.random.in";
+        const parameters = [{ name: "key", value: "value" }, { name: "longId", value: "123456789" }, { name: "name", value: "parameters" }];
+        expect(getRedirectUrl(url, parameters)).toEqual("https://www.random.in?key=value&longId=123456789&name=parameters");
     });
 });

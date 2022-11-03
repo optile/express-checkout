@@ -9,7 +9,7 @@ import get from "lodash/get";
  * @param {Object} data
  * @returns {Object} data
  */
-const objectToParams = data => Object.entries(data).map(([name, value]) => ({ name, value }));
+export const objectToParams = (data) => Object.entries(data).map(([name, value]) => ({ name, value }));
 
 export const toRequestData = (providerCode, data) => ({ providerCode, parameters: objectToParams(data) });
 /**
@@ -73,6 +73,9 @@ export const interactionCodeHandler = ({ code, preset, step, dispatch, customFun
  * @return {Object} preset error object in specific structure
  */
 export const errorPreset = (err, network) => {
+    if (!(err && typeof err === "object" && !(err instanceof Array))) {
+        return null;
+    }
     const message = err.message ? err.message : "Payment canceled";
     const preset = {
         resultInfo: message,
@@ -110,7 +113,7 @@ export const handleError = ({ err, step, network, dispatch, updateState, customF
  * @param {String} params.suffix
  * @return {String} new class name by adding "-suffix" to the end of the class if needed
  */
-export const getClass = props => {
+export const getClass = (props) => {
     if (!props) {
         return "";
     }
@@ -129,7 +132,7 @@ export const getClass = props => {
  * @param {String} params.suffix
  * @return {Object} contains test-id and className
  */
-export const getIdentificationProps = props => {
+export const getIdentificationProps = (props) => {
     const emptyResult = { className: "", "test-id": "" };
     if (!props) {
         return emptyResult;

@@ -9,7 +9,7 @@ import map from "lodash/map";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { paymentAction, authorizeAction, cancelAction } from "./actions.redux";
 import { getIdentificationProps } from "../../../utils";
-function getFundingSource(networkCode) {
+export function getFundingSource(networkCode) {
     return networkCode === "PAYPAL" ? "paypal" : "paylater";
 }
 /**
@@ -71,15 +71,17 @@ const ButtonsList = (props) => {
     );
 };
 
-function hasANetworkCode(props) {
+/* Exported for testing only */
+export const hasANetworkCode = function (props) {
     return !!(
+        props &&
         props.networks &&
         props.networks instanceof Array &&
         props.networks.length &&
         typeof props.networks[0] === "object" &&
         props.networks[0].code
     );
-}
+};
 
 /**
  * Paypal main component
