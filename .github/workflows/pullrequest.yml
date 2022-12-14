@@ -16,6 +16,8 @@ jobs:
         env:
           CI: true
           BRANCH_STRATEGY: release
+          MERCHANT_NAME: ${{ secrets.MERCHANT_NAME }}
+          MERCHANT_TOKEN: ${{ secrets.MERCHANT_TOKEN }}
         run: |
           env
           .ci/test.sh

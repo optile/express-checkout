@@ -13,8 +13,8 @@ export const getRedirectUrl = (url, parameters) => {
 const attributes = {
     local: {
         configuration: {
-            baseURL: "https://api.integration.oscato.com/pci/v1/express",
-            clientId: "v1.opt-div-app.7b5ea9e7b440414393bf13152ed00b97",
+            baseURL: "https://api.pi-nightly.integration.oscato.com/pci/v1/express",
+            clientId: "v1.opt-div-app.4fee6dc78f8741cb892e3f4fb2a41690",
             currency: "GBP",
             country: "GB",
             language: "en_GB",
@@ -95,7 +95,54 @@ const attributes = {
         configuration: {
             baseURL: "https://api.integration.oscato.com/pci/v1/express",
             clientId: "v1.opt-div-app.6dd2ac0398a64c33a9986b6f51b97dde",
-            country: "DE",
+            currency: "GBP",
+            country: "GB",
+            language: "en_US",
+            translation: [
+                {
+                    language: "en",
+                    resource: {
+                        confirm: "confirm",
+                    },
+                },
+                {
+                    language: "de",
+                    resource: {
+                        confirm: "bestätigen",
+                    },
+                },
+            ],
+            paymentMethodsConfiguration: [
+                {
+                    code: "PAYPAL",
+                    style: {
+                        size: "small",
+                        color: "gold",
+                        shape: "rect",
+                        label: "checkout",
+                    },
+                },
+                {
+                    code: "PAYPAL_PAY_LATER",
+                    clientId: "sb",
+                    style: {
+                        size: "small",
+                        color: "gold",
+                        shape: "rect",
+                        label: "checkout",
+                    },
+                },
+            ],
+        },
+        // createTransactionDetails, is set in product1.js and product2.js
+        customFunctions: {},
+    },
+    "pi-nightly": {
+        configuration: {
+            baseURL: "https://api.pi-nightly.integration.oscato.com/pci/v1/express",
+            clientId: "v1.opt-div-app.44217b15720b46ad9350dfddc84b4d23",
+            currency: "GBP",
+            country: "GB",
             language: "en_US",
             translation: [
                 {
@@ -145,7 +192,7 @@ function getEnv(queryStringEnv) {
     if (window.location.hostname === "localhost") {
         return "local";
     }
-    return "integration";
+    return "pi-nightly.integration";
 }
 
 export default function getAttributes() {

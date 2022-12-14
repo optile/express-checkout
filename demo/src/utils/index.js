@@ -12,16 +12,15 @@ export const getLongId = () => {
 /**
  * This function returns the object which contain
  * merchant user and token according to whether its
- * localhost or integration
+ * localhost or pi-nightly.integration
  * @returns {Object} MERCHANT
  */
 const getMerchantToken = () => {
     if (window.location.hostname === "localhost") {
         return attributes.local.MERCHANT;
     }
-    return attributes.integration.MERCHANT;
+    return attributes["pi-nightly.integration"].MERCHANT;
 };
-
 
 /**
  * This function returns encrypted authorization token
@@ -30,4 +29,4 @@ const getMerchantToken = () => {
 export const getAuthorization = () => {
     const MERCHANT = getMerchantToken();
     return `Basic ${btoa(`${MERCHANT.USER}:${MERCHANT.TOKEN}`)}`;
-}
+};
