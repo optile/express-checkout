@@ -1,5 +1,5 @@
-
 name: Pull Request
+
 on:
   pull_request:
     types: [opened, reopened, labeled, synchronize]
@@ -7,19 +7,30 @@ on:
 jobs:
   build:
 
-    runs-on: nodejs
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Run Test Script
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Run Test Script
         env:
           CI: true
           BRANCH_STRATEGY: release
+          MERCHANT_NAME: ${{ secrets.MERCHANT_NAME }}
+          MERCHANT_TOKEN: ${{ secrets.MERCHANT_TOKEN }}
         run: |
           env
           .ci/test.sh
-
+          
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
