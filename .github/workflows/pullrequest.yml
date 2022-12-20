@@ -29,7 +29,8 @@ jobs:
           MERCHANT_TOKEN: ${{ secrets.MERCHANT_TOKEN }}
         run: |
           env
-          .ci/test.sh
+          npm ci
+          npm test
 
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
