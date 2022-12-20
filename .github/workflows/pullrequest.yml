@@ -17,15 +17,15 @@ jobs:
         node-version: 14
         cache: 'npm'
     - name: Run Test Script
-        env:
-          CI: true
-          BRANCH_STRATEGY: release
-          MERCHANT_NAME: ${{ secrets.MERCHANT_NAME }}
-          MERCHANT_TOKEN: ${{ secrets.MERCHANT_TOKEN }}
-        run: |
-          env
-          npm ci
-          npm test
+      env:
+        CI: true
+        BRANCH_STRATEGY: release
+        MERCHANT_NAME: ${{ secrets.MERCHANT_NAME }}
+        MERCHANT_TOKEN: ${{ secrets.MERCHANT_TOKEN }}
+      run: |
+        env
+        npm ci
+        npm test
 
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
