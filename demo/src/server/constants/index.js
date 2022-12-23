@@ -1,14 +1,14 @@
 export const attributes = {
     local: {
         MERCHANT: {
-            USER: "<%= process.env.MERCHANT_NAME %>",
-            TOKEN: "<%= process.env.MERCHANT_TOKEN %>",
+            USER: process.env.MERCHANT_NAME,
+            TOKEN: process.env.MERCHANT_TOKEN,
         },
     },
-    "pi-integration": {
+    "pi-nightly": {
         MERCHANT: {
-            USER: "<%= process.env.MERCHANT_NAME %>",
-            TOKEN: "<%= process.env.MERCHANT_TOKEN %>",
+            USER: process.env.MERCHANT_NAME,
+            TOKEN: process.env.MERCHANT_TOKEN,
         },
     },
 };

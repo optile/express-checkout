@@ -19,7 +19,7 @@ const getMerchantToken = () => {
     if (window.location.hostname === "localhost") {
         return attributes.local.MERCHANT;
     }
-    return attributes["pi-nightly.integration"].MERCHANT;
+    return attributes["pi-nightly"].MERCHANT;
 };
 
 /**
