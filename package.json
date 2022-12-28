@@ -1,5 +1,6 @@
 {
     "name": "@payoneer/express-checkout",
+    "title": "express-checkout",
     "version": "1.12.0-beta",
     "description": "express-checkout React component",
     "homepage": "",
@@ -43,7 +44,7 @@
         "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
         "serve": "http-server -p 3000 demo/dist",
         "functional-test": "npm run onlybuild && npm run functional-test-browserstack",
-        "functional-test-browserstack": "concurrently --kill-others --success first \"npm run serve\" \"BrowserStackLocal --key $BROWSERSTACK_KEY\" \"node src/functional-test/index.js\"",
+        "functional-test-browserstack": "cross-env concurrently --kill-others --success first \"npm run serve\" \"BrowserStackLocal --key $BROWSERSTACK_KEY\" \"node src/functional-test/index.js\"",
         "functional-test-local-build-chrome": "npm run onlybuild && npm run functional-test-local-chrome",
         "functional-test-local-build-firefox": "npm run onlybuild && npm run functional-test-local-firefox",
         "functional-test-local-chrome": "cross-env LOCALENV=chrome concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \"",
@@ -64,7 +65,7 @@
         "redux": "^4.1.0",
         "redux-devtools-extension": "^2.13.9",
         "redux-thunk": "^2.3.0",
-        "selenium-webdriver": "^4.0.0-beta.4",
+        "selenium-webdriver": "^4.1.2",
         "shelljs": "^0.8.5",
         "webdriver-manager": "^12.1.8"
     },
