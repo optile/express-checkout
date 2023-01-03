@@ -4,6 +4,9 @@ const Dotenv = require("dotenv-webpack");
 module.exports = {
     type: "react-component",
     webpack: {
+        html: {
+            template: "demo/src/index.html",
+        },
         extra: {
             plugins: [
                 new Dotenv({
