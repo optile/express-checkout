@@ -42,7 +42,7 @@ Express Checkout is an abstraction for third-party express checkout providers su
 
 -   UMD implementation with a regular redirect. The demo is located [here](https://github.com/optile/demo-express-checkout-redirect)
 
--   React regular redirect live demo - <https://optile.github.io/express-checkout/?env=integration>
+-   React regular redirect live demo - <https://optile.github.io/express-checkout/?env=pi-nightly>
 
 ## How to use Express Checkout
 
