@@ -42,7 +42,7 @@ Express Checkout is an abstraction for third-party express checkout providers su
 
 -   UMD implementation with a regular redirect. The demo is located [here](https://github.com/optile/demo-express-checkout-redirect)
 
--   React regular redirect live demo - <https://optile.github.io/express-checkout/?env=integration>
+-   React regular redirect live demo - <https://optile.github.io/express-checkout/?env=pi-nightly>
 
 ## How to use Express Checkout
 
@@ -351,9 +351,9 @@ The `server` folder in `demo` folder is named so, because all the service calls 
 
 -   It is a server side API so it has to be called from backend. It only needs `longId` which you already have
 
--   From `getExpressPreset` API you would get response which has `links.charge`. This could be used to call the `charge` request which will intiate the payment
+-   From `getExpressPreset` API you would get response which has `links.charge`. This could be used to call the `charge` request which will initiate the payment
 
--   On the success of charge request, in response you could check for `status.code`. If this value is "charged" your payment is successfull
+-   On the success of charge request, in response you could check for `status.code`. If this value is "charged" your payment is successful
 
 -   You could use these details to decide what to be displayed on Thank you page. If its error case you could display some error message. If its success you could display the thank you message
 

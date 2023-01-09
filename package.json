@@ -1,7 +1,20 @@
 {
-    "name": "express-checkout",
-    "version": "1.11.0",
+    "name": "@payoneer/express-checkout",
+    "title": "express-checkout",
+    "version": "1.12.0",
     "description": "express-checkout React component",
+    "homepage": "",
+    "private": false,
+    "publicComponent": true,
+    "license": "SEE LICENSE IN LICENSE",
+    "author": "",
+    "contributors": [
+        "Joseph El-Alam <josephel@payoneer.com>",
+        "Dixy Xavier <dixyxa@payoneer.com>",
+        "Shahroz Saleem <shahrozsa@payoneer.com>",
+        "Anwer AR <anweran@payoneer.com>",
+        "Stephen Ng'ang'a <stephennd@payoneer.com>"
+    ],
     "main": "lib/index.js",
     "module": "es/index.js",
     "files": [
@@ -10,6 +23,14 @@
         "lib",
         "umd"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/optile/express-checkout.git"
+    },
+    "distributionConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    },
     "scripts": {
         "onlybuild": "nwb build-react-component --copy-files && node build",
         "build": "npm run onlybuild",
@@ -23,7 +44,7 @@
         "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
         "serve": "http-server -p 3000 demo/dist",
         "functional-test": "npm run onlybuild && npm run functional-test-browserstack",
-        "functional-test-browserstack": "concurrently --kill-others --success first \"npm run serve\" \"BrowserStackLocal --key $BROWSERSTACK_KEY\" \"node src/functional-test/index.js\"",
+        "functional-test-browserstack": "cross-env concurrently --kill-others --success first \"npm run serve\" \"BrowserStackLocal --key $BROWSERSTACK_KEY\" \"node src/functional-test/index.js\"",
         "functional-test-local-build-chrome": "npm run onlybuild && npm run functional-test-local-chrome",
         "functional-test-local-build-firefox": "npm run onlybuild && npm run functional-test-local-firefox",
         "functional-test-local-chrome": "cross-env LOCALENV=chrome concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \"",
@@ -35,6 +56,7 @@
         "@reduxjs/toolkit": "^1.6.1",
         "concurrently": "^6.2.0",
         "cross-env": "^7.0.3",
+        "dotenv": "^10.0.0",
         "i18n": "^0.13.3",
         "i18next": "^20.3.5",
         "lodash": "^4.17.21",
@@ -44,7 +66,7 @@
         "redux": "^4.1.0",
         "redux-devtools-extension": "^2.13.9",
         "redux-thunk": "^2.3.0",
-        "selenium-webdriver": "^4.0.0-beta.4",
+        "selenium-webdriver": "^4.1.2",
         "shelljs": "^0.8.5",
         "webdriver-manager": "^12.1.8"
     },
@@ -66,9 +88,11 @@
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
         "browserstack-local": "^1.4.8",
         "docdash": "^1.2.0",
+        "dotenv-webpack": "^7.1.1",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.6",
         "gh-pages": "^3.2.3",
+        "html-webpack-plugin": "^4.5.2",
         "http-server": "^14.1.0",
         "inferno": "^7.4.8",
         "jest": "^27.0.6",
@@ -78,17 +102,13 @@
         "react": "^16.14.0",
         "react-dom": "^16.14.0"
     },
-    "author": "",
-    "homepage": "",
     "jest": {
         "setupFilesAfterEnv": [
             "<rootDir>src/testSetup.js"
         ],
         "testEnvironment": "jsdom"
     },
-    "repository": "",
     "keywords": [
         "react-component"
-    ],
-    "publicComponent": true
+    ]
 }
