@@ -1,7 +1,7 @@
 {
     "name": "@payoneer/express-checkout",
     "title": "express-checkout",
-    "version": "1.12.0-beta",
+    "version": "1.13.0-beta",
     "description": "express-checkout React component",
     "homepage": "",
     "private": false,
