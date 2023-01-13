@@ -12,8 +12,8 @@ module.exports = {
         "@babel/preset-react",
     ],
     "plugins": [
-        "syntax-dynamic-import",
+        "@babel/plugin-syntax-dynamic-import",
         "@babel/plugin-proposal-object-rest-spread",
-        "@babel/plugin-transform-runtime"       
+        "@babel/plugin-transform-runtime"    
     ]
 };
