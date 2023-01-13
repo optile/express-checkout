@@ -3,6 +3,8 @@
  */
 
 const fetch = require("node-fetch");
+const Dotenv = require('dotenv');
+Dotenv.config();
 
 async function capabilities() {
     const { BROWSERSTACK_USER, BROWSERSTACK_KEY } = process.env;
