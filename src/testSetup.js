@@ -5,7 +5,7 @@
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import fetchMock from "jest-fetch-mock";
-import '@babel/polyfill';
+
 global.fetch = fetchMock;
 window.matchMedia = jest.fn().mockImplementation(query => {
     return {
