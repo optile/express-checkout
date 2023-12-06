@@ -3,6 +3,7 @@
  */
 
 const webdriver = require("selenium-webdriver");
+const PROJECT_TITLE = require('../../../package').title;
 
 module.exports = () => {
     if (process.env.LOCALENV) {
@@ -13,6 +14,7 @@ module.exports = () => {
 
     var capabilities = {
         ...JSON.parse(CAPABILITY),
+        project: PROJECT_TITLE,
         "browserstack.networkLogs": true,
         "browserstack.debug": true,
         "browserstack.local": true,
