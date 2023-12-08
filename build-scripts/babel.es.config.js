@@ -32,5 +32,5 @@ module.exports = {
             { absoluteRuntime: false, useESModules: true, helpers: false }
         ]
     ],
-    ignore: ["**/*.spec.js", "**/*.test.js", "**/__tests__/", "**/testSetup.js"],
+    ignore: ["../**/*.spec.js", "../**/*.test.js", "../**/__tests__/", "../**/testSetup.js"],
 };

@@ -33,5 +33,5 @@ module.exports = {
         ],
         "babel-plugin-add-module-exports",
     ],
-    ignore: ["**/*.spec.js", "**/*.test.js", "**/__tests__/", "**/testSetup.js"],
+    ignore: ["../**/*.spec.js", "../**/*.test.js", "../**/__tests__/", "../**/testSetup.js"],
 };
