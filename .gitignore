@@ -6,6 +6,7 @@
 /umd
 /docs
 /build
+/dist
 npm-debug.log*
 /.vscode
 e2e-result.json
