@@ -48,8 +48,8 @@
         "serve": "http-server -p 3000 demo/dist",
         "functional-test": "npm run build && npm run functional-test-browserstack",
         "functional-test-browserstack": "cross-env concurrently --kill-others --success first \"npm run serve\" \"BrowserStackLocal --key $BROWSERSTACK_KEY\" \"node src/functional-test/index.js\"",
-        "functional-test-local-build-chrome": "npm run onlybuild && npm run functional-test-local-chrome",
-        "functional-test-local-build-firefox": "npm run onlybuild && npm run functional-test-local-firefox",
+        "functional-test-local-build-chrome": "npm run build && npm run functional-test-local-chrome",
+        "functional-test-local-build-firefox": "npm run build && npm run functional-test-local-firefox",
         "functional-test-local-chrome": "cross-env LOCALENV=chrome concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \"",
         "functional-test-local-firefox": "cross-env LOCALENV=firefox concurrently --kill-others --success first \"npm run serve\" \"node src/functional-test/index.js \""
     },
@@ -117,7 +117,7 @@
         "react-refresh": "^0.10.0",
         "style-loader": "^1.2.1",
         "url-loader": "^4.1.0",
-        "webpack": "^5.36.1",
+        "webpack": "^4.47.0",
         "webpack-cli": "^3.3.12",
         "webpack-dev-server": "^3.11.0"
     },
