@@ -1,3 +1,9 @@
+# ❗ Important Note
+
+From February 1st 2024 this project will be made __private__.
+
+---
+
 # Express Checkout
 
 Express Checkout is an abstraction for third-party express checkout providers such as PayPal Express and Amazon Pay. For more details please check the official documentation:
