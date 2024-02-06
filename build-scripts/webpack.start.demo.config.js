@@ -183,11 +183,16 @@ module.exports = {
     devServer: {
         port: 3000,
         headers: { "Access-Control-Allow-Origin": "*" },
+        static: {
+            publicPath: "/"
+        },
+        watchFiles: {
+            paths: ['src/**/*', 'dist/**/*'],
+        },
         historyApiFallback: true,
         hot: true,
-        overlay: true,
-        publicPath: "/",
-        quiet: true,
-        watchOptions: { ignored: /node_modules/ },
+        client: {
+            overlay: true,
+        }
     },
 };
